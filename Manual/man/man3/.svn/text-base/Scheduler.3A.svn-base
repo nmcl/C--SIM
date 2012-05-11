@@ -1,0 +1,82 @@
+.TH C++SIM 3A "25 February 1995" "C++SIM" "C++SIM Reference Manual"
+.SH NAME
+Scheduler \- simulation scheduler object
+.SH SYNOPSIS
+.B "#ifndef PROCESS_H_"
+.br
+.B "#   include <ClassLib/Process.h>"
+.br
+.B "#endif"
+.sp
+.BI "class Scheduler"
+.br
+.BI "{"
+.br
+.BI "public:"
+.BI "	double CurrentTime () const;"
+.br
+.BI "	void reset () const;
+.br
+.BI "	static Scheduler& scheduler ();"
+.sp
+.BI "	static void       terminate ();"
+.br
+.BI "	void Suspend ();"
+.sp
+.BI "	void Resume ();"
+.br
+.BI "protected:"
+.sp
+.BI "	Scheduler ();
+.sp
+.BI "	virtual ~Scheduler ();"
+.sp
+.BI "};"
+.SH DESCRIPTION
+An instance of this class represents the simulation scheduler.
+It maintains the queue of
+.B
+Process
+objects which are currently inactive, and determines which
+process will be activated next.
+
+In versions of C++SIM prior to 1.6 the scheduler was a threaded object.
+However, for performance reasons this was changed, and the scheduler is no
+longer derived from the thread implementation class. To maintain some degree
+of backward compatibility, the methods Suspend and Resume remain in the
+scheduler class, but correspond to suspending and resuming the simulation,
+rather than the scheduler. (The overall effect is the same as in older versions
+of C++SIM). The names of these routines may change.
+
+It is not possible for simulations to create instances of this
+class. Instead the system guarantees that a scheduler exists when
+needed. This is hidden by the
+.I
+static
+method
+.B
+scheduler()
+which returns a reference to the scheduler object.
+
+If the simulation requires to remove this scheduler object it should
+invoke the
+.I
+static
+.B
+terminate()
+method.
+
+The
+.B
+CurrentTime()
+method returns the current simulation time.
+
+.B
+reset()
+is used when resetting a simulation for a subsequent run. This
+first resets the simulation time to 0.0, and then resets all
+of the processes on the simulation queue. All simulation processes
+have a corresponding method which the scheduler invokes.
+
+.SH SEE ALSO
+Process(3A), reset(3A), Thread(3A)

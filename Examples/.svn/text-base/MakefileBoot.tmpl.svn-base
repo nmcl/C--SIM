@@ -1,0 +1,67 @@
+#
+# Makefile for creating the top-level test Makefile.
+#
+# Copyright 1990-2008, Mark Little, University of Newcastle upon Tyne
+# and others contributors as indicated 
+# by the @authors tag. All rights reserved. 
+# See the copyright.txt in the distribution for a
+# full listing of individual contributors. 
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions
+# of the GNU Lesser General Public License, v. 2.1.
+# This program is distributed in the hope that it will be useful, but WITHOUT A 
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+# PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License,
+# v.2.1 along with this distribution; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+# MA  02110-1301, USA.
+# 
+# (C) 1990-2008,
+#
+# Copyright (C) 1993
+# 
+# Department of Computing Science,
+# The University,
+# Newcastle upon Tyne,
+# UK.
+#
+# $Id: MakefileBoot.tmpl,v 1.1 1995/04/19 11:14:20 nmcl Exp $
+#
+
+MAKE                  = make
+IMAKE                 = imake
+IMAKE_TEMPLATE        = Config/Arjuna.tmpl
+MV		      = mv
+SED		      = sed
+RM		      = rm -f
+
+IMAKE_INCLUDE  = ../Include
+IMAKE_FLAGS    =
+
+# The next line gets modified when configure is run
+IMAKE_INST_INCLUDE  = CONFIGDIRECTORY
+IMAKE_INST_FLAGS    = "-DUseInstalled -DTOPDIR_DEFAULT=`pwd`"
+
+Makefile.local ::
+	@echo
+	@echo "## Building root 'Makefile' ##"
+	@$(IMAKE) -T$(IMAKE_TEMPLATE) -I$(IMAKE_INCLUDE) $(IMAKE_FLAGS);$(MV) Makefile Makefile.sed;$(SED) -e '/^COMMENT$$/s//#/' -e '/^COMMENT /s//# /' < Makefile.sed > Makefile;$(RM) Makefile.sed
+	@echo
+
+Makefile.installed ::
+	@echo
+	@echo "## Building root 'Makefile' ##"
+	@$(IMAKE) -T$(IMAKE_TEMPLATE) -I$(IMAKE_INST_INCLUDE) $(IMAKE_INST_FLAGS);$(MV) Makefile Makefile.sed;$(SED) -e '/^COMMENT$$/s//#/' -e '/^COMMENT /s//# /' < Makefile.sed > Makefile;$(RM) Makefile.sed
+	@echo
+
+tidy clean purge ::
+	@echo "## Making $@ ##"
+	@if [ -f Makefile ]; \
+	then \
+		$(MAKE) $@; \
+	fi
+
+purge::
+	@$(RM) MakefileBoot
+

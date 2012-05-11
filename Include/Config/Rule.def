@@ -1,0 +1,565 @@
+/*
+ * Copyright 1990-2008, Mark Little, University of Newcastle upon Tyne
+ * and others contributors as indicated 
+ * by the @authors tag. All rights reserved. 
+ * See the copyright.txt in the distribution for a
+ * full listing of individual contributors. 
+ * This copyrighted material is made available to anyone wishing to use,
+ * modify, copy, or redistribute it subject to the terms and conditions
+ * of the GNU Lesser General Public License, v. 2.1.
+ * This program is distributed in the hope that it will be useful, but WITHOUT A 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+ * PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License,
+ * v.2.1 along with this distribution; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+ * MA  02110-1301, USA.
+ * 
+ * (C) 1990-2008,
+ */
+/*
+ * Copyright (C) 1993
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ *
+ * $Id: Rule.def,v 1.3 1996/12/02 11:12:22 nmcl Exp $
+ */
+
+/*
+ *  Rule.def
+ */
+
+#ifndef SetSubDirectorys
+#define SetSubDirectorys(dirs)                                                                     @@\
+SUBDIRS_DEFINE = dirs
+#endif
+
+#ifndef AddSubDirectorys
+#define AddSubDirectorys(dirs)                                                                     @@\
+SUBDIRS_DEFINE += dirs
+#endif
+
+/*
+ *
+ */
+
+#ifndef SetLocalMakedependFlags
+#define SetLocalMakedependFlags(flags)                                                             @@\
+LOCAL_MAKEDEPENDFLAGS_DEFINE = flags
+#endif
+
+#ifndef SetLocalCppFlags
+#define SetLocalCppFlags(flags)                                                                    @@\
+LOCAL_CPPFLAGS_DEFINE = flags
+#endif
+
+#ifndef SetLocalCPLUSPLUSFlags
+#define SetLocalCPLUSPLUSFlags(flags)                                                              @@\
+LOCAL_CPLUSPLUSFLAGS_DEFINE = flags
+#endif
+
+#ifndef SetLocalLdFlags
+#define SetLocalLdFlags(flags)                                                                     @@\
+LOCAL_LDFLAGS_DEFINE = flags
+#endif
+
+#ifndef SetLocalLibraries
+#define SetLocalLibraries(libraries)                                                               @@\
+LOCAL_LIBRARIES_DEFINE = libraries
+#endif
+
+#ifndef SetLocalYaccFlags
+#define SetLocalYaccFlags(flags)                                                                   @@\
+LOCAL_YACCFLAGS_DEFINE = flags
+#endif
+
+#ifndef SetLocalLexFlags
+#define SetLocalLexFlags(flags)                                                                    @@\
+LOCAL_LEXFLAGS_DEFINE = flags
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakeInSubdir
+#define MakeInSubdir(ltar,rtar,deps,dirs)                                                          @@\
+ltar :: deps                                                                                       @@\
+	COMMAND_PREFIX(for) DIR_RECU_DEFINE in dirs""; \                                           @@\
+	do \                                                                                       @@\
+		if test -d DIR_RECU_VAR ; \ @@\
+		then \ @@\
+			if test -f DIR_RECU_VAR/Makefile ; \ @@\
+			then \ @@\
+				echo Making $@ in CURDIR_VAR/DIR_RECU_VAR ; \ @@\
+				(cd DIR_RECU_VAR; MAKE_VAR MAKEFLAGS_VAR MAKE_GOTO_ENV CURDIR_DEFINE=CURDIR_VAR/DIR_RECU_VAR rtar); \ @@\
+				if test $$? -eq 0 ; then true; else exit 1; fi; \ @@\
+			else \ @@\
+				echo Ignoring directory with no Makefile: DIR_RECU_VAR ; \ @@\
+			fi \ @@\
+		else \ @@\
+			echo No such directory : DIR_RECU_VAR ;\ @@\
+		fi \ @@\
+	done
+#endif
+
+/*
+ *
+ */
+
+#ifndef AllTarget
+#define AllTarget(deps)                                                                            @@\
+all :: all.local                                                                                   @@\
+all.local : deps                                                                                   @@\
+	@echo Made $? [in CURDIR_VAR ] as $@
+#endif
+
+#ifndef DummyAllTarget
+#define DummyAllTarget                                                                             @@\
+all :: all.local                                                                                   @@\
+                                                                                                   @@\
+all.local :
+#endif
+
+/*
+ *
+ */
+
+#ifndef PrintConfig
+#define PrintConfig                                                                                @@\
+all install ::                                                                                     @@\
+	@echo                                                                                      @@\
+	@echo Configuration \:  \( OSNAME OSRELEASE - MACHINE_HW \)                            @@\
+	@echo                                                                                      @@\
+	@echo "     "TOPDIR_DEFINE = TOPDIR_VAR                                                    @@\
+	@echo                                                                                      @@\
+	@echo "     "CPLUSPLUS_DEFINE = CPLUSPLUS_VAR                                              @@\
+	@echo "     "CPLUSPLUS_INCLUDE_DEFINE = CPLUSPLUS_INCLUDE_VAR                              @@\
+	@echo                                                                                      @@\
+	@echo "     "CPPFLAGS_DEFINE = CPPFLAGS_VAR                                                @@\
+	@echo "     "CPLUSPLUSFLAGS_DEFINE = CPLUSPLUSFLAGS_VAR                                    @@\
+	@echo "     "LDFLAGS_DEFINE = LDFLAGS_VAR                                                  @@\
+	@echo "     "LIBRARIES_DEFINE = LIBRARIES_VAR                                              @@\
+	@echo                                                                                      @@\
+	@echo "     "INSTALL_TOPDIR_DEFINE = INSTALL_TOPDIR_VAR                                    @@\
+	@echo
+#endif
+
+/*
+ *
+ */
+
+#ifndef PrintEnviron
+#define PrintEnviron                                                                               @@\
+printenv ::                                                                                        @@\
+	@echo                                                                                      @@\
+	@echo Environment                                                                          @@\
+	@echo                                                                                      @@\
+	@echo "     "TOPDIR_DEFINE = TOPDIR_VAR                                                    @@\
+	@echo "     "CPLUSPLUS_INCLUDE_DEFINE = CPLUSPLUS_INCLUDE_VAR                              @@\
+	@echo "     "INSTALL_TOPDIR_DEFINE = INSTALL_TOPDIR_VAR                                    @@\
+	@echo                                                                                      @@\
+	@echo "     "MAKE_DEFINE = MAKE_VAR                                                        @@\
+	@echo "     "IMAKE_DEFINE = IMAKE_VAR                                                      @@\
+	@echo "     "MAKEDEPEND_DEFINE = MAKEDEPEND_VAR                                            @@\
+	@echo "     "CPLUSPLUS_DEFINE = CPLUSPLUS_VAR                                              @@\
+	@echo "     "AR_DEFINE = AR_VAR                                                            @@\
+	@echo "     "RANLIB_DEFINE = RANLIB_VAR                                                    @@\
+	@echo "     "YACC_DEFINE = YACC_VAR                                                        @@\
+	@echo "     "LEX_DEFINE = LEX_VAR                                                          @@\
+	@echo "     "MV_DEFINE = MV_VAR                                                            @@\
+	@echo "     "CP_DEFINE = CP_VAR                                                            @@\
+	@echo "     "RM_DEFINE = RM_VAR                                                            @@\
+	@echo "     "CAT_DEFINE = CAT_VAR                                                          @@\
+	@echo "     "PURIFY_DEFINE = PURIFY_VAR                                                    @@\
+	@echo "     "MKDIR_DEFINE = MKDIR_VAR                                                      @@\
+	@echo "     "CHMOD_DEFINE = CHMOD_VAR                                                      @@\
+	@echo                                                                                      @@\
+	@echo "     "ARFLAGS_DEFINE = ARFLAGS_VAR                                                  @@\
+	@echo "     "MAKEFLAGS_DEFINE = MAKEFLAGS_VAR                                              @@\
+	@echo "     "IMAKEFLAGS_DEFINE = IMAKEFLAGS_VAR                                            @@\
+	@echo "     "MAKEDEPENDFLAGS_DEFINE = MAKEDEPENDFLAGS_VAR                                  @@\
+	@echo "     "CPPFLAGS_DEFINE = CPPFLAGS_VAR                                                @@\
+	@echo "     "CPLUSPLUSFLAGS_DEFINE = CPLUSPLUSFLAGS_VAR                                    @@\
+	@echo "     "LDFLAGS_DEFINE = LDFLAGS_VAR                                                  @@\
+	@echo "     "LIBRARIES_DEFINE = LIBRARIES_VAR                                              @@\
+	@echo "     "YACCFLAGS_DEFINE = YACCFLAGS_VAR                                              @@\
+	@echo "     "LEXFLAGS_DEFINE = LEXFLAGS_VAR                                                @@\
+	@echo
+#endif
+
+/*
+ *
+ */
+
+#ifndef InstallFile
+#define InstallFile(dir,file)                                                                      @@\
+install.local :: INSTALL_TOPDIR_VAR/dir INSTALL_TOPDIR_VAR/dir/file                                @@\
+                                                                                                   @@\
+CreateInstallTopDirectory(dir)                                                                     @@\
+                                                                                                   @@\
+INSTALL_TOPDIR_VAR/dir/file : file                                                                 @@\
+	@echo Copying file to INSTALL_TOPDIR_VAR/dir/file                                          @@\
+	COMMAND_PREFIX(CP_VAR) file INSTALL_TOPDIR_VAR/dir/file                                    @@\
+	COMMAND_PREFIX(CHMOD_VAR) u=rw,g=r,o=r INSTALL_TOPDIR_VAR/dir/file
+#endif
+
+/*
+ *
+ */
+
+#ifndef InstallProgram
+#define InstallProgram(dir,prog)                                                                   @@\
+install.local :: INSTALL_TOPDIR_VAR/dir INSTALL_TOPDIR_VAR/dir/prog                                @@\
+                                                                                                   @@\
+CreateInstallTopDirectory(dir)                                                                     @@\
+                                                                                                   @@\
+INSTALL_TOPDIR_VAR/dir/prog : prog                                                                 @@\
+	@echo Copying prog to INSTALL_TOPDIR_VAR/dir/prog                                          @@\
+	COMMAND_PREFIX(CP_VAR) prog INSTALL_TOPDIR_VAR/dir/prog                                    @@\
+	COMMAND_PREFIX(CHMOD_VAR) u=rwx,g=rx,o=rx INSTALL_TOPDIR_VAR/dir/prog
+#endif
+
+/*
+ *
+ */
+
+#ifndef InstallAbsoluteProgram
+#define InstallAbsoluteProgram(dir,prog)                                                           @@\
+install.local :: dir dir/prog                                                                      @@\
+                                                                                                   @@\
+CreateInstallAbsoluteDirectory(dir)                                                                @@\
+                                                                                                   @@\
+dir/prog : prog                                                                                    @@\
+	@echo Copying prog to dir/prog                                                             @@\
+	COMMAND_PREFIX(CP_VAR) prog dir/prog                                                       @@\
+	COMMAND_PREFIX(CHMOD_VAR) u=rwx,g=rx,o=rx dir/prog
+#endif
+
+/*
+ *
+ */
+
+#ifndef InstallLibrary
+#define InstallLibrary(dir,lib)                                                                    @@\
+install.local :: INSTALL_TOPDIR_VAR/dir INSTALL_TOPDIR_VAR/dir/lib                                 @@\
+                                                                                                   @@\
+CreateInstallTopDirectory(dir)                                                                     @@\
+                                                                                                   @@\
+INSTALL_TOPDIR_VAR/dir/lib : lib                                                                   @@\
+	@echo Copying lib to INSTALL_TOPDIR_VAR/dir/lib                                            @@\
+	COMMAND_PREFIX(CP_VAR) lib INSTALL_TOPDIR_VAR/dir/lib                                      @@\
+	COMMAND_PREFIX(CHMOD_VAR) u=rw,g=r,o=r INSTALL_TOPDIR_VAR/dir/lib                          @@\
+	@echo Ranlib-ing library $@                                                                @@\
+	COMMAND_PREFIX(RANLIB_VAR) $@
+#endif
+
+/*
+ *
+ */
+
+#ifndef InstallFileAs
+#define InstallFileAs(dir,file,name)                                                               @@\
+install.local :: INSTALL_TOPDIR_VAR/dir INSTALL_TOPDIR_VAR/dir/name                                @@\
+                                                                                                   @@\
+CreateInstallTopDirectory(dir)                                                                     @@\
+                                                                                                   @@\
+INSTALL_TOPDIR_VAR/dir/name : file                                                                 @@\
+	@echo Copying file to INSTALL_TOPDIR_VAR/dir/name                                          @@\
+	COMMAND_PREFIX(CP_VAR) file INSTALL_TOPDIR_VAR/dir/name                                    @@\
+	COMMAND_PREFIX(CHMOD_VAR) u=rw,g=r,o=r INSTALL_TOPDIR_VAR/dir/name
+#endif
+
+/*
+ *
+ */
+
+#ifndef InstallProgramAs
+#define InstallProgramAs(dir,prog,name)                                                            @@\
+install.local :: INSTALL_TOPDIR_VAR/dir INSTALL_TOPDIR_VAR/dir/name                                @@\
+                                                                                                   @@\
+CreateInstallTopDirectory(dir)                                                                     @@\
+                                                                                                   @@\
+INSTALL_TOPDIR_VAR/dir/name : prog                                                                 @@\
+	@echo Copying prog to INSTALL_TOPDIR_VAR/dir/name                                          @@\
+	COMMAND_PREFIX(CP_VAR) prog INSTALL_TOPDIR_VAR/dir/name                                    @@\
+	COMMAND_PREFIX(CHMOD_VAR) u=rwx,g=rx,o=rx INSTALL_TOPDIR_VAR/dir/name
+#endif
+
+/*
+ *
+ */
+
+#ifndef InstallLibraryAs
+#define InstallLibraryAs(dir,lib,name)                                                             @@\
+install.local :: INSTALL_TOPDIR_VAR/dir INSTALL_TOPDIR_VAR/dir/name                                @@\
+                                                                                                   @@\
+CreateInstallTopDirectory(dir)                                                                     @@\
+                                                                                                   @@\
+INSTALL_TOPDIR_VAR/dir/name : lib                                                                  @@\
+	@echo Copying lib to INSTALL_TOPDIR_VAR/dir/name                                           @@\
+	COMMAND_PREFIX(CP_VAR) lib INSTALL_TOPDIR_VAR/dir/name                                     @@\
+	COMMAND_PREFIX(CHMOD_VAR) u=rw,g=r,o=r INSTALL_TOPDIR_VAR/dir/name                         @@\
+	@echo Ranlib-ing library $@                                                                @@\
+	COMMAND_PREFIX(RANLIB_VAR) $@
+#endif
+
+/*
+ *
+ */
+
+#ifndef CreateInstallTopDirectory
+#define CreateInstallTopDirectory(dir)                                                             @@\
+INSTALL_TOPDIR_VAR/dir :: INSTALL_TOPDIR_VAR                                                       @@\
+	COMMAND_PREFIX(if) test ! -d INSTALL_TOPDIR_VAR/dir; \                                     @@\
+	then \                                                                                     @@\
+		echo Creating Directory INSTALL_TOPDIR_VAR/dir; \                                  @@\
+		MKDIR_VAR INSTALL_TOPDIR_VAR/dir; \                                                @@\
+		CHMOD_VAR u=rwx,g=rx,o=rx INSTALL_TOPDIR_VAR/dir; \                                @@\
+	fi
+#endif
+
+#ifndef CreateInstallAbsoluteDirectory
+#define CreateInstallAbsoluteDirectory(dir)                                                        @@\
+dir ::                                                                                             @@\
+	COMMAND_PREFIX(if) test ! -d dir; \                                                        @@\
+	then \                                                                                     @@\
+		echo Creating Directory dir; \                                                     @@\
+		MKDIR_VAR dir; \                                                                   @@\
+		CHMOD_VAR u=rwx,g=rx,o=rx dir; \                                                   @@\
+	fi
+#endif
+
+#ifndef CreateInstallDirectory
+#define CreateInstallDirectory(pardir,dir)                                                         @@\
+INSTALL_TOPDIR_VAR/pardir/dir :: INSTALL_TOPDIR_VAR/pardir                                         @@\
+	COMMAND_PREFIX(if) test ! -d INSTALL_TOPDIR_VAR/pardir/dir; \                              @@\
+	then \                                                                                     @@\
+		echo Creating Directory INSTALL_TOPDIR_VAR/pardir/dir; \                           @@\
+		MKDIR_VAR INSTALL_TOPDIR_VAR/pardir/dir; \                                         @@\
+		CHMOD_VAR u=rwx,g=rx,o=rx INSTALL_TOPDIR_VAR/pardir/dir; \                         @@\
+	fi
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakeObjectCPLUSPLUS
+#define MakeObjectCPLUSPLUS(file, flags)                                                           @@\
+CPLUSPLUS_OBJECT(file) : CPLUSPLUS_SOURCE(file)                                                    @@\
+	@echo Compiling $@                                                                         @@\
+	COMMAND_PREFIX(exec CPLUSPLUS_VAR) -c flags CPLUSPLUS_COMP_DEFINES CPLUSPLUS_SOURCE(file)
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakeLibObjectCPLUSPLUS
+#define MakeLibObjectCPLUSPLUS(lib, file, flags)                                                   @@\
+lib(CPLUSPLUS_OBJECT(file)) : CPLUSPLUS_OBJECT(file)                                               @@\
+	COMMAND_PREFIX(AR_VAR) ARFLAGS_VAR lib CPLUSPLUS_OBJECT(file)				   @@\
+												   @@\
+CPLUSPLUS_OBJECT(file) : CPLUSPLUS_SOURCE(file)		                                           @@\
+	@echo Compiling CPLUSPLUS_SOURCE(file)		                                           @@\
+	COMMAND_PREFIX(exec CPLUSPLUS_VAR) -c flags CPLUSPLUS_COMP_DEFINES CPLUSPLUS_SOURCE(file)
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakeProgramCPLUSPLUS
+#define MakeProgramCPLUSPLUS(prog, objects, flags)                                                 @@\
+prog : objects                                                                                     @@\
+	@echo Linking $@                                                                           @@\
+	COMMAND_PREFIX(eval PURIFY_VAR CPLUSPLUS_VAR) CPLUSPLUS_LINK_DEFINES_I -o prog objects flags CPLUSPLUS_LINK_DEFINES_II
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakeLibrary
+#define MakeLibrary(libname, objects)                                                              @@\
+libname : objects  	 	                                                                   @@\
+	@echo Updating library $@                                                                  @@\
+	COMMAND_PREFIX(AR_VAR) ARFLAGS_VAR $@ $?                                                   @@\
+	@echo Ranlib-ing library $@                                                                @@\
+	COMMAND_PREFIX(RANLIB_VAR) $@
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakeLexCPLUSPLUSSource
+#define MakeLexCPLUSPLUSSource(file)                                                               @@\
+CPLUSPLUS_SOURCE(file) : LEX_SOURCE(file)                                                          @@\
+	@echo Creating $@ from $?                                                                  @@\
+	COMMAND_PREFIX(LEX_VAR) LEX_DEFINES LEX_SOURCE(file)                                       @@\
+	COMMAND_PREFIX(SED_VAR) -e ""s@LEX_OUTPUT_C@CPLUSPLUS_SOURCE(file)@"" LEX_OUTPUT_C > LEX_OUTPUT_C.temp                @@\
+	COMMAND_PREFIX(LEX_CPLUSPLUS_MAGIC) < LEX_OUTPUT_C.temp > CPLUSPLUS_SOURCE(file)                @@\
+	COMMAND_PREFIX(RM_VAR) LEX_OUTPUT_C LEX_OUTPUT_C.temp
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakeYaccCPLUSPLUSSource
+#define MakeYaccCPLUSPLUSSource(file)                                                              @@\
+CPLUSPLUS_SOURCE(file) CPLUSPLUS_HEADER(file) : YACC_SOURCE(file)                                  @@\
+	@echo Creating $@ from $?                                                                  @@\
+	COMMAND_PREFIX(YACC_VAR) YACC_DEFINES YACC_SOURCE(file)                                    @@\
+	COMMAND_PREFIX(MV_VAR) YACC_OUTPUT_H CPLUSPLUS_HEADER(file)                                @@\
+	COMMAND_PREFIX(YACC_CPLUSPLUS_MAGIC) < YACC_OUTPUT_C > CPLUSPLUS_SOURCE(file)              @@\
+	COMMAND_PREFIX(RM_VAR) YACC_OUTPUT_C
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakeAbsDirectoryDependency
+#define MakeAbsDirectoryDependency(dir)                                                            @@\
+dir ::                                                                                             @@\
+	@echo Checking $@                                                                          @@\
+	COMMAND_PREFIX((cd dir; MAKE_VAR MAKEFLAGS_VAR MAKE_GOTO_ENV CURDIR_DEFINE=dir all))
+#endif
+
+#ifndef MakeRelDirectoryDependency
+#define MakeRelDirectoryDependency(dir)                                                            @@\
+dir ::                                                                                             @@\
+	@echo Checking $@                                                                          @@\
+	COMMAND_PREFIX((cd dir; MAKE_VAR MAKEFLAGS_VAR MAKE_GOTO_ENV CURDIR_DEFINE=CURDIR_VAR/dir all))
+#endif
+
+#ifndef MakeAbsCheckDependency
+#define MakeAbsCheckDependency(ltarget,rdir,rtarget)                                               @@\
+ltarget ::                                                                                         @@\
+	@echo Checking $@                                                                          @@\
+	COMMAND_PREFIX((cd rdir; MAKE_VAR MAKEFLAGS_VAR MAKE_GOTO_ENV CURDIR_DEFINE=rdir rtarget))
+#endif
+
+#ifndef MakeRelCheckDependency
+#define MakeRelCheckDependency(ltarget,rdir,rtarget)                                               @@\
+ltarget ::                                                                                         @@\
+	@echo Checking $@                                                                          @@\
+	COMMAND_PREFIX((cd rdir; MAKE_VAR MAKEFLAGS_VAR MAKE_GOTO_ENV CURDIR_DEFINE=CURDIR_VAR/rdir rtarget))
+#endif
+
+/*
+ *
+ */
+
+#ifndef MakefileTarget
+#define MakefileTarget                                                                             @@\
+Makefile_ ::                                                                                       @@\
+	@echo Making $@ [in CURDIR_VAR ]                                                           @@\
+	COMMAND_PREFIX(IMAKE_VAR) IMAKEFLAGS_VAR;MV_VAR Makefile Makefile.sed;SED_VAR -e '/^COMMENT$$/s//#/' -e '/^COMMENT /s//# /' -e 's/\%\%/\\"/g' < Makefile.sed > Makefile;RM_VAR Makefile.sed
+#endif
+
+/*
+ *
+ */
+
+#ifndef SubdirMakefiles
+#define SubdirMakefiles                                                                            @@\
+Makefiles ::                                                                                       @@\
+	COMMAND_PREFIX(for) DIR_RECU_DEFINE in SUBDIRS_VAR""; \                                    @@\
+	do \                                                                                       @@\
+		if test -d DIR_RECU_VAR ; \ @@\
+                then \ @@\
+			echo Making $@ in CURDIR_VAR/DIR_RECU_VAR ; \                                                 @@\
+			(cd DIR_RECU_VAR; IMAKE_VAR IMAKEFLAGS_VAR;MV_VAR Makefile Makefile.sed;SED_VAR -e '/^COMMENT$$/s//#/' -e '/^COMMENT /s//# /'  -e 's/\%\%/\\"/g' < Makefile.sed > Makefile;RM_VAR Makefile.sed); \                                     @@\
+			(cd DIR_RECU_VAR; MAKE_VAR MAKEFLAGS_VAR MAKE_GOTO_ENV CURDIR_DEFINE=CURDIR_VAR/DIR_RECU_VAR $@); \ @@\
+		else \ @@\
+			echo No such directory : DIR_RECU_VAR ;\ @@\
+		fi \ @@\
+	done
+#endif
+
+#ifndef DummyMakefilesTarget
+#define DummyMakefilesTarget                                                                       @@\
+Makefiles ::
+#endif
+
+/*
+ *
+ */
+
+#ifndef SubdirCommon
+#define SubdirCommon                                                                               @@\
+MakeInSubdir(all,all,all.local,SUBDIRS_VAR)                                                        @@\
+MakeInSubdir(depend,depend,depend.local,SUBDIRS_VAR)                                               @@\
+SubdirMakefiles                                                                                    @@\
+SubdirInstall                                                                                      @@\
+MakeInSubdir(tidy,tidy,tidy.local,SUBDIRS_VAR)                                                     @@\
+MakeInSubdir(clean,clean,clean.local,SUBDIRS_VAR)                                                  @@\
+MakeInSubdir(purge,purge,purge.local,SUBDIRS_VAR)
+#endif
+
+#ifndef TidyTarget
+#define TidyTarget(files)                                                                          @@\
+tidy :: tidy.local                                                                                 @@\
+                                                                                                   @@\
+tidy.local ::                                                                                      @@\
+	COMMAND_PREFIX(RM_VAR) core *~ \#*\# *.bak *.BAK *\%                                       @@\
+                                                                                                   @@\
+                                                                                                   @@\
+clean :: clean.local                                                                               @@\
+                                                                                                   @@\
+clean.local :: tidy.local                                                                          @@\
+	COMMAND_PREFIX(RM_VAR) -f .dummy $(OBJECTS)                                                @@\
+                                                                                                   @@\
+                                                                                                   @@\
+purge :: purge.local                                                                               @@\
+                                                                                                   @@\
+purge.local :: clean.local                                                                         @@\
+	COMMAND_PREFIX(RM_VAR) -f Makefile files *.stamp
+
+#endif
+
+/*
+ *
+ */
+
+#ifndef DependTarget
+#define DependTarget(source)                                                                       @@\
+depend :: depend.local                                                                             @@\
+                                                                                                   @@\
+depend.local :: source                                                                             @@\
+	COMMAND_PREFIX(CC=CPLUSPLUS_VAR) MAKEDEPEND_VAR MAKEDEPEND_DEFINES source
+#endif
+
+/*
+ *
+ */
+
+#ifndef SubdirInstall
+#define SubdirInstall                                                                              @@\
+MakeInSubdir(install,install,install.local,SUBDIRS_VAR)                                            @@\
+                                                                                                   @@\
+install.local ::                                                                                   @@\
+                                                                                                   @@\
+INSTALL_TOPDIR_VAR :                                                                               @@\
+	@echo Creating Directory INSTALL_TOPDIR_VAR                                                @@\
+	COMMAND_PREFIX(MKDIR_VAR) INSTALL_TOPDIR_VAR                                               @@\
+	COMMAND_PREFIX(CHMOD_VAR) u=rwx,g=rx,o=rx INSTALL_TOPDIR_VAR
+#endif
+
+#ifndef InstallTarget
+#define InstallTarget                                                                              @@\
+install :: install.local                                                                           @@\
+                                                                                                   @@\
+install :: all.local                                                                               @@\
+                                                                                                   @@\
+install.local ::                                                                                   @@\
+                                                                                                   @@\
+
+#endif

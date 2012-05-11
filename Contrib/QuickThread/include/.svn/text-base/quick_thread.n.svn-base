@@ -1,0 +1,61 @@
+/*
+ * Copyright 1990-2008, Mark Little, University of Newcastle upon Tyne
+ * and others contributors as indicated 
+ * by the @authors tag. All rights reserved. 
+ * See the copyright.txt in the distribution for a
+ * full listing of individual contributors. 
+ * This copyrighted material is made available to anyone wishing to use,
+ * modify, copy, or redistribute it subject to the terms and conditions
+ * of the GNU Lesser General Public License, v. 2.1.
+ * This program is distributed in the hope that it will be useful, but WITHOUT A 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+ * PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License,
+ * v.2.1 along with this distribution; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+ * MA  02110-1301, USA.
+ * 
+ * (C) 1990-2008,
+ */
+ /*
+ * Copyright 1996 Commonwealth Scientific and Industrial Research
+ * Organisation, Australia
+ * The Commonwealth Scientific and Industrial Research Organisation makes
+ * no representation about the suitability of this software for any
+ * purpose.  It is provided "as is" without express or implied warranty.
+ * Available under the same conditions as the C++SIM public distribution.
+ *
+ * Parts of this file
+ * Copyright (C) 1994
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ */
+
+
+#if defined(NO_INLINES) && !defined(QUICKTHREAD_CC_)
+
+extern ostream& operator<< (ostream& strm, const Quick_Thread& lt);
+
+#else
+
+#ifndef NO_INLINES
+#  define INLINEF inline
+#else
+#  define INLINEF
+#endif
+
+
+INLINEF ostream& operator<< (ostream& strm, const Quick_Thread& lt)
+{
+    return lt.print(strm);
+}
+
+
+#ifdef INLINEF
+#  undef INLINEF
+#endif
+
+#endif

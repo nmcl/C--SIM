@@ -1,0 +1,21 @@
+#!/usr/local/bin/perl
+
+@files = split(' ', `echo results.*`);
+
+print 'TitleText: Hold time
+XUnitText: #processes
+YUnitText: hold time (ms)
+';
+
+foreach $f (@files) {
+	open(FILE, $f) || die "$f: $!\n";
+	$tl = $f;
+	$tl =~ s/results.//;
+	print "\n\"$tl\n";
+	while(<FILE>) {
+		chop;
+		split;
+		print $_[1], " ", $_[9]/$_[6], "\n";
+	}
+	close FILE;
+}

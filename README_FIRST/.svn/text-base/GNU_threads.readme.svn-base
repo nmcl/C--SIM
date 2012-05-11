@@ -1,0 +1,18 @@
+/*
+ * Copyright (C) 1994
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ */
+
+The   project responsible for developing    the Rex thread package has
+ended. The  software  is no longer  available from gummo.doc.ic.ac.uk,
+but may be available from some other source.
+
+The only thing  you need to  change is the  signature of creatp to the
+following:
+
+struct pcb *creatp (int,  void (*func)(int, char**, void*), int,  int,
+char **, void *);

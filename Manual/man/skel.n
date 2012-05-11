@@ -1,0 +1,17 @@
+.TH C++SIM 3A "##DATE##" "C++SIM" "C++SIM Reference Manual"
+.SH NAME
+???? \- ????
+.SH SYNOPSIS
+.B "#ifndef ????_????_H_"
+.br
+.B "#   include <????/????.h>"
+.br
+.B "#endif"
+.SH DESCRIPTION
+.SH PUBLIC OPERATIONS
+.SH STATIC PUBLIC OPERATIONS
+.SH PROTECTED OPERATIONS
+.SH STATIC PROTECTED OPERATIONS
+.SH BASE CLASS
+.SH DERIVED CLASS
+.SH SEE ALSO

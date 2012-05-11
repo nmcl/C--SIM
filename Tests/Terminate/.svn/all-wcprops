@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate
+END
+TerminateTest.cc
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate/TerminateTest.cc
+END
+Tester.cc
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate/Tester.cc
+END
+Imakefile
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate/Imakefile
+END
+Tester.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate/Tester.h
+END
+DummyProcess.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate/DummyProcess.h
+END
+expected_output
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate/expected_output
+END
+DummyProcess.cc
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate/DummyProcess.cc
+END
+term.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Terminate/term.cpp
+END

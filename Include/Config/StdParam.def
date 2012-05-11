@@ -1,0 +1,93 @@
+/*
+ * Copyright 1990-2008, Mark Little, University of Newcastle upon Tyne
+ * and others contributors as indicated 
+ * by the @authors tag. All rights reserved. 
+ * See the copyright.txt in the distribution for a
+ * full listing of individual contributors. 
+ * This copyrighted material is made available to anyone wishing to use,
+ * modify, copy, or redistribute it subject to the terms and conditions
+ * of the GNU Lesser General Public License, v. 2.1.
+ * This program is distributed in the hope that it will be useful, but WITHOUT A 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+ * PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License,
+ * v.2.1 along with this distribution; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+ * MA  02110-1301, USA.
+ * 
+ * (C) 1990-2008,
+ */
+/*
+ * Copyright (C) 1993
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ *
+ * $Id: StdParam.def,v 1.2 1996/12/02 11:12:25 nmcl Exp $
+ */
+
+/*
+ *  StdParam.def
+ */
+
+#ifndef CPLUSPLUS_HEADER
+#define CPLUSPLUS_HEADER(file) Concat(file,.h)
+#endif
+
+#ifndef CPLUSPLUS_SOURCE
+#define CPLUSPLUS_SOURCE(file) Concat(file,.cc)
+#endif
+
+#ifndef CPLUSPLUS_OBJECT
+#define CPLUSPLUS_OBJECT(file) Concat(file,.o)
+#endif
+
+#ifndef LEX_SOURCE
+#define LEX_SOURCE(file) Concat(file,.l)
+#endif
+
+#ifndef YACC_SOURCE
+#define YACC_SOURCE(file) Concat(file,.y)
+#endif
+
+#ifndef STUB_HEADER
+#define STUB_HEADER(file) Concat(file,_stub.h)
+#endif
+
+#ifndef STUBCLASS_HEADER
+#define STUBCLASS_HEADER(file) Concat(file,_stubclass.h)
+#endif
+
+#ifndef CLIENT_STUBCODE
+#define CLIENT_STUBCODE(file) Concat(file,_client.cc)
+#endif
+
+#ifndef SERVER_STUBCODE
+#define SERVER_STUBCODE(file) Concat(file,_server.cc)
+#endif
+
+#ifndef SERVERMAIN_STUBCODE
+#define SERVERMAIN_STUBCODE(file) Concat(file,_servermain.cc)
+#endif
+
+#ifndef MARSHALL_STUBCODE
+#define MARSHALL_STUBCODE(file) Concat(file,_marshall.cc)
+#endif
+
+#ifndef CLIENT_STUBCODE_F
+#define CLIENT_STUBCODE_F(file) Concat(file,_client)
+#endif
+
+#ifndef SERVER_STUBCODE_F
+#define SERVER_STUBCODE_F(file) Concat(file,_server)
+#endif
+
+#ifndef SERVERMAIN_STUBCODE_F
+#define SERVERMAIN_STUBCODE_F(file) Concat(file,_servermain)
+#endif
+
+#ifndef MARSHALL_STUBCODE_F
+#define MARSHALL_STUBCODE_F(file) Concat(file,_marshall)
+#endif

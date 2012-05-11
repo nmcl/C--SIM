@@ -1,0 +1,1032 @@
+#!/bin/sh
+#
+# Copyright 1990-2008, Mark Little, University of Newcastle upon Tyne
+# and others contributors as indicated 
+# by the @authors tag. All rights reserved. 
+# See the copyright.txt in the distribution for a
+# full listing of individual contributors. 
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions
+# of the GNU Lesser General Public License, v. 2.1.
+# This program is distributed in the hope that it will be useful, but WITHOUT A 
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+# PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License,
+# v.2.1 along with this distribution; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+# MA  02110-1301, USA.
+# 
+# (C) 1990-2008,
+#
+#
+# Copyright (C) 1993, 1994, 1995, 1996, 1997, 1998,
+# 
+# Department of Computing Science,
+# The University,
+# Newcastle upon Tyne,
+# UK.
+# 
+# $Id: configure,v 1.44 1998/10/05 13:00:07 nmcl Exp $
+#
+ 
+trap 'rm -fr configtest* configdefs* core; exit 1' 1 3 15
+trap 'rm -f configdefs*' 0
+ 
+ECHO_TEST=`echo "Test \c"`
+if test "$ECHO_TEST" = "Test "
+then 
+	PRE_ECHO=""
+	POST_ECHO="\c"
+else
+	PRE_ECHO="-n"
+	POST_ECHO=""
+fi
+
+OS=`(uname -s) 2> /dev/null`
+if test -n "$OS" 
+then
+	RELEASE=`uname -r`
+	MACHINE=`uname -m`
+else
+	RELEASE=unknown
+	MACHINE=unknown
+	OSMAJOR=0
+	OSMINOR=0
+	OSMINMIN=0
+	OS="unknown OS"
+fi
+
+NATIVE_MACHINE=$MACHINE
+NATIVE_OS=$OS
+NATIVE_RELEASE=$RELEASE
+CROSS_COMPILE=""
+STACK_TYPE=CACHED
+PTHREAD_DRAFT=SOLARIS
+THREAD_TYPE=""
+QUEUE_DEFAULT=ProcessList
+LWP_CHECKDIR=""
+THREAD_CPPFLAGS=""
+COMPILER_THREAD_OPT=""
+LD_THREAD_OPT=""
+LD_THREAD_LIBS=""
+DEFAULT_THREAD_SYS=""
+VERBOSE_MAKE=NO
+TOPDIR_DEFAULT=`pwd`
+CPLUSPLUS_PROGRAM=CC
+CPLUSPLUS_NATIVE_COMPILER=
+CPPFLAGS_DEFAULT=
+BUILDFLAGS_DEFAULT=
+CPLUSPLUSFLAGS_DEFAULT=
+LIBRARIES_DEFAULT="-lm"
+LDFLAGS_DEFAULT=
+LEX_PROGRAM="lex"
+LEX_LIB=
+LEXFLAGS_DEFAULT=
+PURIFY_PROGRAM="purify"
+YACC_PROGRAM="yacc"
+YACCFLAGS_DEFAULT=
+YACC_LIB=
+ID_PROGRAM=id
+INSTALL_TOPDIR_DEFAULT=/usr/local/C++SIM
+THISUSER="arjuna"
+THISHOST=`hostname`
+THREAD_CHANGED="NO"
+BUILD_CONTRIB="NO"
+
+CONFIGDIR=Include/Config
+
+while true
+do
+	INPUT="xxxx"
+	while test "'x$INPUT'" != "'x'" -a "'x$INPUT'" != "'xYES'" -a "'x$INPUT'" != "'xNO'"
+	do
+		echo $PRE_ECHO "Configuring for a $MACHINE machine running $OS version $RELEASE. Is this OK [YES] : " $POST_ECHO
+		read INPUT
+		echo
+	done
+	if test "'x$INPUT'" != "'xYES'" -a "'x$INPUT'" != "'x'"
+	then  
+		INPUT="xxxx"
+		echo $PRE_ECHO "Machine type [$MACHINE] " $POST_ECHO
+		read INPUT
+		echo
+		if test "'x$INPUT'" != "'x'"
+		then  
+			MACHINE=$INPUT
+		fi
+		INPUT="xxxx"
+		echo $PRE_ECHO "Operating System [$OS] " $POST_ECHO
+		read INPUT
+		echo
+		if test "'x$INPUT'" != "'x'"
+		then
+			OS=$INPUT
+		fi
+		INPUT="xxxx"
+		echo $PRE_ECHO "Operating System Version [$RELEASE] " $POST_ECHO
+		read INPUT
+		echo
+		if test "'x$INPUT'" != "'x'"
+		then
+			RELEASE=$INPUT
+		fi
+	else
+		break
+	fi
+done
+
+REL=`echo $RELEASE | sed -e 's/^[^0-9]*//'`
+COMPONENTS=`echo $REL |  awk -F. "{print NF}"`
+
+if [ $COMPONENTS -gt 2 ]
+then
+	TMP_OSMINMIN=`echo $REL | awk -F. '{print $3}'`
+	OSMINMIN=`echo $TMP_OSMINMIN | sed -e 's/[^0-9]//g'`
+fi
+if [ $COMPONENTS -gt 1 ]
+then
+	TMP_OSMINOR=`echo $REL | awk -F. '{print $2}'`
+	OSMINOR=`echo $TMP_OSMINOR | sed -e 's/[^0-9]//g'`
+fi
+if [ $COMPONENTS -gt 0 ]
+then
+	TMP_OSMAJOR=`echo $REL | awk -F. '{print $1}'`
+	OSMAJOR=`echo $TMP_OSMAJOR | sed -e 's/[^0-9]//g'`
+fi
+
+OSNAME=`echo s_$OS | tr "A-Z-" "a-z_" | tr -d "."`
+
+echo $PRE_ECHO "Finding OS config file, please wait : " $POST_ECHO
+S_CONFIG=`./getVersion ${OSNAME} .cf $CONFIGDIR ${OSMAJOR} ${OSMINOR} ${OSMINMIN}`
+echo $S_CONFIG
+
+if [ -z $S_CONFIG ]; then
+	S_CONFIG=s_unknown.cf
+	echo "WARNING no OS specific config file for this OS! using :" $S_CONFIG" instead of "${OSNAME}.cf
+fi
+
+echo
+
+case $OS in
+SunOS|Solaris)
+	case $RELEASE in
+	5.*)	DEFAULT_THREAD_SYS="SOLARIS_THREAD"
+		THREAD_TYPE="Solaris_Thread"
+		;;
+	4.*)	DEFAULT_THREAD_SYS="LWP_THREAD"
+		THREAD_TYPE="LWP_Thread"
+		;;
+	esac
+	;;
+HP-UX)	DEFAULT_THREAD_SYS="POSIX_THREAD"
+	THREAD_TYPE="Posix_Thread"
+	PTHREAD_DRAFT=HPUX
+	;;
+HP-RT)	LDFLAGS_DEFAULT="+A"
+	CPLUSPLUS_PROGRAM=CCrt
+	CPLUSPLUS_NATIVE_COMPILER=CC
+	DEFAULT_THREAD_SYS="POSIX_THREAD"
+	THREAD_TYPE="Posix_Task"
+	;;
+Darwin) CPLUSPLUS_PROGRAM=g++
+	DEFAULT_THREAD_SYS="POSIX_THREAD"
+	THREAD_TYPE="Posix_Thread"
+	CPLUSPLUSFLAGS_DEFAULT=-Wno-deprecated
+	;;
+Linux)	CPLUSPLUS_PROGRAM=g++
+	CPLUSPLUS_NATIVE_COMPILER=g++
+	DEFAULT_THREAD_SYS="POSIX_THREAD"
+	THREAD_TYPE="Posix_Thread"
+	PTHREAD_DRAFT=LINUX
+	;;
+AIX)	CPLUSPLUS_PROGRAM=xlC
+	CPLUSPLUS_NATIVE_COMPILER=xlC
+	DEFAULT_THREAD_SYS="C_THREAD"
+	THREAD_TYPE="C_Thread"
+	;;
+OSF1)	CPLUSPLUS_PROGRAM=cxx
+	CPLUSPLUS_NATIVE_COMPILER=cxx
+	;;
+ULTRIX)	CPLUSPLUS_PROGRAM=cxx
+	CPLUSPLUS_NATIVE_COMPILER=cxx
+	;;
+esac
+
+V_CONFIG="v_unknown.cf"
+
+case $MACHINE in
+sun4*)
+	M_CONFIG="m_sparc.cf" 
+	V_CONFIG="v_sun.cf" ;;
+9000*)	M_CONFIG="m_hppa.cf" ;;
+sun3*)  M_CONFIG="m_68k.cf" 	
+	V_CONFIG="v_sun.cf" ;;
+alpha*)	M_CONFIG="m_alpha.cf" ;;
+i386*|i486*)
+	M_CONFIG="m_i386.cf" ;;
+RISC)	if [ $OS = "ULTRIX" ] 
+	then
+		MACHINE=mips
+		NATIVE_MACHINE=mips
+		M_CONFIG="m_mips.cf"
+	else
+		M_CONFIG="m_unknown.cf"
+	fi
+	;;
+*)	M_CONFIG="m_unknown.cf" ;;
+esac
+
+INPUT="xxxx"
+while test "'x$INPUT'" != "'x'" -a "'x$INPUT'" != "'xYES'" -a "'x$INPUT'" != "'xNO'"
+do  
+	echo $PRE_ECHO "Make is verbose (NO/YES) ["$VERBOSE_MAKE"] : " $POST_ECHO
+	read INPUT
+	echo
+done
+if test "'x$INPUT'" != "'x'"
+then  
+	VERBOSE_MAKE=$INPUT
+fi
+
+echo $PRE_ECHO "Root directory of source tree ["$TOPDIR_DEFAULT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then  
+	TOPDIR_DEFAULT=$INPUT
+fi
+
+echo $PRE_ECHO "Root of directory tree for installation ["$INSTALL_TOPDIR_DEFAULT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then  
+	INSTALL_TOPDIR_DEFAULT=$INPUT
+fi
+
+#
+# Installed Configure.h overrides any local version.
+#
+
+if test -s $INSTALL_TOPDIR_DEFAULT/Include/Config/Configure.h
+then
+	CACHED_SETUP=$INSTALL_TOPDIR_DEFAULT/Include/Config/Configure.h
+else
+	if test -s $TOPDIR_DEFAULT/Include/Config/Configure.h
+	then
+		CACHED_SETUP=$TOPDIR_DEFAULT/Include/Config/Configure.h
+	fi
+fi
+
+if test -n "$CACHED_SETUP"
+then
+	echo "Reading default answers from $CACHED_SETUP, please wait"
+	echo
+	grep -s " CPLUSPLUS_PROGRAM " $CACHED_SETUP > /dev/null 2>&1
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk -F\" '/CPLUSPLUS_PROGRAM / {print $2}' $CACHED_SETUP`
+		CPLUSPLUS_PROGRAM=$TEMPVAR
+	fi
+
+	grep -s " CPPFLAGS_DEFAULT " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ CPPFLAGS_DEFAULT / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		CPPFLAGS_DEFAULT=$TEMPVAR
+	fi
+	
+	grep -s " Queue_Type " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ Queue_Type / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		QUEUE_DEFAULT=$TEMPVAR
+	fi
+	
+	grep -s " CPLUSPLUSFLAGS_DEFAULT " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ CPLUSPLUSFLAGS_DEFAULT / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		CPLUSPLUSFLAGS_DEFAULT=$TEMPVAR
+	fi
+	
+	grep -s " COMPILER_THREAD_FLAGS_DEFAULT " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ COMPILER_THREAD_FLAGS_DEFAULT / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		COMPILER_THREAD_OPT=$TEMPVAR
+	fi
+	
+	grep -s " LDFLAGS_DEFAULT " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ LDFLAGS_DEFAULT / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		LDFLAGS_DEFAULT=$TEMPVAR
+	fi
+	
+	grep -s " THREAD_LDFLAGS_DEFAULT " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ THREAD_LDFLAGS_DEFAULT / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		LD_THREAD_OPT=$TEMPVAR
+	fi
+	
+	grep -s " THREAD_TYPE " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ THREAD_TYPE / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		THREAD_TYPE=$TEMPVAR
+	fi
+
+	grep -s " xLIBRARIES_DEFAULT " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ xLIBRARIES_DEFAULT / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		LIBRARIES_DEFAULT=$TEMPVAR
+	fi
+	
+	grep -s " THREAD_LDLIBS_DEFAULT " $CACHED_SETUP > /dev/null 2>&1	
+	if test $? -eq 0
+	then
+		TEMPVAR=`awk '/ THREAD_LDLIBS_DEFAULT / {for (i = 3; i <= NF; i++) print $i}' $CACHED_SETUP`
+		LD_THREAD_LIBS=$TEMPVAR
+	fi
+else
+    THREAD_CHANGED="YES"
+fi
+
+if test $NATIVE_OS != $OS -o $NATIVE_MACHINE != $MACHINE -o $NATIVE_RELEASE != $RELEASE
+then
+	echo "You appear to be cross-compiling..."
+	echo
+	CROSS_COMPILE="#define CROSS_COMPILE"
+	echo 'main(){}' > configtest.C
+	while true
+	do
+		echo $PRE_ECHO "$NATIVE_OS C++ compiler ["$CPLUSPLUS_NATIVE_COMPILER"] : " $POST_ECHO
+		read INPUT
+		echo
+		if test "'x$INPUT'" != "'x'"
+		then  
+			CPLUSPLUS_NATIVE_COMPILER=$INPUT
+		fi
+		echo $PRE_ECHO "Checking for" $CPLUSPLUS_NATIVE_COMPILER "... " $POST_ECHO
+		($CPLUSPLUS_NATIVE_COMPILER -c configtest.C) > /dev/null 2>&1
+		if [ $? -ne 0 ]
+		then
+			echo done
+			echo I cannot find $CPLUSPLUS_NATIVE_COMPILER
+			echo
+			CPLUSPLUS_NATIVE_COMPILER=""
+		else
+			echo done
+			break
+		fi
+	done
+	echo
+	rm -f configtest.*
+fi
+
+echo 'main(){}' > configtest.C
+while true
+do
+	echo $PRE_ECHO "$OS C++ compiler ["$CPLUSPLUS_PROGRAM"] : " $POST_ECHO
+	read INPUT
+	echo
+	if test "'x$INPUT'" != "'x'"
+	then  
+		CPLUSPLUS_PROGRAM=$INPUT
+	fi
+	echo $PRE_ECHO "Checking for" $CPLUSPLUS_PROGRAM "... " $POST_ECHO
+	($CPLUSPLUS_PROGRAM -c configtest.C) > /dev/null 2>&1
+	if [ $? -ne 0 ]
+	then
+		echo done
+		echo I cannot find $CPLUSPLUS_PROGRAM
+		echo
+		CPLUSPLUS_PROGRAM=""
+	else
+		echo done
+		break
+	fi
+done
+rm -f configtest.*
+
+#
+# Compiler version
+# 
+
+echo $PRE_ECHO "Determining C++ compiler version ... " $POST_ECHO
+case "$CPLUSPLUS_PROGRAM" in
+*gcc*|*g++*) version="`$CPLUSPLUS_PROGRAM -v 2>&1 | grep version | sed 's/^[^0-9]*\([0-9.]*\).*/\1/'`"
+	echo "done (version is" $version ")"
+	CPLUSPLUS_NAME="c_gcc"
+
+	case "$version" in
+	2.5*)	echo "WARNING gcc-2.5 has bugs that affect the linking of Arjuna applications."
+		echo "See README-GCC for details"
+		;;
+	2.6*)	echo "WARNING gcc-2.6 has bugs that affect the linking of Arjuna applications."
+		echo "See README-GCC for details"
+		;;
+	esac
+	LEX_PROGRAM=flex
+	YACC_PROGRAM=bison
+	;;
+*CC*)	echo 'int x;' > configtest.C 
+	CPLUSPLUS_NAME="c_att"
+	fullversion="`$CPLUSPLUS_PROGRAM -V 2>&1| grep -v 'warning' | grep '^CC:'`"
+	if [ -z "$fullversion" ]
+	then
+		fullversion="`$CPLUSPLUS_PROGRAM -F configtest.C 2>/dev/null| grep '<<' | sed -e 's|.*\(<<.*>>\).*|\1|'`"
+	fi
+	rm -f configtest.C
+
+	case "$fullversion" in
+	*SC*)version="`echo $fullversion | sed -e 's|.*\(SC[0-9.]*\).*|\1|'`";;
+	*WorkShop*)version="`echo $fullversion`";;
+	*AT*)version="`echo $fullversion | sed -e 's|<<[^0-9]*\([0-9.]*\).*>>|\1|'`" ;;
+	*Sun*)version="`echo $fullversion | sed -e 's|<<[^0-9]*\([0-9.]*\).*>>|\1|'`" ;;
+	*HP*)version="`echo $fullversion | sed -e 's|<<.*A\.\([0-9.]*\).*>>|A.\1|'`" ;;
+	*) version=unknown
+	esac
+
+	echo "done (version is" $fullversion ")"
+	case "$version" in
+	A.*)	CPLUSPLUS_NAME="c_att_hp" 
+		version=`echo $version | sed -e 's|A\.||'`
+		;;
+	SC*)	CPLUSPLUS_NAME="c_sc"
+		version=`echo $version | sed -e 's|SC||'`
+		;;
+	*WorkShop*) CPLUSPLUS_NAME="c_wkshp"
+		version=`echo $version | sed -e 's|.*C\+\+\ \([0-9.]*\).*|\1|'`
+		;;
+	esac
+	;;
+*cxx*)	echo 'int x;' > configtest.C 
+	fullversion="`$CPLUSPLUS_PROGRAM -V 2>&1| grep '^[ 	]*DEC'`"
+	rm -f configtest.C
+
+	version="`echo $fullversion | sed -e 's|<<.*\([0-9.]*\).*|\1|'`" 
+
+	echo "done (version is" $fullversion ")"
+	CPLUSPLUS_NAME="c_cxx"
+	;;
+*)	CPLUSPLUS_NAME="c"
+	echo "done (version unknown)" 
+	;;
+esac
+
+COMPONENTS=`echo $version | awk -F. "{print NF}"`
+
+if [ $COMPONENTS -gt 2 ]
+then
+	CPLUSPLUS_MINORMINOR=`echo $version | awk -F. '{print $3}'`
+fi
+if [ $COMPONENTS -gt 1 ]
+then
+	CPLUSPLUS_MINOR=`echo $version | awk -F. '{print $2}'`
+fi
+if [ $COMPONENTS -gt 0 ]
+then
+	CPLUSPLUS_MAJOR=`echo $version | awk -F. '{print $1}'`
+fi
+
+echo
+echo $PRE_ECHO "Finding compiler config file, please wait : " $POST_ECHO
+
+C_CONFIG=`./getVersion ${CPLUSPLUS_NAME} .cf $CONFIGDIR ${CPLUSPLUS_MAJOR} ${CPLUSPLUS_MINOR} ${CPLUSPLUS_MINORMINOR}`
+
+echo $C_CONFIG
+
+if [ -z "$C_CONFIG" ]; then
+	echo $PRE_ECHO "WARNING no compiler specific config file for this compiler! using : "
+	C_CONFIG=${CPLUSPLUS_NAME}_unknown.cf
+	if [ ! -f $CONFIGDIR/$C_CONFIG ]; then
+		C_CONFIG=c_unknown.cf	
+	fi
+	echo $C_CONFIG
+fi
+
+echo
+
+#
+# locate standard include directory via compiler
+#
+
+echo $PRE_ECHO "Finding standard C++ include directory, please wait ..." $POST_ECHO
+echo '#include <iostream.h>' > configtest.C
+CPLUSPLUS_INCLUDE_DEFAULT=`$CPLUSPLUS_PROGRAM -E -Wno-deprecated configtest.C | grep "/iostream.h" | head -1 |sed -e 's|[^"]*"\([^"]*\).*|\1|' -e 's|/iostream.h||'`
+rm -f configtest.C
+echo "done"
+
+echo
+echo $PRE_ECHO "C++ include directory ["$CPLUSPLUS_INCLUDE_DEFAULT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then  
+	CPLUSPLUS_INCLUDE_DEFAULT=$INPUT
+fi
+
+echo "Specific flags governing compilation and include file locations:"
+echo "-DDEBUG                  Enable Arjuna debugging messages"
+echo "-DNO_RESOURCE		 Disable Resource base class"
+echo "-DNO_INLINES             Disable inlining"
+echo "-DUSE_PURIFY             Enable purify checking (if available)"
+echo
+echo $PRE_ECHO "C++SIM CppFlags ["$CPPFLAGS_DEFAULT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then  
+	if test "'x$INPUT'" != "'xnone'"
+	then
+		CPPFLAGS_DEFAULT=$INPUT
+	else
+		CPPFLAGS_DEFAULT=
+	fi
+fi
+
+echo $CPPFLAGS_DEFAULT | grep -s PURIFY > /dev/null 2>&1
+if test $? -eq 0
+then
+	CPLUSPLUSFLAGS_DEFAULT=-g
+	LDFLAGS_DEFAULT=-g
+	echo $PRE_ECHO "purify program ["$PURIFY_PROGRAM"] : " $POST_ECHO
+	read INPUT
+	echo
+	if test "'x$INPUT'" != "'x'"
+	then  
+		PURIFY_PROGRAM=$INPUT
+	fi
+else
+	PURIFY_PROGRAM="exec"
+fi
+
+echo $PRE_ECHO "Additional compilation flags for optimisation and/or debugging ["$CPLUSPLUSFLAGS_DEFAULT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then  
+	if test "'x$INPUT'" != "'xnone'"
+	then
+		CPLUSPLUSFLAGS_DEFAULT=$INPUT
+	else
+		CPLUSPLUSFLAGS_DEFAULT=
+	fi
+fi
+
+echo $PRE_ECHO "C++SIM specific loader flags ["$LDFLAGS_DEFAULT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then  
+	if test "'x$INPUT'" != "'xnone'"
+	then
+		LDFLAGS_DEFAULT=$INPUT
+	else
+		LDFLAGS_DEFAULT=
+	fi
+fi
+
+echo $PRE_ECHO "Additional libraries ["$LIBRARIES_DEFAULT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then  
+	if test "'x$INPUT'" != "'xnone'"
+	then
+		LIBRARIES_DEFAULT=$INPUT
+	else
+		LIBRARIES_DEFAULT=
+	fi
+fi
+
+echo "Thread type to use:"
+echo "CPP_Task		C++ task library"
+echo "C_Thread		C threads library"
+echo "LWP_Thread		Sun's lightweight process library"
+echo "NT_Thread		NT threads"
+echo "Posix_Thread		Posix threads library"
+echo "Rex_Thread		Rex threads library"
+echo "Solaris_Thread		Sun's Solaris threads library"
+echo "Quick_Thread		David Keppel's Quick Threads package (see Contrib)"
+echo
+echo $PRE_ECHO "Thread type ["$THREAD_TYPE"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then
+    THREAD_TYPE=$INPUT
+    THREAD_CHANGED="YES"
+fi
+
+if test "'x$THREAD_TYPE'" = "'xLWP_Thread'"
+then
+	DEFAULT_THREAD_SYS="LWP_THREAD"
+	if test "'x$THREAD_CHANGED'" = "'xYES'"
+	then
+	    LD_THREAD_LIBS="-llwp"
+	fi
+	echo "The lwp library enables users to create their own stacks (i.e., statically"
+	echo "allocate) for threads, or to rely upon the system to allocate stacks. The"
+	echo "latter can sometimes be overly pessimistic, resulting in large resource"
+	echo "utilisation."
+	echo
+	echo "Stack type:"
+	echo "Static		fixed allocation"
+	echo "Cached		allocated via lwp_newstk()"
+	echo
+	echo $PRE_ECHO "Stack type ["$STACK_TYPE"] : " $POST_ECHO
+	read INPUT
+	echo
+	if test "'x$INPUT'" != "'x'"
+	then
+		STACK_TYPE=$INPUT
+	fi
+
+	echo "Checking lwp.h"
+	echo
+	echo '#include <lwp/lwp.h>' > configtest.C
+	LWP_CHECKDIR=`$CPLUSPLUS_PROGRAM -E configtest.C | grep "/lwp.h" | head -1 |sed -e 's|[^"]*"\([^"]*\).*|\1|' -e 's|/lwp.h||'`
+	rm -f configtest.C
+
+	#
+	# Assume if the prototype for lwp_create is not present then
+	# the others will also not be there.
+	#
+
+	TEMPVAR=`grep lwp_create $LWP_CHECKDIR/lwp.h`
+	if test -z "$TEMPVAR"
+	then
+		echo $CPPFLAGS_DEFAULT > lwptest
+		ISBROKEN=`grep BROKEN_LWP lwptest`
+		rm -f lwptest
+		if test -z "$ISBROKEN"
+		then
+			THREAD_CPPFLAGS="$THREAD_CPPFLAGS -DBROKEN_LWP_H"
+		fi
+	fi
+fi
+
+if test "'x$THREAD_TYPE'" = "'xPosix_Thread'"
+then
+DEFAULT_THREAD_SYS="POSIX_THREAD"
+
+echo $PRE_ECHO "What version (6, 8, SOLARIS, LINUX, HPUX)? ["$PTHREAD_DRAFT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then
+	PTHREAD_DRAFT=$INPUT
+fi
+THREAD_CPPFLAGS="$THREAD_CPPFLAGS -DPTHREAD_DRAFT_"$PTHREAD_DRAFT
+
+if test "'x$THREAD_CHANGED'" = "'xYES'"
+then
+if test "'x$PTHREAD_DRAFT'" = "'xLINUX'"
+then
+    LD_THREAD_LIBS="-lpthread"
+else
+if test "'x$PTHREAD_DRAFT'" = "'xSOLARIS'"
+then
+    LD_THREAD_LIBS="-lposix4 -lpthread"
+else
+if test "'x$PTHREAD_DRAFT'" = "'xHPUX'"
+then
+    LD_THREAD_LIBS="-ldce"
+else
+    LD_THREAD_LIBS="-lpthread"
+fi
+fi
+fi
+fi
+
+case "$CPLUSPLUS_PROGRAM" in
+*CC*)
+    case "$version" in
+    SC3*)   LDFLAGS_DEFAULT="-mt "$LDFLAGS_DEFAULT
+	    COMPILER_THREAD_OPT="-mt"
+	    LD_THREAD_OPT="-mt"
+	    ;;
+    *)	    COMPILER_THREAD_OPT="-D_REENTRANT"
+	    LD_THREAD_OPT=""
+	    ;;
+    esac
+esac
+
+fi
+
+if test "'x$THREAD_TYPE'" = "'xSolaris_Thread'"
+then
+    DEFAULT_THREAD_SYS="SOLARIS_THREAD"
+    case "$CPLUSPLUS_PROGRAM" in
+    *CC*)
+	    case "$version" in
+	    SC3*)   LDFLAGS_DEFAULT="-mt "$LDFLAGS_DEFAULT
+		    COMPILER_THREAD_OPT="-mt"
+		    LD_THREAD_OPT="-mt"
+		    ;;
+	    *)	LD_THREAD_LIBS="-lthread"
+		COMPILER_THREAD_OPT="-D_REENTRANT"
+		LD_THREAD_OPT=""
+		    ;;
+	    esac
+	    ;;
+    *)
+	    LD_THREAD_LIBS="-lthread"
+	    COMPILER_THREAD_OPT="-D_REENTRANT"
+	    LD_THREAD_OPT=""
+	    ;;
+    esac
+fi
+
+if test "'x$THREAD_TYPE'" = "'xRex_Thread'"
+then
+DEFAULT_THREAD_SYS="REX_THREAD"
+if test "'x$THREAD_CHANGED'" = "'xYES'"
+then
+    LD_THREAD_LIBS="-llwp"
+fi
+fi
+
+if test "'x$THREAD_TYPE'" = "'xCPP_Task'"
+then
+DEFAULT_THREAD_SYS="CPP_TASK"
+if test "'x$THREAD_CHANGED'" = "'xYES'"
+then
+    LD_THREAD_LIBS="-ltask"
+fi
+fi
+
+if test "'x$THREAD_TYPE'" = "'xC_Thread'"
+then
+DEFAULT_THREAD_SYS="C_THREAD"
+if test "'x$THREAD_CHANGED'" = "'xYES'"
+then
+    LD_THREAD_LIBS="-lcthreads"
+fi
+
+CTHREAD_THREADS=10
+CTHREAD_STACK=10240
+
+
+echo "CThreads places a limit on the number of threads in a process"
+echo "and all threads must be assigned the same amount of stack space."
+echo "These values must be chosen now; any attempts to change these"
+echo "during the execution of an application will be ignored."
+echo
+echo $PRE_ECHO "Number of threads per process ["$CTHREAD_THREADS"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then
+	CTHREAD_THREADS=$INPUT
+fi
+
+echo $PRE_ECHO "Thread stack size ["$CTHREAD_STACK"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then
+	CTHREAD_STACK=$INPUT
+fi
+
+THREAD_CPPFLAGS="$THREAD_CPPFLAGS -DCTHREAD_STACK=$CTHREAD_STACK -DCTHREAD_THREADS=$CTHREAD_THREADS"
+
+fi
+
+if test "'x$THREAD_TYPE'" = "'xQuick_Thread'"
+then
+LD_THREAD_LIBS="-lqt"
+BUILDFLAGS_DEFAULT=$BUILDFLAGS_DEFAULT" -DBUILD_QUICKTHREAD"
+DEFAULT_THREAD_SYS="QUICK_THREAD"
+BUILD_CONTRIB="YES"
+
+STACK_TYPE=RedZone
+echo "The QuickThread interface permits both the use of stacks allocated"
+echo "by 'new', and by a mechanism that places red-zone protection around"
+echo "each stack. The latter is much safer, but costs a little more than"
+echo "one page of memory per stack"
+echo
+echo "Stack type:"
+echo "Static		fixed allocation in heap"
+echo "RedZone		allocated via RZStacks with red-zone protection,"
+echo "			similarly to lwp_newstk()"
+echo
+echo $PRE_ECHO "Stack type ["$STACK_TYPE"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then
+	STACK_TYPE=$INPUT
+fi
+
+if test $STACK_TYPE = "RedZone"
+then
+    BUILDFLAGS_DEFAULT=$BUILDFLAGS_DEFAULT" -DBUILD_RZSTACKS -DUSE_RZSTACKS"
+fi
+
+fi
+
+echo $PRE_ECHO "Thread library ["$LD_THREAD_LIBS"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then  
+	LD_THREAD_LIBS=$INPUT
+fi
+
+THREAD_CPPFLAGS=$THREAD_CPPFLAGS" -D$DEFAULT_THREAD_SYS"
+
+echo "Scheduler queue type to use:"
+echo "ProcessList		Linear linked-list"
+echo "ProcessHeap		As described in the paper"
+echo "Calendar		(See Contrib)"
+echo "HashedList		A hashed scheme similar to the ProcessHeap"
+echo
+echo $PRE_ECHO "Queue type ["$QUEUE_DEFAULT"] : " $POST_ECHO
+read INPUT
+echo
+if test "'x$INPUT'" != "'x'"
+then
+	QUEUE_DEFAULT=$INPUT
+fi
+
+if test "'x$QUEUE_DEFAULT'" = "'xCalendar'"
+then
+    BUILDFLAGS_DEFAULT=$BUILDFLAGS_DEFAULT" -DBUILD_CALENDAR"
+    BUILD_CONTRIB="YES"
+fi
+
+BUILDFLAGS_DEFAULT=$BUILDFLAGS_DEFAULT" -D"$QUEUE_DEFAULT"_Queue"
+
+if test $BUILD_CONTRIB = "YES"
+then
+    BUILDFLAGS_DEFAULT=$BUILDFLAGS_DEFAULT" -DBUILD_CONTRIB"
+fi
+
+(
+for i in Examples Tests
+do
+    if [ -f $i/MakefileBoot.tmpl ]
+    then
+	echo Creating $i/MakefileBoot
+	sed -e "s;CONFIGDIRECTORY;$INSTALL_TOPDIR_DEFAULT/include;" < $i/MakefileBoot.tmpl > $i/MakefileBoot
+    fi
+done
+)
+
+(
+echo "/*"
+echo " * Copyright (C) 1993, 1994, 1995, 1996"
+echo " *"
+echo " * Department of Computing Science,"
+echo " * The University,"
+echo " * Newcastle upon Tyne,"
+echo " * UK."
+echo " *"
+echo " * \$Id\$"
+echo " */"
+echo
+echo "/*"
+echo " *  Configure.h"
+echo " */"
+echo
+echo "#ifndef CONFIGURE_H_"
+echo "#  define CONFIGURE_H_"
+echo "#include <Config/"$M_CONFIG">"
+echo "#include <Config/"$V_CONFIG">"
+echo "#include <Config/"$S_CONFIG">"
+echo "#include <Config/"$C_CONFIG">"
+echo 
+echo "#define OSNAME" $OS
+echo "#define OSRELEASE" $RELEASE
+echo "#define OSMAJOR" $OSMAJOR
+echo "#define OSMINOR" $OSMINOR
+echo "#define MACHINE_HW" \"$MACHINE\"
+echo
+echo $CROSS_COMPILE
+echo "#define CPLUSPLUS_CROSS_PROGRAM" \"$CPLUSPLUS_NATIVE_COMPILER\"
+echo
+echo "#ifndef YES"
+echo "#define YES 1"
+echo "#endif"
+echo
+echo "#ifndef NO"
+echo "#define NO  0"
+echo "#endif"
+echo
+echo "/*"
+echo " *  Make and Source configuration"
+echo " */"
+echo
+echo "#ifndef VERBOSE_MAKE"
+echo "#define VERBOSE_MAKE "$VERBOSE_MAKE
+echo "#endif"
+echo
+echo "#ifndef TOPDIR_DEFAULT"
+echo "#define TOPDIR_DEFAULT "$TOPDIR_DEFAULT
+echo "#endif"
+echo
+echo "#ifndef PURIFY_PROGRAM"
+echo "#define PURIFY_PROGRAM " \"$PURIFY_PROGRAM\"
+echo "#endif"
+echo
+echo "#ifndef CPLUSPLUS_PROGRAM"
+echo "#define CPLUSPLUS_PROGRAM " \"$CPLUSPLUS_PROGRAM\"
+echo "#endif"
+echo
+echo "#ifndef CPLUSPLUS_INCLUDE_DEFAULT"
+echo "#define CPLUSPLUS_INCLUDE_DEFAULT "$CPLUSPLUS_INCLUDE_DEFAULT
+echo "#endif"
+echo
+echo "#ifndef CPPFLAGS_DEFAULT"
+echo "#define CPPFLAGS_DEFAULT "$CPPFLAGS_DEFAULT
+echo "#endif"
+echo
+echo "#ifndef CPLUSPLUSFLAGS_DEFAULT"
+echo "#define CPLUSPLUSFLAGS_DEFAULT "$CPLUSPLUSFLAGS_DEFAULT
+echo "#endif"
+echo
+echo "#ifndef LDFLAGS_DEFAULT"
+echo "#define LDFLAGS_DEFAULT " $LDFLAGS_DEFAULT
+echo "#endif"
+echo
+echo "#ifndef xLIBRARIES_DEFAULT"
+echo "#define xLIBRARIES_DEFAULT " $LIBRARIES_DEFAULT
+echo "#endif"
+echo
+echo "#ifndef BUILDFLAGS_DEFAULT"
+echo "#define BUILDFLAGS_DEFAULT "$BUILDFLAGS_DEFAULT
+echo "#endif"
+echo
+echo "/*"
+echo " *  Thread system details"
+echo " */"
+echo
+if test "'x$STACK_TYPE'" = "'xStatic'"
+then
+echo
+echo "#define STATIC_STACK"
+fi
+echo
+echo "/*"
+echo " *  Scheduler queue details"
+echo " */"
+echo
+echo "#define LINEAR 1"
+echo "#define HEAP 2"
+echo "#define CALENDAR 3"
+echo "#define HASHED 4"
+echo
+echo "#ifndef Queue_Type"
+echo "#define Queue_Type "$QUEUE_DEFAULT
+echo "#endif"
+echo
+echo "/*"
+echo " *  Thread system details"
+echo " */"
+echo
+echo "#ifndef THREAD_TYPE"
+echo "#define THREAD_TYPE "$THREAD_TYPE
+echo "#endif"
+echo
+echo "#ifndef THREAD_CPPFLAGS_DEFAULT"
+echo "#define THREAD_CPPFLAGS_DEFAULT " $THREAD_CPPFLAGS
+echo "#endif"
+echo
+echo "#ifndef COMPILER_THREAD_FLAGS_DEFAULT"
+echo "#define COMPILER_THREAD_FLAGS_DEFAULT " $COMPILER_THREAD_OPT
+echo "#endif"
+echo
+echo "#ifndef THREAD_LDFLAGS_DEFAULT"
+echo "#define THREAD_LDFLAGS_DEFAULT " $LD_THREAD_OPT
+echo "#endif"
+echo
+echo "#ifndef THREAD_LDLIBS_DEFAULT"
+echo "#define THREAD_LDLIBS_DEFAULT " $LD_THREAD_LIBS
+echo "#endif"
+echo
+echo "/*"
+echo " *  Installation details"
+echo " */"
+echo
+echo "#ifndef INSTALL_TOPDIR_DEFAULT"
+echo "#define INSTALL_TOPDIR_DEFAULT "$INSTALL_TOPDIR_DEFAULT
+echo "#endif"
+echo
+echo "#endif"
+) > $TOPDIR_DEFAULT/Include/Config/Configure.h
+
+(
+echo
+echo Makefile :: TOPDIR_VAR/Include/Config/$M_CONFIG
+echo
+echo Makefile :: TOPDIR_VAR/Include/Config/$S_CONFIG
+echo
+echo Makefile :: TOPDIR_VAR/Include/Config/$C_CONFIG
+echo
+) > $TOPDIR_DEFAULT/Include/Config/MachineRules.h

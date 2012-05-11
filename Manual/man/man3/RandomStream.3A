@@ -1,0 +1,58 @@
+.TH C++SIM 3A "11 July 1994" "C++SIM" "C++SIM Reference Manual"
+.SH NAME
+RandomStream \- base class of all random number classes.
+.SH SYNOPSIS
+.B "#ifndef RANDOM_H_"
+.br
+.B "#   include <ClassLib/Random.h>"
+.br
+.B "#endif"
+.sp
+.BI "class RandomStream"
+.br
+.BI "{"
+.br
+.BI "public:"
+.br
+.BI "	RandomStream (long = 772531L, long = 1878892440L);"
+.br
+.BI "	virtual double operator() () = 0;"
+.br
+.BI "	double Error ();"
+.sp
+.BI "protected:"
+.br
+.BI "	double Uniform ();
+.br
+.BI "};"
+.SH DESCRIPTION
+The
+.B RandomStream
+class is the base class from which all other random number classes are
+derived. It is not possible to create instances of this class,
+rather other classs should be inherited from it to make use of
+its functionality.
+
+.B RandomStream
+returns  a uniform  distribution based  upon  parameters
+given, and the most  derived class  manipulates this  accordingly. The
+algorithm uses a linear congruential generator and the results of this
+are then shuffled with a multiplicative generator.
+
+The
+.B constructor
+initializes the multiplicative and linear congruential generators with
+the seeds provided, respectively.
+
+The
+.B operator () 
+must be defined in one of the derived classes and is used to return the
+random numbers for that class.
+
+.B Error 
+returns a chi-square error measure on the uniform distribution function.
+
+.B Uniform 
+returns the random number drawn from the uniform distribution.
+.SH SEE ALSO
+UniformStream(3A), Draw(3A), ExponentialStream(3A), ErlangStream(3A), HyperExponentialStream(3A), NormalStream(3A)

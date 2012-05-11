@@ -1,0 +1,229 @@
+.TH C++SIM 3A "24 September 1994" "C++SIM" "C++SIM Reference Manual"
+.SH NAME
+debug_stream, _cppsim_debug  \- objects which allow for selective output of debugging statements
+.SH SYNOPSIS
+.B "#ifndef DEBUG_H_"
+.br
+.B "#   include <Common/Debug.h>"
+.br
+.B "#endif"
+.sp
+.B "enum FacilityCode"
+.br
+.B "{"
+.br
+.B "	FAC_SCHEDULER = 0x0001,"
+.br
+.B "	FAC_PROCESS = 0x0002,"
+.br
+.B "	FAC_THREAD = 0x0004,"
+.br
+.B "	FAC_SIMSCRIPT = 0x0008,"
+.br
+.B "	FAC_SEMAPHORE = 0x0010,"
+.br
+.B "	FAC_ENTITY = 0x0020,"
+.br
+.B "	FAC_PROCESSLISTS = 0x0040,"
+.br
+.B "	FAC_GENERAL = 0x0080,"
+.br
+.B "	FAC_USER1 = 0x1000,"
+.br
+.B "	FAC_USER2 = 0x2000,"
+.br
+.B "	FAC_USER3 = 0x4000,"
+.br
+.B "	FAC_USER4 = 0x8000,"
+.br
+.B "	FAC_ALL = 0xffff"
+.br
+.B "};"
+.sp
+.B "enum VisibilityLevel"
+.br
+.B "{"
+.br
+.B "	VIS_PRIVATE = 0x0001,"
+.br
+.B "	VIS_PROTECTED = 0x0002,"
+.br
+.B "	VIS_PUBLIC = 0x0004,"
+.br
+.B "	VIS_ALL = 0xffff"
+.br
+.B "};"
+.sp
+.B "enum DebugLevel"
+.br
+.B "{"
+.br
+.B "	NO_DEBUGGING = 0,"
+.br
+.B "	CONSTRUCTORS = 0x0001,"
+.br
+.B "	DESTRUCTORS = 0x0002,"
+.br
+.B "	CONSTRUCT_AND_DESTRUCT = CONSTRUCTORS | DESTRUCTORS,"
+.br
+.B "	FUNCTIONS = 0x0010,"
+.br
+.B "	OPERATORS = 0x0020,"
+.br
+.B "	FUNCS_AND_OPS = FUNCTIONS | OPERATORS,"
+.br
+.B "	ALL_NON_TRIVIAL = CONSTRUCT_AND_DESTRUCT | FUNCTIONS"
+.br
+.B "					 | OPERATORS,"
+.br
+.B "	TRIVIAL_FUNCS = 0x0100,"
+.br
+.B "	TRIVIAL_OPERATORS = 0x0200,"
+.br
+.B "	ALL_TRIVIAL = TRIVIAL_FUNCS | TRIVIAL_OPERATORS,"
+.br
+.B "	FULL_DEBUGGING = 0xffff"
+.br
+.B "};"
+.sp
+.sp
+
+
+.B "class DebugController : public StreamFilter"
+.br
+.B "{"
+.br
+.B "public:"
+.br
+.B "	DebugController ();"
+.br
+.B "	virtual ~DebugController ();"
+.sp
+.B "	void set_all (DebugLevel, FacilityCode,"
+.br
+.B "			VisibilityLevel);"
+.br
+.B "	void set_debuglevel (DebugLevel);"
+.br
+.B "	void set_facility (FacilityCode);"
+.br
+.B "	void set_visibility (VisibilityLevel);"
+.br
+.B "};"
+.sp
+.B "extern DebugController *_cppsim_debug;"
+.sp
+.B "debug_stream << "
+.I
+DEBUGLEVEL
+.B
+<< 
+.I
+DEBUGFAC
+.B
+<< 
+.I
+DEBUGVIS
+.B
+;
+.br
+.B "debug_stream << ""Sample debugging statement"" << endl;
+
+.SH DESCRIPTION
+This set of objects provide a uniform means of selectively outputting
+debugging statements based upon the run-time requirements of the user.
+The
+.B
+debug_stream
+variable is an instance of an
+.I
+ostream
+with an associated filter mechanism which is used to determine whether
+the data provided should be finally output. The information required
+by the filter is split into three different levels:
+
+	1: the
+.I
+debugging facility
+\- which is a way of grouping together related debugging information,
+based upon classes, functionality, or any other desired means.
+
+	2: the
+.I
+visibility level
+\- which is a means of indicating the interface visibility of the various
+methods/functions outputting debugging information.
+
+	3: the
+.I
+debugging level
+\- which indicates the level of debugging at which the debugging statement
+should appear.
+
+All debugging statements should be written within an
+.sp
+.B
+#ifdef DEBUG
+.br
+.B
+#endif
+.sp
+expression. The debugging statement should then have an indication
+of the level etc. at which it should occur. This should be done using
+the 
+.B
+<<
+operator. For example:
+.sp
+.B
+debug_stream << CONSTRUCTOR << VIS_PUBLIC
+.br
+.B
+			<< FAC_USER1;
+
+Then the actual debugging statement can be inserted, again
+using the overloaded
+.B
+<<
+operator. It is preferable to flush the output also. Output
+will only be produced if the inserted code, level, etc. match the
+currently requested debugging level.
+
+To set the debug tracing level, the variable
+.B
+_cppsim_debug
+must be set to the level of tracing required. Since each level is
+represented by a bit in the variable, multiple levels are produced
+by OR-ing the fields together.
+
+Another way of setting the tracing level is by way of the following
+shell environment variables:
+.sp
+.B
+DEBUG_FAC, DEBUG_VIS, DEBUG_LEVEL
+
+These can be set according to the shell in use. For example,
+using csh:
+.sp
+.B
+setenv DEBUG_FAC FFFF
+.br
+.B
+setenv DEBUG_VIS FFFF
+.br
+.B
+setenv DEBUG_LEVEL FFFF
+
+.SH NOTES
+The default values for each debug filter variable are:
+.sp
+.B
+DEBUG_LEVEL = FULL_DEBUGGING
+.br
+.B
+DEBUG_FAC = FAC_ALL
+.br
+.B
+DEBUG_VIS = VIS_ALL
+
+

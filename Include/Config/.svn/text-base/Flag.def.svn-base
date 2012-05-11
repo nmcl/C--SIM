@@ -1,0 +1,133 @@
+/*
+ * Copyright 1990-2008, Mark Little, University of Newcastle upon Tyne
+ * and others contributors as indicated 
+ * by the @authors tag. All rights reserved. 
+ * See the copyright.txt in the distribution for a
+ * full listing of individual contributors. 
+ * This copyrighted material is made available to anyone wishing to use,
+ * modify, copy, or redistribute it subject to the terms and conditions
+ * of the GNU Lesser General Public License, v. 2.1.
+ * This program is distributed in the hope that it will be useful, but WITHOUT A 
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+ * PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+ * You should have received a copy of the GNU Lesser General Public License,
+ * v.2.1 along with this distribution; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+ * MA  02110-1301, USA.
+ * 
+ * (C) 1990-2008,
+ */
+/*
+ * Copyright (C) 1993, 1994, 1995
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ *
+ * $Id: Flag.def,v 1.4 1996/12/04 15:08:00 nmcl Exp $
+ */
+
+/*
+ *  Flag.def
+ */
+
+#ifndef MAKEFLAGS_DEFAULT
+#define MAKEFLAGS_DEFAULT
+#endif
+
+#ifndef ARFLAGS_DEFAULT
+#define ARFLAGS_DEFAULT rv
+#endif
+
+#ifndef IMAKEFLAGS_DEFAULT
+#ifdef UseInstalled
+#define IMAKEFLAGS_DEFAULT -TConfig/Arjuna.tmpl -I""INSTALL_TOPDIR_VAR/include -DUseInstalled CPPFLAGS_VAR THREAD_CPPFLAGS_VAR
+#else
+#define IMAKEFLAGS_DEFAULT -TConfig/Arjuna.tmpl -I""TOPDIR_VAR/Include CPPFLAGS_VAR THREAD_CPPFLAGS_VAR
+#endif
+#endif
+
+#ifndef MAKEDEPENDFLAGS_DEFAULT
+#define MAKEDEPENDFLAGS_DEFAULT -I""CPLUSPLUS_INCLUDE_VAR -I""TOPDIR_VAR/Include
+#endif
+
+#ifndef YACCFLAGS_DEFAULT
+#define YACCFLAGS_DEFAULT -v -d
+#endif
+
+#ifndef LEXFLAGS_DEFAULT
+#define LEXFLAGS_DEFAULT
+#endif
+
+#ifndef STUBFLAGS_DEFAULT
+#define STUBFLAGS_DEFAULT +w +V
+#endif
+
+#ifndef CPPFLAGS_DEFAULT
+#define CPPFLAGS_DEFAULT
+#endif
+
+#ifndef BUILDFLAGS_DEFAULT
+#define BUILDFLAGS_DEFAULT
+#endif
+ 
+#ifndef THREAD_CPPFLAGS_DEFAULT
+#define THREAD_CPPFLAGS_DEFAULT
+#endif
+ 
+#ifndef MACHINE_SPECIFIC_FLAGS
+#define MACHINE_SPECIFIC_FLAGS
+#endif
+
+#ifndef VENDOR_SPECIFIC_FLAGS
+#define VENDOR_SPECIFIC_FLAGS
+#endif
+
+#ifndef SYSTEM_SPECIFIC_FLAGS
+#define SYSTEM_SPECIFIC_FLAGS
+#endif
+
+#ifndef COMPILER_SPECIFIC_FLAGS
+#define COMPILER_SPECIFIC_FLAGS
+#endif
+
+#ifndef COMPILER_THREAD_FLAGS_DEFAULT
+#define COMPILER_THREAD_FLAGS_DEFAULT
+#endif
+ 
+#ifndef THREAD_LDFLAGS_DEFAULT
+#define THREAD_LDFLAGS_DEFAULT
+#endif
+ 
+#ifndef THREAD_LDLIBS_DEFAULT
+#define THREAD_LDLIBS_DEFAULT
+#endif
+
+#ifndef CPPFLAGS_CROSS_DEFAULT
+#define CPPFLAGS_CROSS_DEFAULT CPPFLAGS_DEFAULT
+#endif
+
+#ifndef CPLUSPLUSFLAGS_CROSS_DEFAULT
+#define CPLUSPLUSFLAGS_CROSS_DEFAULT CPLUSPLUSFLAGS_DEFAULT
+#endif
+
+#ifndef LDFLAGS_CROSS_DEFAULT
+#define LDFLAGS_CROSS_DEFAULT LDFLAGS_DEFAULT
+#endif
+
+#ifndef MACHINE_SPECIFIC_CROSS_FLAGS
+#define MACHINE_SPECIFIC_CROSS_FLAGS MACHINE_SPECIFIC_FLAGS
+#endif
+
+#ifndef VENDOR_SPECIFIC_CROSS_FLAGS
+#define VENDOR_SPECIFIC_CROSS_FLAGS VENDOR_SPECIFIC_FLAGS
+#endif
+
+#ifndef SYSTEM_SPECIFIC_CROSS_FLAGS
+#define SYSTEM_SPECIFIC_CROSS_FLAGS SYSTEM_SPECIFIC_FLAGS
+#endif
+
+#ifndef COMPILER_SPECIFIC_CROSS_FLAGS
+#define COMPILER_SPECIFIC_CROSS_FLAGS COMPILER_SPECIFIC_FLAGS
+#endif

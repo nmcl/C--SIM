@@ -1,0 +1,776 @@
+Histogram data is:
+Bucket : < 0.0546439, 1 >
+Bucket : < 0.0834896, 1 >
+Bucket : < 0.265719, 1 >
+Bucket : < 0.284886, 1 >
+Bucket : < 0.301009, 1 >
+Bucket : < 0.379129, 1 >
+Bucket : < 0.471369, 1 >
+Bucket : < 0.853655, 1 >
+Bucket : < 0.953255, 1 >
+Bucket : < 0.97036, 1 >
+Bucket : < 1.10817, 1 >
+Bucket : < 1.33077, 1 >
+Bucket : < 1.44398, 1 >
+Bucket : < 1.49587, 1 >
+Bucket : < 1.80317, 1 >
+Bucket : < 1.95741, 1 >
+Bucket : < 1.97656, 1 >
+Bucket : < 1.9962, 1 >
+Bucket : < 2.28048, 1 >
+Bucket : < 2.30403, 1 >
+Bucket : < 2.31248, 1 >
+Bucket : < 2.5592, 1 >
+Bucket : < 2.63723, 1 >
+Bucket : < 2.67808, 1 >
+Bucket : < 2.72386, 1 >
+Bucket : < 2.78174, 1 >
+Bucket : < 3.01137, 1 >
+Bucket : < 3.04156, 1 >
+Bucket : < 3.0912, 1 >
+Bucket : < 3.17906, 1 >
+Bucket : < 3.20466, 1 >
+Bucket : < 3.32199, 1 >
+Bucket : < 3.46097, 1 >
+Bucket : < 4.45327, 1 >
+Bucket : < 4.55251, 1 >
+Bucket : < 4.68889, 1 >
+Bucket : < 4.69832, 1 >
+Bucket : < 4.7652, 1 >
+Bucket : < 4.83547, 1 >
+Bucket : < 4.86937, 1 >
+Bucket : < 5.41197, 1 >
+Bucket : < 5.48561, 1 >
+Bucket : < 5.61506, 1 >
+Bucket : < 5.62285, 1 >
+Bucket : < 5.71105, 1 >
+Bucket : < 5.86243, 1 >
+Bucket : < 6.21213, 1 >
+Bucket : < 6.3931, 1 >
+Bucket : < 6.79179, 1 >
+Bucket : < 6.80082, 1 >
+Bucket : < 7.19253, 1 >
+Bucket : < 7.38822, 1 >
+Bucket : < 7.45686, 1 >
+Bucket : < 7.74816, 1 >
+Bucket : < 7.75067, 1 >
+Bucket : < 7.88171, 1 >
+Bucket : < 8.21902, 1 >
+Bucket : < 8.41821, 1 >
+Bucket : < 8.54106, 1 >
+Bucket : < 8.65407, 1 >
+Bucket : < 9.18073, 1 >
+Bucket : < 9.32969, 1 >
+Bucket : < 9.34537, 1 >
+Bucket : < 9.46112, 1 >
+Bucket : < 10.7458, 1 >
+Bucket : < 10.8964, 1 >
+Bucket : < 11.0609, 1 >
+Bucket : < 11.0913, 1 >
+Bucket : < 11.2255, 1 >
+Bucket : < 11.9175, 1 >
+Bucket : < 11.9737, 1 >
+Bucket : < 12.9493, 1 >
+Bucket : < 13.0106, 1 >
+Bucket : < 13.8475, 1 >
+Bucket : < 14.3727, 1 >
+Bucket : < 14.461, 1 >
+Bucket : < 14.7264, 1 >
+Bucket : < 16.1422, 1 >
+Bucket : < 16.1885, 1 >
+Bucket : < 16.2767, 1 >
+Bucket : < 16.8391, 1 >
+Bucket : < 16.9275, 1 >
+Bucket : < 18.4021, 1 >
+Bucket : < 18.7749, 1 >
+Bucket : < 19.2207, 1 >
+Bucket : < 19.3444, 1 >
+Bucket : < 19.6431, 1 >
+Bucket : < 21.637, 1 >
+Bucket : < 28.7825, 1 >
+Bucket : < 29.0658, 1 >
+Bucket : < 31.1276, 1 >
+Bucket : < 32.0842, 1 >
+Bucket : < 32.5496, 1 >
+Bucket : < 32.5549, 1 >
+Bucket : < 35.2073, 1 >
+Bucket : < 35.6069, 1 >
+Bucket : < 39.6654, 1 >
+Bucket : < 40.117, 1 >
+Bucket : < 45.5082, 1 >
+Bucket : < 47.6499, 1 >
+
+Variance          : 120.217
+Standard Deviation: 10.9644
+Number of samples : 100
+Minimum           : 0
+Maximum           : 47.6499
+Sum               : 1061.25
+Mean              : 10.6125
+
+Histogram data is:
+Bucket : < 0.0546439, 1 >
+Bucket : < 0.0546439, 1 >
+Bucket : < 0.0834896, 1 >
+Bucket : < 0.0834896, 1 >
+Bucket : < 0.265719, 1 >
+Bucket : < 0.265719, 1 >
+Bucket : < 0.284886, 1 >
+Bucket : < 0.284886, 1 >
+Bucket : < 0.301009, 1 >
+Bucket : < 0.301009, 1 >
+Bucket : < 0.379129, 1 >
+Bucket : < 0.379129, 1 >
+Bucket : < 0.471369, 1 >
+Bucket : < 0.471369, 1 >
+Bucket : < 0.853655, 1 >
+Bucket : < 0.853655, 1 >
+Bucket : < 0.953255, 1 >
+Bucket : < 0.953255, 1 >
+Bucket : < 0.97036, 1 >
+Bucket : < 0.97036, 1 >
+Bucket : < 1.10817, 1 >
+Bucket : < 1.10817, 1 >
+Bucket : < 1.33077, 1 >
+Bucket : < 1.33077, 1 >
+Bucket : < 1.44398, 1 >
+Bucket : < 1.44398, 1 >
+Bucket : < 1.49587, 1 >
+Bucket : < 1.49587, 1 >
+Bucket : < 1.80317, 1 >
+Bucket : < 1.80317, 1 >
+Bucket : < 1.95741, 1 >
+Bucket : < 1.95741, 1 >
+Bucket : < 1.97656, 1 >
+Bucket : < 1.97656, 1 >
+Bucket : < 1.9962, 1 >
+Bucket : < 1.9962, 1 >
+Bucket : < 2.28048, 1 >
+Bucket : < 2.28048, 1 >
+Bucket : < 2.30403, 1 >
+Bucket : < 2.30403, 1 >
+Bucket : < 2.31248, 1 >
+Bucket : < 2.31248, 1 >
+Bucket : < 2.5592, 1 >
+Bucket : < 2.5592, 1 >
+Bucket : < 2.63723, 1 >
+Bucket : < 2.63723, 1 >
+Bucket : < 2.67808, 1 >
+Bucket : < 2.67808, 1 >
+Bucket : < 2.72386, 1 >
+Bucket : < 2.72386, 1 >
+Bucket : < 2.78174, 1 >
+Bucket : < 2.78174, 1 >
+Bucket : < 3.01137, 1 >
+Bucket : < 3.01137, 1 >
+Bucket : < 3.04156, 1 >
+Bucket : < 3.04156, 1 >
+Bucket : < 3.0912, 1 >
+Bucket : < 3.0912, 1 >
+Bucket : < 3.17906, 1 >
+Bucket : < 3.17906, 1 >
+Bucket : < 3.20466, 1 >
+Bucket : < 3.20466, 1 >
+Bucket : < 3.32199, 1 >
+Bucket : < 3.32199, 1 >
+Bucket : < 3.46097, 1 >
+Bucket : < 3.46097, 1 >
+Bucket : < 4.45327, 1 >
+Bucket : < 4.45327, 1 >
+Bucket : < 4.55251, 1 >
+Bucket : < 4.55251, 1 >
+Bucket : < 4.68889, 1 >
+Bucket : < 4.68889, 1 >
+Bucket : < 4.69832, 1 >
+Bucket : < 4.69832, 1 >
+Bucket : < 4.7652, 1 >
+Bucket : < 4.7652, 1 >
+Bucket : < 4.83547, 1 >
+Bucket : < 4.83547, 1 >
+Bucket : < 4.86937, 1 >
+Bucket : < 4.86937, 1 >
+Bucket : < 5.41197, 1 >
+Bucket : < 5.41197, 1 >
+Bucket : < 5.48561, 1 >
+Bucket : < 5.48561, 1 >
+Bucket : < 5.61506, 1 >
+Bucket : < 5.61506, 1 >
+Bucket : < 5.62285, 1 >
+Bucket : < 5.62285, 1 >
+Bucket : < 5.71105, 1 >
+Bucket : < 5.71105, 1 >
+Bucket : < 5.86243, 1 >
+Bucket : < 5.86243, 1 >
+Bucket : < 6.21213, 1 >
+Bucket : < 6.21213, 1 >
+Bucket : < 6.3931, 1 >
+Bucket : < 6.3931, 1 >
+Bucket : < 6.79179, 1 >
+Bucket : < 6.79179, 1 >
+Bucket : < 6.80082, 1 >
+Bucket : < 6.80082, 1 >
+Bucket : < 7.19253, 1 >
+Bucket : < 7.19253, 1 >
+Bucket : < 7.38822, 1 >
+Bucket : < 7.38822, 1 >
+Bucket : < 7.45686, 1 >
+Bucket : < 7.45686, 1 >
+Bucket : < 7.74816, 1 >
+Bucket : < 7.74816, 1 >
+Bucket : < 7.75067, 1 >
+Bucket : < 7.75067, 1 >
+Bucket : < 7.88171, 1 >
+Bucket : < 7.88171, 1 >
+Bucket : < 8.21902, 1 >
+Bucket : < 8.21902, 1 >
+Bucket : < 8.41821, 1 >
+Bucket : < 8.41821, 1 >
+Bucket : < 8.54106, 1 >
+Bucket : < 8.54106, 1 >
+Bucket : < 8.65407, 1 >
+Bucket : < 8.65407, 1 >
+Bucket : < 9.18073, 1 >
+Bucket : < 9.18073, 1 >
+Bucket : < 9.32969, 1 >
+Bucket : < 9.32969, 1 >
+Bucket : < 9.34537, 1 >
+Bucket : < 9.34537, 1 >
+Bucket : < 9.46112, 1 >
+Bucket : < 9.46112, 1 >
+Bucket : < 10.7458, 1 >
+Bucket : < 10.7458, 1 >
+Bucket : < 10.8964, 1 >
+Bucket : < 10.8964, 1 >
+Bucket : < 11.0609, 1 >
+Bucket : < 11.0609, 1 >
+Bucket : < 11.0913, 1 >
+Bucket : < 11.0913, 1 >
+Bucket : < 11.2255, 1 >
+Bucket : < 11.2255, 1 >
+Bucket : < 11.9175, 1 >
+Bucket : < 11.9175, 1 >
+Bucket : < 11.9737, 1 >
+Bucket : < 11.9737, 1 >
+Bucket : < 12.9493, 1 >
+Bucket : < 12.9493, 1 >
+Bucket : < 13.0106, 1 >
+Bucket : < 13.0106, 1 >
+Bucket : < 13.8475, 1 >
+Bucket : < 13.8475, 1 >
+Bucket : < 14.3727, 1 >
+Bucket : < 14.3727, 1 >
+Bucket : < 14.461, 1 >
+Bucket : < 14.461, 1 >
+Bucket : < 14.7264, 1 >
+Bucket : < 14.7264, 1 >
+Bucket : < 16.1422, 1 >
+Bucket : < 16.1422, 1 >
+Bucket : < 16.1885, 1 >
+Bucket : < 16.1885, 1 >
+Bucket : < 16.2767, 1 >
+Bucket : < 16.2767, 1 >
+Bucket : < 16.8391, 1 >
+Bucket : < 16.8391, 1 >
+Bucket : < 16.9275, 1 >
+Bucket : < 16.9275, 1 >
+Bucket : < 18.4021, 1 >
+Bucket : < 18.4021, 1 >
+Bucket : < 18.7749, 1 >
+Bucket : < 18.7749, 1 >
+Bucket : < 19.2207, 1 >
+Bucket : < 19.2207, 1 >
+Bucket : < 19.3444, 1 >
+Bucket : < 19.3444, 1 >
+Bucket : < 19.6431, 1 >
+Bucket : < 19.6431, 1 >
+Bucket : < 21.637, 1 >
+Bucket : < 21.637, 1 >
+Bucket : < 28.7825, 1 >
+Bucket : < 28.7825, 1 >
+Bucket : < 29.0658, 1 >
+Bucket : < 29.0658, 1 >
+Bucket : < 31.1276, 1 >
+Bucket : < 31.1276, 1 >
+Bucket : < 32.0842, 1 >
+Bucket : < 32.0842, 1 >
+Bucket : < 32.5496, 1 >
+Bucket : < 32.5496, 1 >
+Bucket : < 32.5549, 1 >
+Bucket : < 32.5549, 1 >
+Bucket : < 35.2073, 1 >
+Bucket : < 35.2073, 1 >
+Bucket : < 35.6069, 1 >
+Bucket : < 35.6069, 1 >
+Bucket : < 39.6654, 1 >
+Bucket : < 39.6654, 1 >
+Bucket : < 40.117, 1 >
+Bucket : < 40.117, 1 >
+Bucket : < 45.5082, 1 >
+Bucket : < 45.5082, 1 >
+Bucket : < 47.6499, 1 >
+Bucket : < 47.6499, 1 >
+
+Variance          : 119.613
+Standard Deviation: 10.9368
+Number of samples : 200
+Minimum           : 0
+Maximum           : 47.6499
+Sum               : 2122.5
+Mean              : 10.6125
+
+Histogram data is:
+Maximum number of buckets 20
+Merge choice is MEAN
+Bucket : < 0.471369, 1 >
+Bucket : < 1.09314, 17 >
+Bucket : < 1.95741, 1 >
+Bucket : < 2.04183, 2 >
+Bucket : < 2.31248, 1 >
+Bucket : < 2.67808, 1 >
+Bucket : < 3.20466, 1 >
+Bucket : < 4.01614, 17 >
+Bucket : < 4.83547, 1 >
+Bucket : < 5.50601, 4 >
+Bucket : < 6.80155, 5 >
+Bucket : < 7.74816, 1 >
+Bucket : < 7.98484, 2 >
+Bucket : < 9.53723, 14 >
+Bucket : < 12.0597, 6 >
+Bucket : < 14.5952, 3 >
+Bucket : < 14.7264, 1 >
+Bucket : < 26.9253, 20 >
+Bucket : < 32.0842, 1 >
+Bucket : < 40.117, 1 >
+
+Variance          : 120.217
+Standard Deviation: 10.9644
+Number of samples : 100
+Minimum           : 0
+Maximum           : 47.6499
+Sum               : 1061.25
+Mean              : 10.6125
+
+Histogram data is:
+Maximum number of buckets 20
+Merge choice is MEAN
+Bucket : < 0.471369, 1 >
+Bucket : < 1.21675, 40 >
+Bucket : < 1.95741, 1 >
+Bucket : < 2.04183, 2 >
+Bucket : < 2.31248, 1 >
+Bucket : < 2.67808, 1 >
+Bucket : < 3.20466, 1 >
+Bucket : < 4.47929, 45 >
+Bucket : < 4.83547, 1 >
+Bucket : < 5.50601, 4 >
+Bucket : < 6.80155, 5 >
+Bucket : < 7.74816, 1 >
+Bucket : < 7.98484, 2 >
+Bucket : < 10.1489, 40 >
+Bucket : < 12.0597, 6 >
+Bucket : < 14.5952, 3 >
+Bucket : < 14.7264, 1 >
+Bucket : < 27.0684, 43 >
+Bucket : < 32.0842, 1 >
+Bucket : < 40.117, 1 >
+
+Variance          : 119.613
+Standard Deviation: 10.9368
+Number of samples : 200
+Minimum           : 0
+Maximum           : 47.6499
+Sum               : 2122.5
+Mean              : 10.6125
+
+Histogram data is:
+Maximum index range  : 55
+Minimum index range  : 0
+Number of buckets    : 20
+width of each bucket : 2.75
+Bucket : < 0, 25 >
+Bucket : < 2.75, 17 >
+Bucket : < 5.5, 15 >
+Bucket : < 8.25, 9 >
+Bucket : < 11, 7 >
+Bucket : < 13.75, 7 >
+Bucket : < 16.5, 5 >
+Bucket : < 19.25, 3 >
+Bucket : < 22, 0 >
+Bucket : < 24.75, 0 >
+Bucket : < 27.5, 2 >
+Bucket : < 30.25, 4 >
+Bucket : < 33, 2 >
+Bucket : < 35.75, 0 >
+Bucket : < 38.5, 2 >
+Bucket : < 41.25, 0 >
+Bucket : < 44, 1 >
+Bucket : < 46.75, 1 >
+Bucket : < 49.5, 0 >
+Bucket : < 52.25, 0 >
+
+Variance          : 118.045
+Standard Deviation: 10.8648
+Number of samples : 100
+Minimum           : 0
+Maximum           : 46.75
+Sum               : 926.75
+Mean              : 9.2675
+
+Histogram data is:
+Maximum index range  : 55
+Minimum index range  : 0
+Number of buckets    : 20
+width of each bucket : 2.75
+Bucket : < 0, 50 >
+Bucket : < 2.75, 34 >
+Bucket : < 5.5, 30 >
+Bucket : < 8.25, 18 >
+Bucket : < 11, 14 >
+Bucket : < 13.75, 14 >
+Bucket : < 16.5, 10 >
+Bucket : < 19.25, 6 >
+Bucket : < 22, 0 >
+Bucket : < 24.75, 0 >
+Bucket : < 27.5, 4 >
+Bucket : < 30.25, 8 >
+Bucket : < 33, 4 >
+Bucket : < 35.75, 0 >
+Bucket : < 38.5, 4 >
+Bucket : < 41.25, 0 >
+Bucket : < 44, 2 >
+Bucket : < 46.75, 2 >
+Bucket : < 49.5, 0 >
+Bucket : < 52.25, 0 >
+
+Variance          : 117.452
+Standard Deviation: 10.8375
+Number of samples : 200
+Minimum           : 0
+Maximum           : 46.75
+Sum               : 1853.5
+Mean              : 9.2675
+
+Histogram data is:
+Quantile precentage : 0.95
+Value below which percentage occurs 35.2073
+Bucket : < 0.0546439, 1 >
+Bucket : < 0.0834896, 1 >
+Bucket : < 0.265719, 1 >
+Bucket : < 0.284886, 1 >
+Bucket : < 0.301009, 1 >
+Bucket : < 0.379129, 1 >
+Bucket : < 0.471369, 1 >
+Bucket : < 0.853655, 1 >
+Bucket : < 0.953255, 1 >
+Bucket : < 0.97036, 1 >
+Bucket : < 1.10817, 1 >
+Bucket : < 1.33077, 1 >
+Bucket : < 1.44398, 1 >
+Bucket : < 1.49587, 1 >
+Bucket : < 1.80317, 1 >
+Bucket : < 1.95741, 1 >
+Bucket : < 1.97656, 1 >
+Bucket : < 1.9962, 1 >
+Bucket : < 2.28048, 1 >
+Bucket : < 2.30403, 1 >
+Bucket : < 2.31248, 1 >
+Bucket : < 2.5592, 1 >
+Bucket : < 2.63723, 1 >
+Bucket : < 2.67808, 1 >
+Bucket : < 2.72386, 1 >
+Bucket : < 2.78174, 1 >
+Bucket : < 3.01137, 1 >
+Bucket : < 3.04156, 1 >
+Bucket : < 3.0912, 1 >
+Bucket : < 3.17906, 1 >
+Bucket : < 3.20466, 1 >
+Bucket : < 3.32199, 1 >
+Bucket : < 3.46097, 1 >
+Bucket : < 4.45327, 1 >
+Bucket : < 4.55251, 1 >
+Bucket : < 4.68889, 1 >
+Bucket : < 4.69832, 1 >
+Bucket : < 4.7652, 1 >
+Bucket : < 4.83547, 1 >
+Bucket : < 4.86937, 1 >
+Bucket : < 5.41197, 1 >
+Bucket : < 5.48561, 1 >
+Bucket : < 5.61506, 1 >
+Bucket : < 5.62285, 1 >
+Bucket : < 5.71105, 1 >
+Bucket : < 5.86243, 1 >
+Bucket : < 6.21213, 1 >
+Bucket : < 6.3931, 1 >
+Bucket : < 6.79179, 1 >
+Bucket : < 6.80082, 1 >
+Bucket : < 7.19253, 1 >
+Bucket : < 7.38822, 1 >
+Bucket : < 7.45686, 1 >
+Bucket : < 7.74816, 1 >
+Bucket : < 7.75067, 1 >
+Bucket : < 7.88171, 1 >
+Bucket : < 8.21902, 1 >
+Bucket : < 8.41821, 1 >
+Bucket : < 8.54106, 1 >
+Bucket : < 8.65407, 1 >
+Bucket : < 9.18073, 1 >
+Bucket : < 9.32969, 1 >
+Bucket : < 9.34537, 1 >
+Bucket : < 9.46112, 1 >
+Bucket : < 10.7458, 1 >
+Bucket : < 10.8964, 1 >
+Bucket : < 11.0609, 1 >
+Bucket : < 11.0913, 1 >
+Bucket : < 11.2255, 1 >
+Bucket : < 11.9175, 1 >
+Bucket : < 11.9737, 1 >
+Bucket : < 12.9493, 1 >
+Bucket : < 13.0106, 1 >
+Bucket : < 13.8475, 1 >
+Bucket : < 14.3727, 1 >
+Bucket : < 14.461, 1 >
+Bucket : < 14.7264, 1 >
+Bucket : < 16.1422, 1 >
+Bucket : < 16.1885, 1 >
+Bucket : < 16.2767, 1 >
+Bucket : < 16.8391, 1 >
+Bucket : < 16.9275, 1 >
+Bucket : < 18.4021, 1 >
+Bucket : < 18.7749, 1 >
+Bucket : < 19.2207, 1 >
+Bucket : < 19.3444, 1 >
+Bucket : < 19.6431, 1 >
+Bucket : < 21.637, 1 >
+Bucket : < 28.7825, 1 >
+Bucket : < 29.0658, 1 >
+Bucket : < 31.1276, 1 >
+Bucket : < 32.0842, 1 >
+Bucket : < 32.5496, 1 >
+Bucket : < 32.5549, 1 >
+Bucket : < 35.2073, 1 >
+Bucket : < 35.6069, 1 >
+Bucket : < 39.6654, 1 >
+Bucket : < 40.117, 1 >
+Bucket : < 45.5082, 1 >
+Bucket : < 47.6499, 1 >
+
+Variance          : 120.217
+Standard Deviation: 10.9644
+Number of samples : 100
+Minimum           : 0
+Maximum           : 47.6499
+Sum               : 1061.25
+Mean              : 10.6125
+
+Histogram data is:
+Quantile precentage : 0.95
+Value below which percentage occurs 35.2073
+Bucket : < 0.0546439, 1 >
+Bucket : < 0.0546439, 1 >
+Bucket : < 0.0834896, 1 >
+Bucket : < 0.0834896, 1 >
+Bucket : < 0.265719, 1 >
+Bucket : < 0.265719, 1 >
+Bucket : < 0.284886, 1 >
+Bucket : < 0.284886, 1 >
+Bucket : < 0.301009, 1 >
+Bucket : < 0.301009, 1 >
+Bucket : < 0.379129, 1 >
+Bucket : < 0.379129, 1 >
+Bucket : < 0.471369, 1 >
+Bucket : < 0.471369, 1 >
+Bucket : < 0.853655, 1 >
+Bucket : < 0.853655, 1 >
+Bucket : < 0.953255, 1 >
+Bucket : < 0.953255, 1 >
+Bucket : < 0.97036, 1 >
+Bucket : < 0.97036, 1 >
+Bucket : < 1.10817, 1 >
+Bucket : < 1.10817, 1 >
+Bucket : < 1.33077, 1 >
+Bucket : < 1.33077, 1 >
+Bucket : < 1.44398, 1 >
+Bucket : < 1.44398, 1 >
+Bucket : < 1.49587, 1 >
+Bucket : < 1.49587, 1 >
+Bucket : < 1.80317, 1 >
+Bucket : < 1.80317, 1 >
+Bucket : < 1.95741, 1 >
+Bucket : < 1.95741, 1 >
+Bucket : < 1.97656, 1 >
+Bucket : < 1.97656, 1 >
+Bucket : < 1.9962, 1 >
+Bucket : < 1.9962, 1 >
+Bucket : < 2.28048, 1 >
+Bucket : < 2.28048, 1 >
+Bucket : < 2.30403, 1 >
+Bucket : < 2.30403, 1 >
+Bucket : < 2.31248, 1 >
+Bucket : < 2.31248, 1 >
+Bucket : < 2.5592, 1 >
+Bucket : < 2.5592, 1 >
+Bucket : < 2.63723, 1 >
+Bucket : < 2.63723, 1 >
+Bucket : < 2.67808, 1 >
+Bucket : < 2.67808, 1 >
+Bucket : < 2.72386, 1 >
+Bucket : < 2.72386, 1 >
+Bucket : < 2.78174, 1 >
+Bucket : < 2.78174, 1 >
+Bucket : < 3.01137, 1 >
+Bucket : < 3.01137, 1 >
+Bucket : < 3.04156, 1 >
+Bucket : < 3.04156, 1 >
+Bucket : < 3.0912, 1 >
+Bucket : < 3.0912, 1 >
+Bucket : < 3.17906, 1 >
+Bucket : < 3.17906, 1 >
+Bucket : < 3.20466, 1 >
+Bucket : < 3.20466, 1 >
+Bucket : < 3.32199, 1 >
+Bucket : < 3.32199, 1 >
+Bucket : < 3.46097, 1 >
+Bucket : < 3.46097, 1 >
+Bucket : < 4.45327, 1 >
+Bucket : < 4.45327, 1 >
+Bucket : < 4.55251, 1 >
+Bucket : < 4.55251, 1 >
+Bucket : < 4.68889, 1 >
+Bucket : < 4.68889, 1 >
+Bucket : < 4.69832, 1 >
+Bucket : < 4.69832, 1 >
+Bucket : < 4.7652, 1 >
+Bucket : < 4.7652, 1 >
+Bucket : < 4.83547, 1 >
+Bucket : < 4.83547, 1 >
+Bucket : < 4.86937, 1 >
+Bucket : < 4.86937, 1 >
+Bucket : < 5.41197, 1 >
+Bucket : < 5.41197, 1 >
+Bucket : < 5.48561, 1 >
+Bucket : < 5.48561, 1 >
+Bucket : < 5.61506, 1 >
+Bucket : < 5.61506, 1 >
+Bucket : < 5.62285, 1 >
+Bucket : < 5.62285, 1 >
+Bucket : < 5.71105, 1 >
+Bucket : < 5.71105, 1 >
+Bucket : < 5.86243, 1 >
+Bucket : < 5.86243, 1 >
+Bucket : < 6.21213, 1 >
+Bucket : < 6.21213, 1 >
+Bucket : < 6.3931, 1 >
+Bucket : < 6.3931, 1 >
+Bucket : < 6.79179, 1 >
+Bucket : < 6.79179, 1 >
+Bucket : < 6.80082, 1 >
+Bucket : < 6.80082, 1 >
+Bucket : < 7.19253, 1 >
+Bucket : < 7.19253, 1 >
+Bucket : < 7.38822, 1 >
+Bucket : < 7.38822, 1 >
+Bucket : < 7.45686, 1 >
+Bucket : < 7.45686, 1 >
+Bucket : < 7.74816, 1 >
+Bucket : < 7.74816, 1 >
+Bucket : < 7.75067, 1 >
+Bucket : < 7.75067, 1 >
+Bucket : < 7.88171, 1 >
+Bucket : < 7.88171, 1 >
+Bucket : < 8.21902, 1 >
+Bucket : < 8.21902, 1 >
+Bucket : < 8.41821, 1 >
+Bucket : < 8.41821, 1 >
+Bucket : < 8.54106, 1 >
+Bucket : < 8.54106, 1 >
+Bucket : < 8.65407, 1 >
+Bucket : < 8.65407, 1 >
+Bucket : < 9.18073, 1 >
+Bucket : < 9.18073, 1 >
+Bucket : < 9.32969, 1 >
+Bucket : < 9.32969, 1 >
+Bucket : < 9.34537, 1 >
+Bucket : < 9.34537, 1 >
+Bucket : < 9.46112, 1 >
+Bucket : < 9.46112, 1 >
+Bucket : < 10.7458, 1 >
+Bucket : < 10.7458, 1 >
+Bucket : < 10.8964, 1 >
+Bucket : < 10.8964, 1 >
+Bucket : < 11.0609, 1 >
+Bucket : < 11.0609, 1 >
+Bucket : < 11.0913, 1 >
+Bucket : < 11.0913, 1 >
+Bucket : < 11.2255, 1 >
+Bucket : < 11.2255, 1 >
+Bucket : < 11.9175, 1 >
+Bucket : < 11.9175, 1 >
+Bucket : < 11.9737, 1 >
+Bucket : < 11.9737, 1 >
+Bucket : < 12.9493, 1 >
+Bucket : < 12.9493, 1 >
+Bucket : < 13.0106, 1 >
+Bucket : < 13.0106, 1 >
+Bucket : < 13.8475, 1 >
+Bucket : < 13.8475, 1 >
+Bucket : < 14.3727, 1 >
+Bucket : < 14.3727, 1 >
+Bucket : < 14.461, 1 >
+Bucket : < 14.461, 1 >
+Bucket : < 14.7264, 1 >
+Bucket : < 14.7264, 1 >
+Bucket : < 16.1422, 1 >
+Bucket : < 16.1422, 1 >
+Bucket : < 16.1885, 1 >
+Bucket : < 16.1885, 1 >
+Bucket : < 16.2767, 1 >
+Bucket : < 16.2767, 1 >
+Bucket : < 16.8391, 1 >
+Bucket : < 16.8391, 1 >
+Bucket : < 16.9275, 1 >
+Bucket : < 16.9275, 1 >
+Bucket : < 18.4021, 1 >
+Bucket : < 18.4021, 1 >
+Bucket : < 18.7749, 1 >
+Bucket : < 18.7749, 1 >
+Bucket : < 19.2207, 1 >
+Bucket : < 19.2207, 1 >
+Bucket : < 19.3444, 1 >
+Bucket : < 19.3444, 1 >
+Bucket : < 19.6431, 1 >
+Bucket : < 19.6431, 1 >
+Bucket : < 21.637, 1 >
+Bucket : < 21.637, 1 >
+Bucket : < 28.7825, 1 >
+Bucket : < 28.7825, 1 >
+Bucket : < 29.0658, 1 >
+Bucket : < 29.0658, 1 >
+Bucket : < 31.1276, 1 >
+Bucket : < 31.1276, 1 >
+Bucket : < 32.0842, 1 >
+Bucket : < 32.0842, 1 >
+Bucket : < 32.5496, 1 >
+Bucket : < 32.5496, 1 >
+Bucket : < 32.5549, 1 >
+Bucket : < 32.5549, 1 >
+Bucket : < 35.2073, 1 >
+Bucket : < 35.2073, 1 >
+Bucket : < 35.6069, 1 >
+Bucket : < 35.6069, 1 >
+Bucket : < 39.6654, 1 >
+Bucket : < 39.6654, 1 >
+Bucket : < 40.117, 1 >
+Bucket : < 40.117, 1 >
+Bucket : < 45.5082, 1 >
+Bucket : < 45.5082, 1 >
+Bucket : < 47.6499, 1 >
+Bucket : < 47.6499, 1 >
+
+Variance          : 119.613
+Standard Deviation: 10.9368
+Number of samples : 200
+Minimum           : 0
+Maximum           : 47.6499
+Sum               : 2122.5
+Mean              : 10.6125
+

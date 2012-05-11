@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Stat
+END
+TestHistogram.cc
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Stat/TestHistogram.cc
+END
+TestPareto.cc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Stat/TestPareto.cc
+END
+Imakefile
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Stat/Imakefile
+END
+run
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Stat/run
+END
+expected_output
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/javasim/!svn/ver/21/C++SIM/trunk/Tests/Stat/expected_output
+END

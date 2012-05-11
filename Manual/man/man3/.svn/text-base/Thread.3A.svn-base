@@ -1,0 +1,79 @@
+.TH C++SIM 3A "23 September 1994" "C++SIM" "C++SIM Reference Manual"
+.SH NAME
+Thread \- runtime thread implementation
+.SH SYNOPSIS
+.B "#ifndef THREAD_H_"
+.br
+.B "#   include <ClassLib/thread.h>"
+.br
+.B "#endif"
+.sp
+.BI "class Thread : public Resource"
+.br
+.BI "{"
+.br
+.BI "public:"
+.br
+.BI "	virtual void Suspend ();"
+.br
+.BI "	virtual void Resume ();"
+.br
+.BI "	virtual void Body ();"
+.sp
+.BI "	virtual long Current_Thread () const;"
+.sp
+.BI "	virtual long Identity () const;"
+.sp
+.BI "	static Thread *Self ();"
+.sp
+.BI "protected:"
+.br
+.BI "	Thread ();"
+.br
+.BI "	virtual ~Thread ();"
+.sp
+.BI "	long thread_key;"
+.br
+.BI "};"
+.SH DESCRIPTION
+This class defines a template for all thread implementations
+used to provide an active object abstraction.
+
+The
+.B
+Suspend
+method is used to suspend the thread to which it is applied.
+
+The
+.B
+Resume
+method resumes the thread it is applied to.
+
+.B
+Body
+is the main active object code which is executed when the
+threaded object is created.
+
+.B
+Current_Thread
+returns the identity of the currently active thread, or
+.B
+-1
+if an error occurs.
+
+.B
+Identity
+returns the identity of the threaded object it is applied
+to.
+
+.B
+Self
+returns a pointer to the currently active thread object.
+
+.B
+thread_key
+is used to uniquely identify each threaded object within
+the system. It must be set by the actual (derived) thread
+class.
+.SH SEE ALSO
+Resource(3A)

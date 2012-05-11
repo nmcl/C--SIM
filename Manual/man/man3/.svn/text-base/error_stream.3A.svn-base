@@ -1,0 +1,57 @@
+.TH C++SIM 3A "24 September 1994" "C++SIM" "C++SIM Reference Manual"
+.SH NAME
+error_stream \- object which provides for output of different levels of error
+severity messages
+.SH SYNOPSIS
+.B "#ifndef ERROR_H_"
+.br
+.B "#   include <Common/Error.h>"
+.br
+.B "#endif"
+.sp
+.B "enum ErrorSeverity"
+.br
+.B "{"
+.br
+.B "	FATAL, WARNING"
+.br
+.B "};"
+.sp
+.B "extern ostream& operator<< ( ostream& strm,"
+.br
+.B "					enum ErrorSeverity es );"
+.sp
+.B "#define error_stream cerr"
+.SH DESCRIPTION
+The
+.B
+error_stream
+and its associated
+.B
+<<
+operator
+provide a means of outputting error messages which indicate
+the level of severity of the error and give other information
+which may prove useful in tracking down faults (e.g., process
+identifier).
+
+The format for using
+.B
+error_stream
+is straightforward, and is illustrated with two examples:
+.sp
+.B
+error_stream << WARNING << "Attempt to do something
+.br
+.B
+		illegal but not severe." << endl;
+.sp
+.B
+error_stream << FATAL << "Attempt to do something
+.br
+.B
+		such as divide by zero." << endl;
+.SH SEE ALSO
+debug_stream(3A)
+
+

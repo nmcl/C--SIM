@@ -1,0 +1,6 @@
+#!/bin/sh
+for i in 2 4 8 10 14 18 20 40 50 70
+do
+	echo "Performing" ${i}00 "iterations"
+	TestQueues -number ${i}00
+done

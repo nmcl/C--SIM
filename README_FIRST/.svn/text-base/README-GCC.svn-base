@@ -1,0 +1,55 @@
+/*
+ * Copyright (C) 1994-1998,
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ *	
+ * $Id: README-GCC,v 1.3 1998/07/31 08:57:21 nmcl Exp $
+ */
+
+GCC like most compilers has  certain bugs that  C++SIM hits at various
+times.  We  have attempted  to  compensate for these  bugs  as much as
+possible in our code but some have impact at  the user level. The bugs
+that impact C++SIM  are specific to  various  versions of GCC and  are
+described below:
+
+GCC-2.3.3:	
+	GCC_ARRAY_DELETE_BUG :   The following    code causes  gcc  to
+reference  the locations prior to the  start of the allocated block of
+memory:
+
+	char *p = new char[20];
+	delete [] p;
+
+depending upon machine this may cause a core dump. We have compensated
+for  this  in our code but   users  should be  aware  of  the possible
+problems.
+
+	GCC_NESTED_TYPE_BUG : This version of  gcc has various bugs in
+its handling of nested types. We believe we  have compensated for them
+all in our code.
+	
+GCC-2.4.5:
+	GCC_ARRAY_DELETE_BUG : As above
+
+GCC-2.5.8:
+	GCC_LINK_BUG :  Version 2.5.* of gcc  has a very problematical
+bug that  fundamentally  affects the  linking  of C++SIM applications.
+Consider this code:
+
+	class X { virtual ~X(); };
+
+	main () {}
+
+Even though  NO instances of X are  ever created gcc insists  that the
+code for the  destructor is linked  into the executable. The effect is
+that the resulting executables are far bigger than they need to be.
+
+GCC-2.6.0:
+	GCC_LINK_BUG: As for   version  2.5.* UNLESS the  new   option
+-fvtable-thunks is used  in which case  2.6.0 behaves  correctly. Note
+that  compiling C++SIM with this  option requires a  version of libg++
+also compiled the same way  otherwise all applications will core  dump
+as soon as they try to do I/O.

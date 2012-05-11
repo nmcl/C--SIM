@@ -1,0 +1,72 @@
+.TH C++SIM 3A "23 September 1994" "C++SIM" "C++SIM Reference Manual"
+.SH NAME
+Semaphore \- semaphore class
+.SH SYNOPSIS
+.B "#ifndef SEMAPHORE_H_"
+.br
+.B "#   include <Event/Semaphore.h>"
+.br
+.B "#endif"
+.sp
+.BI "class Semaphore
+.br
+.BI "{"
+.br
+.BI "public:"
+.br
+.BI "	Semaphore ();"
+.sp
+.BI "	virtual ~Semaphore ();"
+.sp
+.BI "	virtual void Get (Entity* attempting);"
+.br
+.BI "	virtual void Release ();"
+.sp
+.BI "	long NumberWaiting () const;"
+.br
+.BI "};"
+.SH DESCRIPTION
+Application code can be protected from simulation processes through
+semaphores, which are instances of the
+.B
+Semaphore
+class.
+
+A semaphore is exclusively acquired, and can exist in one of two
+states:
+
+.I
+	available
+: the semaphoe can be acquired.
+
+.I
+	unavailable
+: a process has acquired the semaphore. If another process attempts to
+acquire it then it will be suspended until the semaphore is
+.I
+available
+again.
+
+A process attempting to acquire a semaphore should invoke the
+.B
+Get
+method of the semaphore, passing itself as the parameter. The
+process will be suspended if the semaphore cannot be acquired.
+
+A process which successfully acquires the semaphore should
+invoke its
+.B
+Release
+method when it is no longer required. This will automatically
+enable other processes to attempt to acquire the semaphore and
+enter the protected region.
+
+.B
+NumberWaiting
+returns the number of currently waiting (suspended) processes.
+.SH NOTES
+If the semaphore goes out of scope with processes still waiting
+for it then an error message is displayed. No further action is
+attempted on behalf of these processes.
+.SH SEE ALSO
+Entity(3A)

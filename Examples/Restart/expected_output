@@ -1,0 +1,26 @@
+Iteration 0
+Tester holding.
+	Harness holding.
+	Harness holding and checking.
+Tester woken.
+	Harness reset function called.
+Iteration 1
+Tester holding.
+	Harness holding.
+	Harness holding and checking.
+Tester woken.
+	Harness reset function called.
+Iteration 2
+Tester holding.
+	Harness holding.
+	Harness holding and checking.
+Tester woken.
+	Harness reset function called.
+Iteration 3
+Tester holding.
+	Harness holding.
+	Harness holding and checking.
+Tester woken.
+	Harness reset function called.
+	Harness passivated.
+End of simulation reached.

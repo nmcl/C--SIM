@@ -1,0 +1,159 @@
+#!/bin/sh
+
+#
+# Copyright 1990-2008, Mark Little, University of Newcastle upon Tyne
+# and others contributors as indicated 
+# by the @authors tag. All rights reserved. 
+# See the copyright.txt in the distribution for a
+# full listing of individual contributors. 
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions
+# of the GNU Lesser General Public License, v. 2.1.
+# This program is distributed in the hope that it will be useful, but WITHOUT A 
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+# PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+# You should have received a copy of the GNU Lesser General Public License,
+# v.2.1 along with this distribution; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, 
+# MA  02110-1301, USA.
+# 
+# (C) 1990-2008,
+#
+
+# Copyright (C) 1994, 1995, 1996
+#
+# Department of Computing Science,
+# The University,
+# Newcastle upon Tyne,
+# UK.
+#
+# Permission  to use,  copy,  modify  and distribute   this  program for
+# evaluation, teaching and/or research purposes only and without  fee is
+# hereby granted,  providing that this  copyright and  permission notice
+# appear  on all copies and supporting  documentation,  and that similar
+# conditions are imposed on any individual  or organization to  whom the
+# program is distributed. The University of Newcastle upon Tyne makes no
+# representation about the suitability of this software for any purpose.
+# It is provided "as is" without express or implied warranty.
+
+# $Id: getVersion,v 1.1 1996/12/02 11:11:53 nmcl Exp $
+
+
+
+PREFIX=${1:-""}
+SUFFIX=${2:-""}
+DIR=${3:-.}
+MAJOR=${4:-""}
+MINOR=${5:-""}
+SUBMIN=${6:-""}
+MATCH=no
+EXACT=0
+CLOSEST=9999999
+#
+# Build initial version string
+#
+VERSION=
+if [ ! -z "$MAJOR" ]
+then
+	VERSION=${MAJOR}
+	EXACT=`expr $MAJOR \* 10000`
+	if [ ! -z "$MINOR" ]
+	then
+		EXACT=`expr $MINOR \* 100 + $EXACT`
+		VERSION=${MAJOR}_${MINOR}
+		if [ ! -z "$SUBMIN" ]
+		then
+			EXACT=`expr $SUBMIN + $EXACT`
+			VERSION=${MAJOR}_${MINOR}_${SUBMIN}
+		fi
+	fi
+fi
+
+#
+# Look for exact match
+#
+if [ -z "$VERSION" ]
+then
+	FILE=${PREFIX}${SUFFIX}
+else
+	FILE=${PREFIX}_${VERSION}${SUFFIX}
+fi
+
+if [ -f $DIR/$FILE ]
+then
+	MATCH=yes
+else
+#
+# No exact match - scan directory looking for closest
+# Assume that if the filename includes 'unknown' its the last
+# possible match
+#
+
+	cd $DIR
+	for f in `ls -r ${PREFIX}*${SUFFIX}`
+	do
+		echo $f | grep -s unknown > /dev/null 2>&1
+		if [ $? -eq 0 ]
+		then
+			continue
+		fi
+#
+# Extract version info from file name assumes form _a_b_c
+#
+		TV=`echo $f | sed -e "s|${PREFIX}||" | sed -e "s|${SUFFIX}||"`
+		TV_SUBMIN=0
+		TV_MINOR=0
+		TV_MAJOR=0
+
+		COMPONENTS=`echo $TV | awk -F_ '{print NF}'`
+
+		if [ $COMPONENTS -gt 3 ]
+		then
+			TV_SUBMIN=`echo $TV | awk -F_ '{print $4}'`
+		fi
+
+		if [ $COMPONENTS -gt 2 ]
+		then
+			TV_MINOR=`echo $TV | awk -F_ '{print $3}'`
+		fi
+
+		if [ $COMPONENTS -gt 1 ]
+		then
+			TV_MAJOR=`echo $TV | awk -F_ '{print $2}'`
+		fi
+
+		TEST_VERSION=`expr $TV_MAJOR \* 10000 + $TV_MINOR \* 100 + $TV_SUBMIN`
+
+		# Test for exact match
+
+		if [ "$TEST_VERSION" -eq  "$EXACT" ]
+		then
+			MATCH=yes
+			FILE=$f
+			CLOSEST=0
+			break
+		fi
+
+		if [ "$TEST_VERSION" -gt "$EXACT" ]
+		then
+			# version too high
+			continue
+		fi
+
+		# Version is too low attempt to pick 'closest'
+
+		NEAR=`expr ${EXACT} - ${TEST_VERSION}`
+		if [ "$NEAR" -le "$CLOSEST" ]
+		then
+			MATCH=yes
+			FILE=$f
+			CLOSEST=$NEAR
+		fi
+	
+	done
+fi
+
+if [ $MATCH = "yes" ]
+then
+	echo $FILE
+fi

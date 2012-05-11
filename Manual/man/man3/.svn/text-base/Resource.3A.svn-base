@@ -1,0 +1,114 @@
+.TH C++SIM 3A "24 February 1995" "C++SIM" "C++SIM Reference Manual"
+.SH NAME
+Resource \- Reference counting base class
+.SH SYNOPSIS
+.B "#ifndef RESOURCE_H_"
+.br
+.B "#   include <Common/Resource.h>
+.br
+.B "#endif"
+.sp
+.BI "class Resource
+.br
+.BI "{"
+.br
+.BI "public:"
+.br
+.BI "	static void ref   (Resource* resource);
+.br
+.BI "	static void unref (Resource* resource);
+.sp
+.BI "	void* operator new    (size_t amount);
+.br
+.BI "	void  operator delete (void* memPtr);
+.sp
+.BI "protected:"
+.br
+.BI "	Resource ();"
+.br
+.BI "	virtual ~Resource ();"
+.br
+.BI "};"
+.SH DESCRIPTION
+C++ provides no garbage collection mechanism, and therefore
+keeping track of references to objects and knowing when they
+can be correctly destroyed can be difficult. Simply calling
+.B
+delete
+on a pointer to an object could leave dangling references, or,
+if the object was actually created on the stack, result in
+the failure of the application.
+
+The aim of the
+.B
+Resource
+class is to provide a reference counting mechanism for all
+derived classes, and to automatically remove objects when they
+are no longer required. However, for this to work a new style
+of programming is required.
+
+When a reference counted object is created, its reference count
+is zero. Before using the object, it should be referenced using
+the
+.I
+static
+.B
+ref
+method, passing the object as the parameter.
+
+When finished with the object it should be unreferenced using the
+.I
+static
+.B
+unref
+method. If the reference count reaches zero then the object will
+be deleted if it was created on the heap, otherwise nothing will
+happen to it. However, no attempt should be made to use the object
+after
+.B
+unref
+has been called as it cannot be guaranteed that the object will
+be valid.
+
+Both
+.B
+ref
+and
+.B
+unref
+are
+.B
+NULL
+pointer tolerant.
+
+The operators
+.B
+new
+and
+.B
+delete
+are provided to enable
+.B
+Resource
+to determine whether the object which inherits from it was
+created on the heap or the stack.
+.SH NOTES
+The
+.B
+Thread
+class derives from
+.B
+Resource
+and C++SIM uses this to determine when it can delete
+threaded objects. If this facility is not required, then
+the system should be built using the
+.B
+-DNO_RESOURCE
+flag.
+.SH BUGS
+A race condition could occur during object creation which would
+mean that an object may incorrectly think it was created on the
+stack. If this happens, a memory leak may result. A solution for
+this is being examined.
+.SH SEE ALSO
+Thread(3A)

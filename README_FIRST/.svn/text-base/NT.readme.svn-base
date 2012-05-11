@@ -1,0 +1,24 @@
+/*
+ * Copyright (C) 1994
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ */
+
+Currently there  is no equivalent script to  'configure' to enable the
+system to be built from the shell. It has only been tested with Visual
+C++, and is built from the graphical environment.
+
+Because of limitations in Visual C++, it is not  possible to get it to
+directly compile .cc files as C++. Renaming all of the files to a .cpp
+equivalent is not  an option (although users  are free to do so). This
+limitation does not appear  when using the  system from the shell,  as
+there does exist a command-line option to specify what  is a C++ file.
+For the  moment    there  exist  several temporary  files    with .cpp
+extensions, and these simply include the real .cc files(!)
+
+When building for NT the options for  the  thread type and  queue type
+are  hard-wired into the  file NT_Configure.h. If  you want to  change
+them, edit this file.

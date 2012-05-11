@@ -1,0 +1,31 @@
+/*
+ * Copyright (C) 1994-1998,
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ */
+
+This is beta-release version 1.7.4 of C++SIM. 
+
+Change log is:
+
+1.0: Initial release.
+1.1: Bug fixes to 1.0 and enhancements to allow g++ to work with Sun's
+     lwp package.
+1.2: More bug fixes and general tidy up.
+1.3: Brought the system more in line with SIMULA.
+1.4: Added ability to delete threaded objects and reactivate main.
+1.5: Brought up-to-date with internal release, added debugging and
+     statistics classes, and added event handling mechanisms. Bug
+     fixes, and C++ Task Library support.
+1.6: Improved scheduler class and scheduler list classes. Support for
+     various pthreads implementations and cthreads. Contributions to
+     scheduler list classes and Quick Threads support.
+1.7: Removed the limitation on thread package inheritence: applications
+     no longer need to be rebuilt when C++SIM changes thread usage. Bug
+     fixes. Some new statistical distributions, and more thread package
+     porting.
+
+Mark Little 5/10/98.

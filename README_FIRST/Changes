@@ -1,0 +1,19 @@
+/*
+ * Copyright (C) 1994-1998,
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ */
+
+The changes between versions 1.7.4 and 1.7.3 are as follows:
+
+(i) Fixed configure to work with operating systems which return non-numeric
+    version numbers.
+
+(ii) Ported to HPUX version of pthreads.
+
+(iii) Added some more statistical distributions.
+
+(iv) Fixed race conditions on Solaris 2.6 threads.

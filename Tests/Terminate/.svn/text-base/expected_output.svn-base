@@ -1,0 +1,20 @@
+
+Creating first process.
+Activating first process.
+
+Creating second process.
+Activating second process.
+
+Creating third process.
+Terminating second process.
+
+Tester process holding.
+
+Second process activated.
+Now deleting self.
+Second process destructor called.
+
+Third process activated.
+Now self terminating.
+
+Simulation terminating.

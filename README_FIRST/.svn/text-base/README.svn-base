@@ -1,0 +1,27 @@
+/*
+ * Copyright (C) 1994-1998,
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ */
+
+M. Little		Computing Laboratory
+29 November 1991	University of Newcastle upon Tyne, NE1 7RU, England
+
+This is  public release  version 1.7.4 beta   of C++SIM, a set of  C++
+class definitions  that mimic the process-based  simulation facilities
+of SIMULA and the SIMSET routines.
+
+The  co-routine facility of Simula   is implemented by various threads
+(and others).  Classes  are    provided  for various   random   number
+distributions.
+
+If  you  find any bugs  or make  modifications (e.g.,  ports  to other
+thread packages) or port the package to other systems then let me know
+so I can keep the sources up-to-date for other users.
+
+Send to: M.C.Little@newcastle.ac.uk
+
+
