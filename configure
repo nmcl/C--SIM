@@ -516,8 +516,8 @@ echo
 #
 
 echo $PRE_ECHO "Finding standard C++ include directory, please wait ..." $POST_ECHO
-echo '#include <iostream.h>' > configtest.C
-CPLUSPLUS_INCLUDE_DEFAULT=`$CPLUSPLUS_PROGRAM -E -Wno-deprecated configtest.C | grep "/iostream.h" | head -1 |sed -e 's|[^"]*"\([^"]*\).*|\1|' -e 's|/iostream.h||'`
+echo '#include <iostream>' > configtest.C
+CPLUSPLUS_INCLUDE_DEFAULT=`$CPLUSPLUS_PROGRAM -E -Wno-deprecated configtest.C | grep "/iostream" | head -1 |sed -e 's|[^"]*"\([^"]*\).*|\1|' -e 's|/iostream||'`
 rm -f configtest.C
 echo "done"
 
