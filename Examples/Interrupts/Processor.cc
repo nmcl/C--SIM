@@ -26,8 +26,7 @@
  * UK.
  */
 
-
-#include <iostream.h>
+#include <iostream>
 
 #ifndef PROCESSOR_H_
 #  include "Processor.h"

@@ -28,7 +28,7 @@
  * $Id: Controller.cc,v 1.1 1996/12/09 10:10:04 nmcl Exp $
  */
 
-#include <iostream.h>
+#include <iostream>
 
 #ifndef RESOURCE_H_
 #  include <Common/Resource.h>

@@ -28,7 +28,7 @@
  * $Id: Main.cc,v 1.2 1998/09/30 08:07:18 nmcl Exp $
  */
 
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
 
 #ifndef BOOLEAN_H_
