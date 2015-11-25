@@ -40,7 +40,7 @@ using std::endl;
 using std::ostream;
 using std::istream;
 
-#Ifndef RESOURCE_H_
+#ifndef RESOURCE_H_
 #  include <Common/Resource.h>
 #endif
 
