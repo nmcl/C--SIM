@@ -27,7 +27,7 @@
  */
 
 #include <math.h>
-#include <iostream.h>
+#include <iostream>
 
 #ifndef PARETO_H_
 #  include <Stat/Pareto.h>

@@ -26,13 +26,11 @@
  * UK.
  */
 
-
 /*
  * This class defines the elements of the linked lists within SIMSET.
  */
 
-
-#include <iostream.h>
+#include <iostream>
 
 #ifndef LINK_H_
 #  include <SimSet/Link.h>

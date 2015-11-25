@@ -31,7 +31,7 @@
  * class in SIMULA.
  */
 
-#include <iostream.h>
+#include <iostream>
 
 #ifndef HEAD_H_
 #  include <SimSet/Head.h>
