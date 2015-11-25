@@ -32,6 +32,15 @@
 #include <iostream>
 #include <fstream>
 
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::ios;
+using std::ostream;
+using std::istream;
+using std::ofstream;
+using std::ifstream;
+
 #ifndef BOOLEAN_H_
 #  include <Common/Boolean.h>
 #endif
