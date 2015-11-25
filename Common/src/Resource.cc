@@ -28,7 +28,7 @@
  * $Id: Resource.cc,v 1.1 1995/02/28 13:26:10 nmcl Exp $
  */
 
-#include <iostream.h>
+#include <iostream>
 
 #ifndef RESOURCE_H_
 #   include <Common/Resource.h>

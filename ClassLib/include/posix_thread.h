@@ -31,7 +31,7 @@
 #ifndef POSIX_THREAD_H_
 #define POSIX_THREAD_H_
 
-#include <iostream.h>
+#include <iostream>
 #include <pthread.h>
 #include <semaphore.h>
 

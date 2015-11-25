@@ -26,7 +26,7 @@
  * UK.
  */
 
-#include <iostream.h>
+#include <iostream>
 
 #ifndef THREAD_H_
 #  include <ClassLib/thread.h>

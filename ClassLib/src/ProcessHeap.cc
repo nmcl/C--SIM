@@ -26,8 +26,7 @@
  * UK.
  */
 
-
-#include <iostream.h>
+#include <iostream>
 
 #ifndef PROCESSHEAP_H_
 #  include "ProcessHeap.h"
