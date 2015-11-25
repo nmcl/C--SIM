@@ -26,11 +26,19 @@
  * UK.
  */
 
-
 #include <errno.h>
 #include <iostream>
-#include <fstream.h>
-#include <iomanip.h>
+#include <fstream>
+#include <iomanip>
+
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::ios;
+using std::ostream;
+using std::istream;
+using std::ofstream;
+using std::ifstream;
 
 #ifndef PROCESS_H_
 #  include <ClassLib/Process.h>
