@@ -28,8 +28,6 @@
  * $Id: thread.cc,v 1.15 1998/08/28 14:19:45 nmcl Exp $
  */
 
-#include <iostream.h>
-
 #if defined(DEBUG) && !defined(DEBUG_H_)
 #  include <Common/Debug.h>
 #endif

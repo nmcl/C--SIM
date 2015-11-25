@@ -31,7 +31,14 @@
 #ifndef THREAD_H_
 #define THREAD_H_
 
-#include <iostream.h>
+#include <iostream>
+#include <ostream>
+
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::ostream;
+using std::istream;
 
 #ifndef RESOURCE_H_
 #  include <Common/Resource.h>

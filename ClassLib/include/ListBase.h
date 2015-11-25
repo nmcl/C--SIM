@@ -31,7 +31,7 @@
 #ifndef LISTBASE_H_
 #define LISTBASE_H_
 
-#include <iostream.h>
+#include <iostream>
 
 #ifndef BOOLEAN_H_
 #  include <Common/Boolean.h>

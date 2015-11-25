@@ -34,7 +34,7 @@
 #  include "ProcessIterator.h"
 #endif
 
-#include <iostream.h>
+#include <iostream>
 
 
 ProcessList::ProcessList () { Head = (ProcessCons*) 0; }

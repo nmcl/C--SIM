@@ -28,7 +28,7 @@
  * $Id: Random.cc,v 1.7 1998/08/28 14:19:39 nmcl Exp $
  */
 
-#include <iostream.h>
+#include <iostream>
 #include <math.h>
 
 #ifndef RANDOM_H_

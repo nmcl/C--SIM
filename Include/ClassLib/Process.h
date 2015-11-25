@@ -31,7 +31,14 @@
 #ifndef PROCESS_H_
 #define PROCESS_H_
 
-#include <iostream.h>
+#include <iostream>
+#include <ostream>
+
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::ostream;
+using std::istream;
 
 #ifndef CONFIGURE_H_
 #  include <Config/Configure.h>
