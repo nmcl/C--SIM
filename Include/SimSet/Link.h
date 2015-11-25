@@ -26,11 +26,9 @@
  * UK.
  */
 
-
 /*
  * This class defines the elements of the linked lists within SIMSET.
  */
-
 
 #ifndef LINK_H_
 #define LINK_H_
@@ -44,9 +42,11 @@
 #endif
 
 
+class Head;
+
 class Link : public Linkage
 {
-    friend class Head;
+    friend Head;
 
 public:
     virtual ~Link ();
