@@ -28,8 +28,8 @@
 
 #include <errno.h>
 #include <iostream>
-#include <fstream.h>
-#include <iomanip.h>
+#include <fstream>
+#include <iomanip>
 #include <limits>
 #include <math.h>
 

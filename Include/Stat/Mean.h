@@ -30,7 +30,7 @@
 #define MEAN_H_
 
 #include <iostream>
-#include <fstream.h>
+#include <fstream>
 
 #ifndef BOOLEAN_H_
 #  include <Common/Boolean.h>
