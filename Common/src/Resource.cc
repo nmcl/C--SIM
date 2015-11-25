@@ -30,6 +30,12 @@
 
 #include <iostream>
 
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::ostream;
+using std::istream;
+
 #ifndef RESOURCE_H_
 #   include <Common/Resource.h>
 #endif
