@@ -29,7 +29,7 @@
 #ifndef MEAN_H_
 #define MEAN_H_
 
-#include <iostream.h>
+#include <iostream>
 #include <fstream.h>
 
 #ifndef BOOLEAN_H_

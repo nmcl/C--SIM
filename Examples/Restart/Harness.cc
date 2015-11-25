@@ -18,7 +18,7 @@
  * (C) 1990-2008,
  */
  
-#include <iostream.h>
+#include <iostream>
 
 #ifndef PROCESS_H_
 #  include <ClassLib/Process.h>

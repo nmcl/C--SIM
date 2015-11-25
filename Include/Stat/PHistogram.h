@@ -37,7 +37,7 @@
 #  include <Stat/Variance.h>
 #endif
 
-#include <iostream.h>
+#include <iostream>
 
 
 class Bucket

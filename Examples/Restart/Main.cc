@@ -26,7 +26,7 @@
  * UK.
  */
 
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
 
 #ifndef BOOLEAN_H_
