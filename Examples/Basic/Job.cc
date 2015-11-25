@@ -47,7 +47,7 @@
 #endif
 
 #ifdef DEBUG
-#  include <iostream.h>
+#  include <iostream>
 #endif
 
 extern Machine* M;

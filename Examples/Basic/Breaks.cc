@@ -38,8 +38,7 @@
 #  include "Queue.h"
 #endif
 
-#include <iostream.h>
-
+#include <iostream>
 
 extern Machine* M;
 extern Queue JobQ;

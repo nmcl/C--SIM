@@ -44,7 +44,7 @@
 #  include "Queue.h"
 #endif
 
-#include <iostream.h>
+#include <iostream>
 
 extern Mean meanJobs;
 extern long ProcessedJobs;
