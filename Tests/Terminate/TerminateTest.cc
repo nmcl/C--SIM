@@ -38,7 +38,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <iostream.h>
+#include <iostream>
 
 
 int main (int, char**)

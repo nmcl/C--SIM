@@ -53,7 +53,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <iostream.h>
+#include <iostream>
 
 enum HistType { PRECISION, NORMAL, SIMPLE, QUANTILE };
 

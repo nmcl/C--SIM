@@ -33,7 +33,7 @@
 */
 
 #include <stdlib.h>	// to get getopt and atoi
-#include <iostream.h>
+#include <iostream>
 
 #include <ClassLib/Random.h>
 

@@ -28,7 +28,7 @@
  * $Id: Tester.cc,v 1.3 1997/03/18 13:47:30 nmcl Exp $
  */
 
-#include <iostream.h>
+#include <iostream>
 
 #ifndef RESOURCE_H_
 #  include <Common/Resource.h>

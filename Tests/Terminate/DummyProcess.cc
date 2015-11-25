@@ -26,7 +26,7 @@
  * UK.
  */
 
-#include <iostream.h>
+#include <iostream>
 
 #ifndef DUMMYPROCESS_H_
 #  include "DummyProcess.h"

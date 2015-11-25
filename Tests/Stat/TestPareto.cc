@@ -27,7 +27,7 @@
  */
 
 #include <string.h>
-#include <iostream.h>
+#include <iostream>
 #include <stdlib.h>
 
 #ifndef PARETO_H_
