@@ -1,10 +1,10 @@
-= JavaSim Manual Version 2.0
+= C++SIM Manual Version 2.0
 :numbered:
 
-JavaSim is an object-oriented, discrete event simulation toolkit for Java. It's a Java implementation of the original link:http://www.cs.newcastle.ac.uk/publications/articles/papers/200.pdf[C++SIM simulation toolkit], which was developed as a direct consequence of research conducted within the scope of the link:http://www.ncl.ac.uk/computing/research/publication/159390[Arjuna project from Newcastle University] in the 1980's. Therefore, it shares many of the same requirements:
+C++SIM is an object-oriented, discrete event simulation toolkit for C++. It was developed as a direct consequence of research conducted within the scope of the link:http://www.ncl.ac.uk/computing/research/publication/159390[Arjuna project from Newcastle University] in the 1980's. It has the following requirements:
 
 * easy to learn and use: the interface to the simulation library should be easy to understand.
-* correct abstraction: existing Java programmers should not find the simulation paradigm in conflict with the programming paradigm presented by Java. Simulation programmers used to other environments should find the transition to JavaSim straightforward.
+* correct abstraction: existing C++ programmers should not find the simulation paradigm in conflict with the programming paradigm presented by C++. Simulation programmers used to other environments should find the transition to C++SIM straightforward.
 * flexible and extensible: it should be relatively easy for anyone to add new functionality to the system, such as new distribution functions.
 * efficiency: the system should be efficient and produce efficient simulation runs. Simulation packages which we have experience of tended to be extremely slow and consume large amounts of system resources.
 
@@ -12,15 +12,15 @@ These requirements were realised in the following design decisions:
 
 - the discrete-event process based simulation facilities provided by SIMULA and its simulation classes and libraries have a considerable experience and user community which have found them to be successful for a wide variety of simulations. In later versions of the system additional simulation classes were added which provide extra functionality.
 
-- inheritance was to be used throughout the design to even a greater extent than is already provided in SIMULA. This enables JavaSim to be more flexible and extensible, allowing new functionality to be added without affecting the overall system structure. For example, our I/O facilities, random number generators and probability distribution functions are entirely object-oriented, relying on inheritance to specialise their behaviour.
+- inheritance was to be used throughout the design to even a greater extent than is already provided in SIMULA. This enables C++SIM to be more flexible and extensible, allowing new functionality to be added without affecting the overall system structure. For example, our I/O facilities, random number generators and probability distribution functions are entirely object-oriented, relying on inheritance to specialise their behaviour.
 
 NOTE: It is not necessary for the reader to know anything about the SIMULA programming language or its simulation classes, but such knowledge would aid in the understanding of the concepts and classes presented within.
 
-Currently JavaSim has been tested with JDK 1.7 and 1.8. In the past it has worked with all versions of Java starting with 1.0.2. However, we have not tested with older versions for a long time, so your mileage may vary. If you have any problems, questions, suggestions etc. then consider raising an issue on the link:https://github.com/nmcl/JavaSim/issues[github page] or even fork JavaSim and raise a pull request.
+In the past C++SIM supported a range of different operating systems and thread packages. However, in recent years it has become hard for the team to test this wide a combination and therefore currently we only support Linux, pthreads and gcc. If you have any problems, questions, suggestions etc. then consider raising an issue on the link:https://github.com/nmcl/C--SIM/issues[github page] or even fork C++SIM and raise a pull request.
 
 == Introduction
 
-This manual is not intended as a tutorial on the concepts of simulation in general, but rather how to write simulations in the JavaSim system. However, in order to be able to do this certain key simulation concepts will be briefly described. The interested reader is referred to link:http://dl.acm.org/citation.cfm?id=539335[this book] for detailed descriptions of these concepts and for further discussions on simulation modelling.
+This manual is not intended as a tutorial on the concepts of simulation in general, but rather how to write simulations in the C++SIM system. However, in order to be able to do this certain key simulation concepts will be briefly described. The interested reader is referred to link:http://dl.acm.org/citation.cfm?id=539335[this book] for detailed descriptions of these concepts and for further discussions on simulation modelling.
 
 === Simulation Models
 
@@ -50,7 +50,7 @@ There are three categories of simulation model, described by the way in which th
 
 - _Continuous time-discrete event_: the time parameter is (conceptually) continuous and the observation period is a real interval, usually starting at zero for simplicity. The operation path is completely determined by the sequence of event times (which need not be evenly spaced and can be of arbitrary increments) and by the discrete changes in the system state which take place at these times (i.e., the interactions of the events). In between consecutive event times the system state may vary continuously. Although it is possible to model the passage of real time by suitable event timing, this is not necessary for a discrete event system: the simulation model can advance its own internal time directly from one discrete event to another, taking any appropriate action to advance the state accordingly. 
 
-It is this latter category of simulation modelling that JavaSim supports. Examples of discrete-event simulations are most queuing problems: entities (e.g., customers in a bank) arrive according to a given distribution and change the system state instantaneously (e.g., the number of customers in the queue). The operation paths for this system are step functions: they jump up (or down) by one when a customer joins (or leaves) the queue.
+It is this latter category of simulation modelling that C++SIM supports. Examples of discrete-event simulations are most queuing problems: entities (e.g., customers in a bank) arrive according to a given distribution and change the system state instantaneously (e.g., the number of customers in the queue). The operation paths for this system are step functions: they jump up (or down) by one when a customer joins (or leaves) the queue.
 
 === Event scheduling
 
@@ -61,17 +61,17 @@ It maintains an _event list_, which indicates which events are to be scheduled f
 - _event-oriented_: there is a procedure associated with each type of event in the system: it performs the action required to handle that type of event and it is invoked every time such an event occurs. In an event-oriented approach, an operation path is obtained by taking a global view of everything that happens in the system; the manipulation of events is explicit. 
 
 - _process-oriented_: an operation path is obtained by the interacting of a number of processes running in parallel. The management of events is implicit in the management of the processes. The simulation system provides primitives for placing processes at particular points on the event list, removing and re-scheduling them. 
-The JavaSim User’s Manuals
+The C++SIM User’s Manuals
 
-The process-oriented approach best fits with the object-oriented paradigm which we want to present to the programmer of JavaSim. As in SIMULA, simulation processes then become active objects which interact with each other through message passing and the simulation primitives. Refinements of these objects can then be obtained by inheriting from them and redefining the appropriate methods.
+The process-oriented approach best fits with the object-oriented paradigm which we want to present to the programmer of C++SIM. As in SIMULA, simulation processes then become active objects which interact with each other through message passing and the simulation primitives. Refinements of these objects can then be obtained by inheriting from them and redefining the appropriate methods.
 
 == Basic simulation classes
 
-This section describes the core elements of the JavaSim simulation system. It is not intended as a tutorial on Java, and basic knowledge of the language is assumed. Note, all of the classes described in this section can be found in the org.javasim package.
+This section describes the core elements of the C++SIM simulation system. It is not intended as a tutorial on C++, and basic knowledge of the language is assumed. Note, all of the classes described in this section can be found in the org.javasim package.
 
 === The simulation scheduler
 
-The previous section described the event list and how simulation entities (processes) are executed according to their position on the event list (i.e., with increasing simulation time). In JavaSim, as in SIMULA, simulation processes are managed by a _scheduler_ and are placed on a _scheduler queue_ (the event list). Processes are executed in pseudo-parallel, i.e., only one process executes at any instance of real time, but many processes may execute concurrently at any instance of simulation time. The simulation clock is only advanced when all processes have been executed for the current instance of simulation time.
+The previous section described the event list and how simulation entities (processes) are executed according to their position on the event list (i.e., with increasing simulation time). In C++SIM, as in SIMULA, simulation processes are managed by a _scheduler_ and are placed on a _scheduler queue_ (the event list). Processes are executed in pseudo-parallel, i.e., only one process executes at any instance of real time, but many processes may execute concurrently at any instance of simulation time. The simulation clock is only advanced when all processes have been executed for the current instance of simulation time.
 
 Inactive processes are placed on to the scheduler queue, and when the current active process yields control to the scheduler (either because it has finished or been placed back onto the scheduler queue), the scheduler removes the process at the head of the queue and re-activates it. (In SIMULA the currently active process is not removed from the head of the queue.) When the scheduler queue is empty, i.e., there are no further processes left to execute, the scheduler terminates the simulation.
 
@@ -81,13 +81,13 @@ Figure 1: Scheduler-Process Interaction
 
 As Figure 1 shows, the scheduler co-ordinates the entire simulation run, effectively monitoring the active and passive processes to enable it to determine when, and which, process to activate next. A simulation application cannot affect the scheduler directly, but can do so only indirectly through modifications of the scheduler queue.
 
-NOTE: the scheduler queue can be structured in a variety of ways, including a linear list or a tree. The implementation of the queue can depend upon the type of simulation being conducted. For example, a simulation which involves many (concurrent) processes would suffer from using a linear ordered queue which would typically have insertion and removal routines with overheads proportional to the number of entries in the queue. However, a linear list may work best for a low number of simulation processes. JavaSim comes with a suite of scheduler queue implementations which can be chosen when the system is built.
+NOTE: the scheduler queue can be structured in a variety of ways, including a linear list or a tree. The implementation of the queue can depend upon the type of simulation being conducted. For example, a simulation which involves many (concurrent) processes would suffer from using a linear ordered queue which would typically have insertion and removal routines with overheads proportional to the number of entries in the queue. However, a linear list may work best for a low number of simulation processes. C++SIM comes with a suite of scheduler queue implementations which can be chosen when the system is built.
 
 ==== Scheduler and Simulation classes
 
 The simulation scheduler is an instance of the Scheduler class. It is the responsibility of the application programmer to ensure that only a single instance of this class is created.
 
-NOTE: In recent versions of JavaSim the Simulation class has taken on some of the functionality previously incorporated within the Scheduler class.
+NOTE: In recent versions of C++SIM the Simulation class has taken on some of the functionality previously incorporated within the Scheduler class.
 
 ----
 public class Scheduler extends Thread
@@ -117,7 +117,7 @@ A process can use isReset to determine whether or not the simulation has been re
 
 === Simulation processes
 
-As was described in the previous sections, JavaSim supports the process-oriented approach to simulation, where each simulation entity can be considered a separate process. Therefore in JavaSim the entities within a simulation are represented by _process objects_. These are Java objects which have an independent thread of control associated with them at creation time, allowing them to convey the notion of activity necessary for participating in the simulation.
+As was described in the previous sections, C++SIM supports the process-oriented approach to simulation, where each simulation entity can be considered a separate process. Therefore in C++SIM the entities within a simulation are represented by _process objects_. These are C++ objects which have an independent thread of control associated with them at creation time, allowing them to convey the notion of activity necessary for participating in the simulation.
 
 In keeping with the object-oriented paradigm, and to make development of process objects simpler, classes inherit the process functionality from the appropriate base class (SimulationProcess). This class defines all of the necessary operations for the simulation system to control the simulation entities within it, and for them to interact with it and each other.
 
@@ -137,7 +137,7 @@ A process which is either active or suspended is said to be _scheduled_.
 
 The SimulationProcess class definition is shown below. Before considering how to build an example class derived from SimulationProcess we shall discuss the methods which it provides.
 
-Because the constructors are protected, it is not possible to create an instance of the SimulationProcess class, i.e., classes must be derived from this. Processes are threaded objects, and typically each thread package schedules execution of threads according to a priority. By default, all processes in JavaSim are created with the same priority, but this can be altered by calling the setPriority method of java.lang.Thread.
+Because the constructors are protected, it is not possible to create an instance of the SimulationProcess class, i.e., classes must be derived from this. Processes are threaded objects, and typically each thread package schedules execution of threads according to a priority. By default, all processes in C++SIM are created with the same priority, but this can be altered by calling the setPriority method of java.lang.Thread.
 
 NOTE: Thread priorities have no effect on a simulation run.
 
@@ -210,7 +210,7 @@ idle() returns false if the process is either active or scheduled to become acti
 
 passivated() and terminated() indicate whether the process is in the passive or terminated state, respectively.
 
-Because SimulationProcess extends the java.lang.Thread class it is necessary for the simulation class to provide an implementation of the run method which will do the actual work for the process. If this method ever returns then the thread is destroyed. However, in order for JavaSim to detect the termination of the thread, the terminate() method _must_ be used instead.
+Because SimulationProcess extends the java.lang.Thread class it is necessary for the simulation class to provide an implementation of the run method which will do the actual work for the process. If this method ever returns then the thread is destroyed. However, in order for C++SIM to detect the termination of the thread, the terminate() method _must_ be used instead.
 
 ===== Example
 
@@ -242,7 +242,7 @@ class Arrivals extends SimulationProcess
 
 === Starting, ending and controlling a simulation
 
-When a SimulationProcess object is created in JavaSim it starts in the passive state, and must be activated before it can take part in the simulation. This is typically performed by the first process object to which control is transferred after the simulation is initially started. When writing JavaSim applications it is typical for the main thread to create a single _controller process_ which is responsible for co-ordinating the entire simulation run. This creates and activates all of the simulation entities and the scheduler, and provides methods for suspending the main thread, thus allowing the controller object to execute, and exiting the application. An example controller interface is shown below, and the implementations for its methods will be described in the following sections:
+When a SimulationProcess object is created in C++SIM it starts in the passive state, and must be activated before it can take part in the simulation. This is typically performed by the first process object to which control is transferred after the simulation is initially started. When writing C++SIM applications it is typical for the main thread to create a single _controller process_ which is responsible for co-ordinating the entire simulation run. This creates and activates all of the simulation entities and the scheduler, and provides methods for suspending the main thread, thus allowing the controller object to execute, and exiting the application. An example controller interface is shown below, and the implementations for its methods will be described in the following sections:
 
 ----
 public  class  Controller  extends  SimulationProcess
@@ -262,7 +262,7 @@ Because Controller is a simulation process itself, it derives from Simulationroc
 
 ==== Suspending the main thread
 
-When a threaded application is started it is important to realise that before any application threads are created, the Java virtual machine has already created one to run the application. This thread must be suspended before any simulation threads can run.
+When a threaded application is started it is important to realise that before any application threads are created your application is already running with a main thread. This thread must be suspended before any simulation threads can run.
 
 The await() method of Controller is responsible for suspending this thread:
 
@@ -367,7 +367,7 @@ Many of the aspects of the real world which a simulation attempts to model have 
 
 Without such aids, which are either impractical or not generally available, the alternative is to use numerical algorithms. No deterministic algorithm can produce a sequence of numbers that would have all of the properties of a truly random sequence (see link:http://www.amazon.com/Art-Computer-Programming-Volume-Seminumerical/dp/0201896842[Knuth, Volume 2.]) However, for all practical purposes it is only necessary that the numbers produced appear random, i.e., pass certain statistical tests for randomness. Although these generators produce pseudo-random numbers, we continue to call the random number generators.
 
-The starting point for generating arbitrary distribution functions is to produce a standard uniform distribution. As we shall see, all other distributions can be produced based upon this. (Interested readers are referred to link:http://dl.acm.org/citation.cfm?id=539335[this] for a more complete treatment of this topic). All of the distribution functions in JavaSim rely upon inheritance to specialise the behaviour obtained from the uniform distribution class. These classes can be found in the org.javasim.streams package.
+The starting point for generating arbitrary distribution functions is to produce a standard uniform distribution. As we shall see, all other distributions can be produced based upon this. (Interested readers are referred to link:http://dl.acm.org/citation.cfm?id=539335[this] for a more complete treatment of this topic). All of the distribution functions in C++SIM rely upon inheritance to specialise the behaviour obtained from the uniform distribution class. These classes can be found in the org.javasim.streams package.
 
 === RandomStream
 
@@ -511,7 +511,7 @@ TODO
 
 Simulations formed by the interaction of objects derived from SimulationProcess can be considered _causal_ (synchronous) in nature: events occur at specific times and form a well defined order. However, it is sometimes necessary to simulate asynchronous real world events, e.g., processor interrupts. To do this requires finer-grained control of the scheduling of simulation processes than it provided by the scheduler; the scheduler simply activates according to simulation time, whereas asynchronous events may have different activation rules, e.g., activate when another process is terminated.
 
-The SimulationEntity class and others to be described in the following sections gives this required level of control to the user, extending the types of simulation which are possible with JavaSim. Asynchronous simulation processes are derived from SimulationEntity, but the implementation enables these asynchronous process to execute in the same simulation as SimulationProcess objects. However, because these processes are suspended and resumed outside of the control of the scheduler, it is possible for deadlock situations to occur. Therefore, some care must be taken when using these classes.
+The SimulationEntity class and others to be described in the following sections gives this required level of control to the user, extending the types of simulation which are possible with C++SIM. Asynchronous simulation processes are derived from SimulationEntity, but the implementation enables these asynchronous process to execute in the same simulation as SimulationProcess objects. However, because these processes are suspended and resumed outside of the control of the scheduler, it is possible for deadlock situations to occur. Therefore, some care must be taken when using these classes.
 
 In addition to the active, suspended, passive and terminated states which a simulation process can be in, asynchronous objects can also be in the following states:
 
@@ -632,7 +632,7 @@ If the semaphore is garbage collected with processes waiting for it then an erro
 
 == Statistical classes
 
-The purpose of a simulation typically involves the gathering of relevant statistical information, e.g., the average length of time spent in a queue. JavaSim provides a number of different classes for gathering such information. These classes can be found in the org.javasim.stats package.
+The purpose of a simulation typically involves the gathering of relevant statistical information, e.g., the average length of time spent in a queue. C++SIM provides a number of different classes for gathering such information. These classes can be found in the org.javasim.stats package.
 
 === Mean
 
