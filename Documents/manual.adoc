@@ -1,10 +1,10 @@
 = C++SIM Manual Version 2.0
 :numbered:
 
-C\\++SIM is an object-oriented, discrete event simulation toolkit for C++. It was developed as a direct consequence of research conducted within the scope of the link:http://www.ncl.ac.uk/computing/research/publication/159390[Arjuna project from Newcastle University] in the 1980's. It has the following requirements:
+This is an object-oriented, discrete event simulation toolkit for C++. It was developed as a direct consequence of research conducted within the scope of the link:http://www.ncl.ac.uk/computing/research/publication/159390[Arjuna project from Newcastle University] in the 1980's. It has the following requirements:
 
 * easy to learn and use: the interface to the simulation library should be easy to understand.
-* correct abstraction: existing C++ programmers should not find the simulation paradigm in conflict with the programming paradigm presented by C++. Simulation programmers used to other environments should find the transition to C++SIM straightforward.
+* correct abstraction: existing programmers should not find the simulation paradigm in conflict with the language. Simulation programmers used to other environments should find the transition to C++SIM straightforward.
 * flexible and extensible: it should be relatively easy for anyone to add new functionality to the system, such as new distribution functions.
 * efficiency: the system should be efficient and produce efficient simulation runs. Simulation packages which we have experience of tended to be extremely slow and consume large amounts of system resources.
 
@@ -16,7 +16,7 @@ These requirements were realised in the following design decisions:
 
 NOTE: It is not necessary for the reader to know anything about the SIMULA programming language or its simulation classes, but such knowledge would aid in the understanding of the concepts and classes presented within.
 
-In the past C++SIM supported a range of different operating systems and thread packages. However, in recent years it has become hard for the team to test this wide a combination and therefore currently we only support Linux, pthreads and gcc. If you have any problems, questions, suggestions etc. then consider raising an issue on the link:https://github.com/nmcl/C--SIM/issues[github page] or even fork C++SIM and raise a pull request.
+In the past we supported a range of different operating systems and thread packages. However, in recent years it has become hard for the team to test this wide a combination and therefore currently we only support Linux, pthreads and gcc. If you have any problems, questions, suggestions etc. then consider raising an issue on the link:https://github.com/nmcl/C--SIM/issues[github page] or even fork C++SIM and raise a pull request.
 
 == Introduction
 
@@ -67,7 +67,7 @@ The process-oriented approach best fits with the object-oriented paradigm which 
 
 == Basic simulation classes
 
-This section describes the core elements of the C++SIM simulation system. It is not intended as a tutorial on C++, and basic knowledge of the language is assumed. Note, all of the classes described in this section can be found in the org.javasim package.
+This section describes the core elements of the simulation system. It is not intended as a tutorial on C++, and basic knowledge of the language is assumed. Note, all of the classes described in this section can be found in the org.javasim package.
 
 === The simulation scheduler
 
@@ -117,7 +117,7 @@ A process can use isReset to determine whether or not the simulation has been re
 
 === Simulation processes
 
-As was described in the previous sections, C++SIM supports the process-oriented approach to simulation, where each simulation entity can be considered a separate process. Therefore in C++SIM the entities within a simulation are represented by _process objects_. These are C++ objects which have an independent thread of control associated with them at creation time, allowing them to convey the notion of activity necessary for participating in the simulation.
+As was described in the previous sections, the package supports the process-oriented approach to simulation, where each simulation entity can be considered a separate process. Therefore in the entities within a simulation are represented by _process objects_. These are C++ objects which have an independent thread of control associated with them at creation time, allowing them to convey the notion of activity necessary for participating in the simulation.
 
 In keeping with the object-oriented paradigm, and to make development of process objects simpler, classes inherit the process functionality from the appropriate base class (SimulationProcess). This class defines all of the necessary operations for the simulation system to control the simulation entities within it, and for them to interact with it and each other.
 
@@ -242,7 +242,7 @@ class Arrivals extends SimulationProcess
 
 === Starting, ending and controlling a simulation
 
-When a SimulationProcess object is created in C++SIM it starts in the passive state, and must be activated before it can take part in the simulation. This is typically performed by the first process object to which control is transferred after the simulation is initially started. When writing C++SIM applications it is typical for the main thread to create a single _controller process_ which is responsible for co-ordinating the entire simulation run. This creates and activates all of the simulation entities and the scheduler, and provides methods for suspending the main thread, thus allowing the controller object to execute, and exiting the application. An example controller interface is shown below, and the implementations for its methods will be described in the following sections:
+When a SimulationProcess object is created it starts in the passive state, and must be activated before it can take part in the simulation. This is typically performed by the first process object to which control is transferred after the simulation is initially started. When writing C++SIM applications it is typical for the main thread to create a single _controller process_ which is responsible for co-ordinating the entire simulation run. This creates and activates all of the simulation entities and the scheduler, and provides methods for suspending the main thread, thus allowing the controller object to execute, and exiting the application. An example controller interface is shown below, and the implementations for its methods will be described in the following sections:
 
 ----
 public  class  Controller  extends  SimulationProcess
