@@ -1,7 +1,7 @@
 = C++SIM Manual Version 2.0
 :numbered:
 
-C++SIM is an object-oriented, discrete event simulation toolkit for C++. It was developed as a direct consequence of research conducted within the scope of the link:http://www.ncl.ac.uk/computing/research/publication/159390[Arjuna project from Newcastle University] in the 1980's. It has the following requirements:
+C\\++SIM is an object-oriented, discrete event simulation toolkit for C++. It was developed as a direct consequence of research conducted within the scope of the link:http://www.ncl.ac.uk/computing/research/publication/159390[Arjuna project from Newcastle University] in the 1980's. It has the following requirements:
 
 * easy to learn and use: the interface to the simulation library should be easy to understand.
 * correct abstraction: existing C++ programmers should not find the simulation paradigm in conflict with the programming paradigm presented by C++. Simulation programmers used to other environments should find the transition to C++SIM straightforward.
