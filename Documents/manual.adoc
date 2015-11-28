@@ -65,6 +65,44 @@ The C++SIM User’s Manuals
 
 The process-oriented approach best fits with the object-oriented paradigm which we want to present to the programmer of C++SIM. As in SIMULA, simulation processes then become active objects which interact with each other through message passing and the simulation primitives. Refinements of these objects can then be obtained by inheriting from them and redefining the appropriate methods.
 
+== The C++ Abstract Threads Interface
+
+In keeping with the C++ programming model classes obtain the _thread_ characteristic, necessary to convey the notion of "activity" within the simulation environment, by inheriting an appropriate base class (in simulation terms they become _processes_). There is a minimum functionality which we require from any threads library that may be used for the simulation package, and to enforce this all classes which provide the abstraction of threads must be derived from the Thread base class. This base class provides the definitions of the operations which must _at least_ be provided by the deriving class: we use pure virtual functions to enforce this rule.
+
+----
+class Thread
+{
+public:
+    virtual void Suspend();
+    virtual void Resume();
+    
+    virtual void Body() = 0;  // the main part of the thread code to execute
+    
+    virtual long Current_Thread() const;
+    virtual long Identity() const;
+    static Thread* Self();
+    
+    static void Exit (int = 0);
+    static void mainResume ();
+    
+    // Initialize must be called exactly once at the start of the program
+
+    static void Initialize ();
+};
+----
+
+The Suspend and Resume methods will give thread package specific ways of suspending and resuming execution of a thread respectively.
+
+Body represents the controlling code for each object, i.e., the scope within which the controlling thread will execute.
+
+Current_Thread must be defined by the derived class as it returns the identity of the currently executing thread, which is specific to the thread package used.
+
+The implementations of the operations Identity and Self are provided by the base class because some threads packages do not provide similar functionality: Identity returns the unique identity of the thread associated with the given objects, and Self returns the currently executing thread. Because Self is a _static_ member function it can be invoked without creating an instance of the Thread class, i.e., using Thread::Self().
+
+=== Specific Thread Class Implementations
+
+Over the years we have supported a wide variety of thread packages, ranging from those available in various Unix implementations such as Solaris, through Posix compliant thread packages and to Windows threads. However, currently we can only test on Linux so that is the only implementation we support.
+
 == Basic simulation classes
 
 This section describes the core elements of the simulation system. It is not intended as a tutorial on C++, and basic knowledge of the language is assumed. Note, all of the classes described in this section can be found in the org.javasim package.
