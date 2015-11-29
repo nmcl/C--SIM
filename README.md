@@ -8,7 +8,7 @@ C++SIM has been available since 1990 and is an object-oriented simulation packag
 
 The system also comes with complete examples and test routines which illustrate many of the issues raised in using the simulation package. It is used by many commercial and academic organisations.
 
-Note: Currently we only have definite support for Linux due to limitations on testing hardware. If any community members would like to see if they can confirm the old HPUX, Solaris, Windows etc. still work and/or provide fixes, then go to it.
+NOTE Currently we only have definite support for Linux due to limitations on testing hardware. If any community members would like to see if they can confirm the old HPUX, Solaris, Windows etc. still work and/or provide fixes, then go to it.
 
 ----
 
