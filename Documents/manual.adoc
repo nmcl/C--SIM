@@ -128,30 +128,25 @@ The simulation scheduler is an instance of the Scheduler class. It is the respon
 NOTE: In recent versions of C++SIM the Simulation class has taken on some of the functionality previously incorporated within the Scheduler class.
 
 ----
-public class Scheduler extends Thread
+class Scheduler
 {
-    public static double currentTime ();
+    double CurrentTime () const;
+
+    void reset () const;  // reset the simulation time
+
+    static Scheduler& scheduler ();
+    static void       terminate ();
+
+    void Suspend ();
+    void Resume ();
+
+    static Boolean simulationStarted ();
 }
 ----
 
 The scheduler maintains the simulation clock, and the current value of this clock is obtained by invoking the CurrentTime() method.
 
-----
-public class Simulation
-{
-    public static synchronized void reset () throws SimulationException;
-    
-    public static synchronized boolean isReset ();
-    
-    public static synchronized void stop ();
-    
-    public static synchronized void start ();
-}
-----
-
-To enable multiple simulation runs to occur within a single application, it is possible to reset it and the simulation clock by calling the reset() method of the Simulation class. This causes the simulation to remove all processes (simulation objects) currently registered on the scheduler queue and to invoke a class specific method on each of them which resets their states (detailed in the next section). Once this is finished the simulation is ready for an additional run. A suspended process is informed that it has been “reset” by having the method it called to originally suspend itself (i.e., place itself on the scheduler queue) raise the RestartSimulation exception, which the object should catch. It must then perform any work necessary to put itself back in a state ready for restarting the simulation, and should then suspend itself again before the simulation can be restarted (typically by calling cancel.)
-
-A process can use isReset to determine whether or not the simulation has been reset. The start and stop operations allow the simulation to be halted or resumed respectively.
+To enable multiple simulation runs to occur within a single application, it is possible to reset it and the simulation clock by calling the reset() method of the Scheduler class. This causes the simulation to remove all processes (simulation objects) currently registered on the scheduler queue and to invoke a class specific method on each of them which resets their states (detailed in the next section). Once this is finished the simulation is ready for an additional run. It must then perform any work necessary to put itself back in a state ready for restarting the simulation, and should then suspend itself again before the simulation can be restarted (typically by calling cancel.)
 
 === Simulation processes
 
@@ -171,84 +166,131 @@ At any point in simulation time, a process can be in one (and only one) of the f
 
 A process which is either active or suspended is said to be _scheduled_.
 
-==== SimulationProcess class
+==== The Simulation Process class
 
-The SimulationProcess class definition is shown below. Before considering how to build an example class derived from SimulationProcess we shall discuss the methods which it provides.
+The Process class definition is shown below. Before considering how to build an example class derived from Process we shall discuss the methods which it provides.
 
-Because the constructors are protected, it is not possible to create an instance of the SimulationProcess class, i.e., classes must be derived from this. Processes are threaded objects, and typically each thread package schedules execution of threads according to a priority. By default, all processes in C++SIM are created with the same priority, but this can be altered by calling the setPriority method of java.lang.Thread.
-
-NOTE: Thread priorities have no effect on a simulation run.
+Because the constructors are protected, it is not possible to create an instance of the Process class, i.e., classes must be derived from this. Processes are threaded objects, and typically each thread package schedules execution of threads according to a priority. By default, all processes in C++SIM are created with the same priority.
 
 ----
-public class SimulationProcess extends Thread
+class Process : public Thread
 {
-    public final double time ();
-    public synchronized SimulationProcess nextEv () throws SimulationException, NoSuchElementException;
-    public final double evtime ();
-    public void activateBefore (SimulationProcess p) throws SimulationException, RestartException;
-    public void activateAfter (SimulationProcess p) throws SimulationException, RestartException;
-    public void activateAt (double AtTime, boolean prior) throws SimulationException, RestartException;
-    public void activateAt (double AtTime) throws SimulationException, RestartException;
-    public void activateDelay (double Delay, boolean prior) throws SimulationException, RestartException;
-    public void activate () throws SimulationException, RestartException;
-    public void reactivateBefore (SimulationProcess p) throws SimulationException, RestartException;
-    public void reactivateAfter (SimulationProcess p) throws SimulationException, RestartException;
-    public void reactivateAt (double AtTime, boolean prior) throws SimulationException, RestartException;
-    public void reactivateAt (double AtTime) throws SimulationException, RestartException;
-    public void reactivateDelay (double Delay, boolean prior) throws SimulationException, RestartException;
-    public void reactivateDelay (double Delay) throws SimulationException, RestartException;
-    public void reactivate () throws SimulationException, RestartException;
-    public void cancel () throws RestartException;
-    public void terminate ();
-    public synchronized boolean idle ();
-    public boolean passivated ();
-    public boolean terminated ();
-    public static SimulationProcess current () throws SimulationException;
-    public static double currentTime ();
-    public static void mainSuspend ();
-    public static void mainResume () throws SimulationException;
-    
-    protected void hold (double t) throws SimulationException, RestartException;
-    protected void passivate () throws RestartException;
-    protected void setEvtime (double time) throws SimulationException;
-    protected void suspendProcess () throws RestartException;
-    protected void resumeProcess ();
+    /* The following two methods return the current simulation time */
+
+    static double CurrentTime ();       // C++SIM version
+    double Time () const;	        // SIMULA version
+
+    double evtime () const;  // time at which process is scheduled to be active
+
+    /*
+     * The following method returns a reference to the next process to be run
+     * by the scheduler *if* this object is active or scheduled to run.
+     */
+
+    const Process* next_ev () const;
+
+    /*
+     * There are five ways to activate a process:
+     *   1) at the current simulation time
+     *   2) before another process,
+     *   3) after another process,
+     *   4) at a specified (simulated) time, or
+     *   5) after a specified (simulated) delay
+     */
+
+    void Activate ();
+    void ActivateBefore (Process &);
+    void ActivateAfter  (Process &);
+
+    void ActivateAt     (double AtTime = CurrentTime(), Boolean prior = FALSE);
+    void ActivateDelay  (double AtTime = CurrentTime(), Boolean prior = FALSE);
+
+    /*
+     * Similarly, there are five ways to reactivate
+     * Note that if a process is already scheduled, the reactivate
+     * will simply re-schedule the process.
+     */
+
+    void ReActivate ();
+    void ReActivateBefore (Process &);
+    void ReActivateAfter  (Process &);
+
+    void ReActivateAt     (double AtTime = CurrentTime(), Boolean prior = FALSE);
+    void ReActivateDelay  (double AtTime = CurrentTime(), Boolean prior = FALSE);
+
+    void    Cancel ();	         // cancels next burst of activity, process becomes idle
+    Boolean idle () const;	 // TRUE if process is not awake or not scheduled to wake up
+
+    Boolean passivated () const; // returns whether or not the object has been passivated
+    Boolean terminated () const; // returns whether or not the object has been terminated
+
+    virtual void terminate ();   // terminate the process - no going back!
+
+    static const Process* current ();  // returns current process
+
+    /*
+     * The pure virtual function, Body, defines the code that executes in
+     * the process.
+     */
+
+    virtual void Body () = 0;
+
+    /*
+     * This method is called whenever a simulation is reset. Default does
+     * nothing.
+     */
+
+    virtual void reset  ();
+
+    static Process* Current;
+
+protected:
+    Process ();
+    Process (unsigned long stackSize);
+
+    void Hold (double t);     // suspend current process for simulated time t
+    void Passivate ();	      // suspend current process (i.e., make idle)
+
+    void set_evtime (double); // set wakeuptime (used by Scheduler)
+
+    // remove from scheduler queue and prepare for passivation
+    void unschedule ();
 }
 ----
 
 There are five ways to activate a currently passive process, which results in it being brought to the correct position in the scheduler queue corresponding to its associated simulation time. If this is the head of the queue then it will become the active process.
 
-- activate(): this activates the process at the current simulation time. 
+- Activate(): this activates the process at the current simulation time. 
 
-- activateBefore(SimulationProcess proc): this positions the process in the scheduler queue before proc, and gives it the same simulation time. If proc is not present then a SimulationException will be thrown. 
+- ActivateBefore(Process& proc): this positions the process in the scheduler queue before proc, and gives it the same simulation time. If proc is not present then an error message will be displayed. 
 
-- activateAfter(SimulationProcess proc): this positions the process in the scheduler queue after proc, and gives it the same simulation time. If proc is not present then a SimulationException will be thrown. 
+- ActivateAfter(Process& proc): this positions the process in the scheduler queue after proc, and gives it the same simulation time. If proc is not present then an error message will be displayed. 
 
-- activateAt(double AtTime, boolean prior): the process is inserted into the scheduler queue at the position corresponding to the simulation time specified by AtTime. The default for this time is the current simulation time. The prior parameter is used to determine whether this process should be inserted before or after any processes with the same simulation time which may already be present in the queue. The default is false. 
+- ActivateAt(double AtTime = CurrentTime(), Boolean prior = FALSE): the process is inserted into the scheduler queue at the position corresponding to the simulation time specified by AtTime. The default for this time is the current simulation time. The prior parameter is used to determine whether this process should be inserted before or after any processes with the same simulation time which may already be present in the queue. The default is FALSE. 
 
-- activateDelay(double AtTime, boolean prior): the process is activated after a specified delay (AtTime). The process is inserted into the queue with the new simulation time, and the prior parameter is used to determine its ordering with respect to other processes in the queue with the same time. The default is false. 
+- ActivateDelay(double AtTime = CurrentTime(), Boolean prior = FALSE): the process is activated after a specified delay (AtTime). The process is inserted into the queue with the new simulation time, and the prior parameter is used to determine its ordering with respect to other processes in the queue with the same time. The default is FALSE. 
 
-There are correspondingly five reActivate methods, which work on either passive or scheduled processes. These will not be described in detail as they have similar signatures to their Activate counterparts and work in the same way.
+There are correspondingly five ReActivate methods, which work on either passive or scheduled processes. These will not be described in detail as they have similar signatures to their Activate counterparts and work in the same way.
 
-- hold(double period) schedules the currently active process for re-activation after the simulated delay of period time. If this is invoked by the object (e.g., through a publicly available method) when it is not the current active process then it does nothing.
+- Hold(double period) schedules the currently active process for re-activation after the simulated delay of period time. If this is invoked by the object (e.g., through a publicly available method) when it is not the current active process then it does nothing.
 
 - evtime() returns the time at which the process is scheduled for activation.
 
-- nextEv() returns a reference to the next process to be scheduled for execution. If the queue is empty then null is returned.
+- next_ev() returns a reference to the next process to be scheduled for execution. If the queue is empty then null is returned.
 
-The static method current() returns a reference to the currently active process.
+The static variable Current returns a reference to the currently active process.
 
-The current simulation time can be obtained by using either the currentTime() or time() methods. The former method is static and as such can be invoked without an instance of the SimulationProcess class.
+The current simulation time can be obtained by using either the CurrentTime() or Time() methods. The former method is static and as such can be invoked without an instance of the SimulationProcess class.
 
-cancel() removes the process from the scheduler queue or suspends it if it is the currently active process. In either case, the process is set to the passive state. passivate() functions similarly but only works on the currently active process, i.e., if it is invoked by the object (e.g., through a publicly available method) when it is not the current active process then it does nothing.
+Cancel() removes the process from the scheduler queue or suspends it if it is the currently active process. In either case, the process is set to the passive state. Passivate() functions similarly but only works on the currently active process, i.e., if it is invoked by the object (e.g., through a publicly available method) when it is not the current active process then it does nothing.
 
 terminate() removes the process from the scheduler queue or it is suspended if it is currently active. The process is then set to the terminated state, and can take no further part in this simulation run.
 
-idle() returns false if the process is either active or scheduled to become active. Otherwise true is returned.
+idle() returns FALSE if the process is either active or scheduled to become active. Otherwise TRUE is returned.
 
 passivated() and terminated() indicate whether the process is in the passive or terminated state, respectively.
 
-Because SimulationProcess extends the java.lang.Thread class it is necessary for the simulation class to provide an implementation of the run method which will do the actual work for the process. If this method ever returns then the thread is destroyed. However, in order for C++SIM to detect the termination of the thread, the terminate() method _must_ be used instead.
+Because Process extends the Thread class it is necessary for the simulation class to provide an implementation of the Body method which will do the actual work for the process. If this method ever returns then the thread is destroyed. However, in order for C++SIM to detect the termination of the thread, the terminate() method _must_ be used instead.
 
 ===== Example
 
@@ -263,17 +305,26 @@ To illustrate how a simulation process could be implemented from the Process cla
 The implementations of the Customer and Queue classes are not important to this example. The implementation of the Arrivals class could be:
 
 ----
-class Arrivals extends SimulationProcess
+class Arrivals : public Process
 {
-    public void run ()
+public:
+    Arrivals (double);
+    virtual ~Arrivals ();
+
+    virtual void Body ();
+
+private:
+    ExponentialStream* InterArrivalTime;
+};
+
+void Arrivals::Body ()
+{
+    for (;;)
     {
-        for  (;;)
-        {
-            Customer c = new Customer();
-            
-            queue.insert(c);
-            hold(20.0);
-        }
+	    double arrivalTime = (*InterArrivalTime)();
+	
+	    Hold(arrivalTime);
+	    Job* work = new Job();
     }
 }
 ----
