@@ -329,9 +329,13 @@ void Arrivals::Body ()
 }
 ----
 
-=== Starting, ending and controlling a simulation
+=== Priority Threads
 
-When a SimulationProcess object is created it starts in the passive state, and must be activated before it can take part in the simulation. This is typically performed by the first process object to which control is transferred after the simulation is initially started. When writing C++SIM applications it is typical for the main thread to create a single _controller process_ which is responsible for co-ordinating the entire simulation run. This creates and activates all of the simulation entities and the scheduler, and provides methods for suspending the main thread, thus allowing the controller object to execute, and exiting the application. An example controller interface is shown below, and the implementations for its methods will be described in the following sections:
+In the simulation there are two "priority" threads which cannot be derived from the Process base class and therefore must be activated and deactivated separately:
+
+- the simulation scheduler: this must be activated using the Resume method of the thread base class from which it is derived (e.g., LWP_Thread);
+
+- the thread associated with main. To allow other threads to run it is necessary to suspend this thread as it has the highest priority in the system. By making a call to the Initialize method of the Thread class within the main body of the simulation code this thread is added to the thread queue maintained by the Thread class. This then allows the Suspend method to be invoked on the thread later when it is required to become inactive (using the Thread::Self()->Suspend() operation).
 
 ----
 public  class  Controller  extends  SimulationProcess
