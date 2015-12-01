@@ -557,20 +557,24 @@ In addition to trigger queues, process can wait on semaphores, allowing the crea
 Processes waiting for the same application controlled event can be grouped together into a TriggerQueue, as described in the previous section. When this event occurs the application can use one of the two trigger methods to activate the queue members. This involves placing the process(es) onto the head of the scheduler queue.
 
 ----
-public  class  TriggerQueue
+class TriggerQueue
 {
-    public TriggerQueue ();
+public:
+    TriggerQueue ();
+    virtual ~TriggerQueue ();
 
-    public synchronized void triggerFirst (boolean  setTrigger) throws NoSuchElementException; 
-    public synchronized void triggerFirst () throws NoSuchElementException;
+    Boolean triggerAll ();
+    Boolean triggerFirst (Boolean = TRUE);
 
-    public synchronized void triggerAll () throws NoSuchElementException; 
-};
+protected:
+    void insert (Entity*);
+    Entity* remove ();
+}
 ----
 
 - triggerAll(): triggers all of the members on the queue. 
 
-- triggerFirst(boolean setTrigger): triggers only the head of the queue. If setTrigger is true (the default behaviour) then the trigger() method of the Entity object is also invoked. 
+- triggerFirst(Boolean setTrigger): triggers only the head of the queue. If the parameter is TRUE (the default behaviour) then the trigger() method of the Entity object is also invoked. 
 
 If the queue is not empty when it is garbage collected by the virtual machine then all remaining queue members will be triggered, and placed back onto the scheduler queue.
 
