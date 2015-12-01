@@ -483,7 +483,7 @@ TODO
 
 Simulations formed by the interaction of objects derived from Process can be considered _causal_ (synchronous) in nature: events occur at specific times and form a well defined order. However, it is sometimes necessary to simulate asynchronous real world events, e.g., processor interrupts. To do this requires finer-grained control of the scheduling of simulation processes than it provided by the scheduler; the scheduler simply activates according to simulation time, whereas asynchronous events may have different activation rules, e.g., activate when another process is terminated.
 
-The Entity class and others to be described in the following sections gives this required level of control to the user, extending the types of simulation which are possible with C++SIM. Asynchronous simulation processes are derived from SimulationEntity, but the implementation enables these asynchronous process to execute in the same simulation as SimulationProcess objects. However, because these processes are suspended and resumed outside of the control of the scheduler, it is possible for deadlock situations to occur. Therefore, some care must be taken when using these classes.
+The Entity class and others to be described in the following sections gives this required level of control to the user, extending the types of simulation which are possible with C++SIM. Asynchronous simulation processes are derived from Entity, but the implementation enables these asynchronous process to execute in the same simulation as Process objects. However, because these processes are suspended and resumed outside of the control of the scheduler, it is possible for deadlock situations to occur. Therefore, some care must be taken when using these classes.
 
 In addition to the active, suspended, passive and terminated states which a simulation process can be in, asynchronous objects can also be in the following states:
 
@@ -506,17 +506,17 @@ The classes to be described in this chapter can be found in the org.javasim pack
 === Asynchronous entities
 
 ----
-public  class  SimulationEntity  extends  SimulationProcess
+public  class  Entity  extends  Process
 {
-    public void Interrupt (SimulationEntity toInterrupt, boolean immediate) throws SimulationException, RestartException;
+    public void Interrupt (Entity toInterrupt, boolean immediate) throws SimulationException, RestartException;
 
     public final void trigger (); 
     public void terminate ();
 
     protected void timedWait (double waitTime) throws SimulationException, RestartException, InterruptedException;
 
-    protected void waitFor (SimulationEntity controller, boolean reAct) throws SimulationException, RestartException, InterruptedException;
-    protected void waitFor (SimulationEntity controller) throws SimulationException, RestartException, InterruptedException;
+    protected void waitFor (Entity controller, boolean reAct) throws SimulationException, RestartException, InterruptedException;
+    protected void waitFor (Entity controller) throws SimulationException, RestartException, InterruptedException;
 
     protected void waitForTrigger (TriggerQueue  _queue) throws SimulationException, RestartException, InterruptedException;
 
@@ -524,15 +524,15 @@ public  class  SimulationEntity  extends  SimulationProcess
 };
 ----
 
-Because SimulationEntity is derived from SimulationProcess, all of the usual simulation methods are available, and can be used in conjunction with those provided by the derived class.
+Because Entity is derived from Process, all of the usual simulation methods are available, and can be used in conjunction with those provided by the derived class.
 
-interrupt(SimulationEntity toInterrupt, boolean immediate) interrupts the asynchronous process toInterrupt, which _must_ not be *terminated* and _must_ be in the *waiting* state. toInterrupt becomes the next active process (i.e., it is moved to the head of the scheduler queue). If immediate is true then the current process is suspended immediately; it is scheduled for reactivation at the current simulation time. Otherwise, the current process continues to execute and can be suspended later in an application specific way.
+interrupt(Entity toInterrupt, boolean immediate) interrupts the asynchronous process toInterrupt, which _must_ not be *terminated* and _must_ be in the *waiting* state. toInterrupt becomes the next active process (i.e., it is moved to the head of the scheduler queue). If immediate is true then the current process is suspended immediately; it is scheduled for reactivation at the current simulation time. Otherwise, the current process continues to execute and can be suspended later in an application specific way.
 
-Because it is now possible for one process to wait for another to terminate the terminate() method must differ from that provided by SimulationProcess. Before the terminating process ends it moves the waiting process to the head of the scheduler queue, and then calls SimulationProcess.terminate(). Currently only a single process can wait on this termination condition, but this may change in future versions.
+Because it is now possible for one process to wait for another to terminate the terminate() method must differ from that provided by Process. Before the terminating process ends it moves the waiting process to the head of the scheduler queue, and then calls Process.terminate(). Currently only a single process can wait on this termination condition, but this may change in future versions.
 
 wait(double t) is similar to hold(double t), with the exception that the process is moved into the *waiting* state as well as being placed on the scheduler queue. It is therefore possible to interrupt this process before the wait period has elapsed. true is returned if the process was interrupted, otherwise false is returned.
 
-waitFor(SimulationEntity controller, boolean reAct) suspends the current process until controller has terminated. The process is placed in the *waiting* state. If reAct is true then controller is moved to the head of the scheduler queue to become the next activate process, otherwise (the default behaviour) the application will have to activate controller. If the waiting process is interrupted then the method returns true, otherwise false. The controller and the current process must be different, i.e., it is not possible for a process to wait for itself.
+waitFor(Entity controller, boolean reAct) suspends the current process until controller has terminated. The process is placed in the *waiting* state. If reAct is true then controller is moved to the head of the scheduler queue to become the next activate process, otherwise (the default behaviour) the application will have to activate controller. If the waiting process is interrupted then the method returns true, otherwise false. The controller and the current process must be different, i.e., it is not possible for a process to wait for itself.
 
 _Trigger queues_ are lists maintained by the simulation system of process waiting for specific events to occur, which are outside the scope of those described above. These will be described in the next section. waitForTrigger(TriggerQueue queue) places the current process on the trigger queue and passivates it. As with the previous methods, the return value indicates whether the process was interrupted, or triggered.
 
@@ -556,7 +556,7 @@ public  class  TriggerQueue
 
 - triggerAll(): triggers all of the members on the queue. 
 
-- triggerFirst(boolean setTrigger): triggers only the head of the queue. If setTrigger is true (the default behaviour) then the trigger() method of the SimulationEntity object is also invoked. 
+- triggerFirst(boolean setTrigger): triggers only the head of the queue. If setTrigger is true (the default behaviour) then the trigger() method of the Entity object is also invoked. 
 
 If the queue is not empty when it is garbage collected by the virtual machine then all remaining queue members will be triggered, and placed back onto the scheduler queue.
 
@@ -574,9 +574,9 @@ public  class  Semaphore
 
     public synchronized long numberWaiting  ();
 
-    public synchronized Outcome get (SimulationEntity toWait) throws RestartException; 
+    public synchronized Outcome get (Entity toWait) throws RestartException; 
     
-    public synchronized Outcome tryGet (SimulationEntity toWait) throws RestartException;
+    public synchronized Outcome tryGet (Entity toWait) throws RestartException;
 
     public synchronized Outcome release (); 
 };
@@ -590,7 +590,7 @@ A Semaphore can exist in one of two states:
 
 - _unavailable_: a process (or number of processes) currently has the semaphore. If another process attempts to acquire the semaphore then it is automatically suspended until the semaphore is *available*, i.e., until a resource has been freed. 
 
-To be able to manipulate semaphores a process must be derived from the SimulationEntity class. To obtain the semaphore, the get(SimulationEntity toWait) method should be used, where toWait is the calling process. If the semaphore is *unavailable* then the process referenced by toWait is suspended. If the semaphore is successfully acquired, then Outcome.DONE is returned, otherwise Outcome.NOTDONE.
+To be able to manipulate semaphores a process must be derived from the Entity class. To obtain the semaphore, the get(Entity toWait) method should be used, where toWait is the calling process. If the semaphore is *unavailable* then the process referenced by toWait is suspended. If the semaphore is successfully acquired, then Outcome.DONE is returned, otherwise Outcome.NOTDONE.
 
 If the process wishes to attempt to acquire the semaphore but does not want to block in the situation where the semaphore is currently unavailable, then it can use the tryGet method, which takes the same parameter as get. However, unlike get, tryGet will return Outcome.WOULD_BLOCK in the case where the caller would normally block if it had called get, i.e., the semaphore is currently in use. If the semaphore is not being used, then tryGet will acquire it for the caller. Errors will result in Outcome.NOT_DONE being returned.
 
