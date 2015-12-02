@@ -818,20 +818,25 @@ The problem with the PrecisionHistogram class is that it can use up a lot of sys
 - MIN: create a new bucket with the name as the smallest of the two old buckets, and it has the same number of entries. 
 
 ----
-public  class  Histogram  extends  PrecisionHistogram
+class Histogram : public PrecisionHistogram
 {
-    public Histogram (long maxIndex, int mergeChoice); public Histogram (long maxIndex);
+public:
+    enum MergeChoice { ACCUMULATE, MEAN, MAX, MIN };
+	
+    Histogram (long, MergeChoice = MEAN);
+    virtual ~Histogram ();
+    
+    virtual void setValue (double);
+    virtual void operator+= (double);
 
-    public  void  setValue  (double  value)  throws  IllegalArgumentException;
+    virtual ostream& print (ostream&) const;
 
-    public  boolean  saveState  (String  fileName)  throws  IOException;
-    public  boolean  saveState  (DataOutputStream  oFile)  throws  IOException;
-
-    public boolean restoreState (String fileName) throws FileNotFoundException, IOException;
-    public  boolean  restoreState  (DataInputStream  iFile)  throws  IOException;
-
-    public void print (); 
-};
+    virtual Boolean saveState (const char*) const;
+    virtual Boolean saveState (ofstream&) const;
+    
+    virtual Boolean restoreState (const char*);
+    virtual Boolean restoreState (ifstream&);
+}
 ----
 
 When an instance of Histogram is created, the maximum number of allowed buckets must be specified. The merging algorithm can also be provided, with the default being the MEAN policy.
