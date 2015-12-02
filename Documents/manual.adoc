@@ -635,26 +635,32 @@ The purpose of a simulation typically involves the gathering of relevant statist
 This is the basic class from which others are derived, gathering statistical information on the samples provided to it.
 
 ----
-public  class  Mean
+class Mean
 {
-    public  void  setValue  (double  value)  throws  IllegalArgumentException;
+public:
+    Mean ();
+    virtual ~Mean ();
 
-    public  void  reset  ();
+    virtual void setValue (double);
+    virtual void operator+= (double);
 
-    public int numberOfSamples (); public double min ();
+    virtual void reset ();
 
-    public double max (); public double sum (); public double mean ();
+    unsigned int numberOfSamples () const;
 
-    public  boolean  saveState  (String  fileName)  throws  IOException;
+    double min () const;
+    double max () const;
+    double sum () const;
+    double mean () const;
 
-    public  boolean  saveState  (DataOutputStream  oFile)  throws  IOException;
-
-    public boolean restoreState (String fileName) throws FileNotFoundException, IOException;
-
-    public  boolean  restoreState  (DataInputStream  iFile)  throws  IOException;
-
-    public void print ();
-};
+    virtual ostream& print (ostream&) const;
+    
+    virtual Boolean saveState (const char*) const;
+    virtual Boolean saveState (ofstream&) const;
+    
+    virtual Boolean restoreState (const char*);
+    virtual Boolean restoreState (ifstream&);
+}
 ----
 
 New values can be supplied to the instance of the Mean class using the setValue(double) method. The number of samples which have been give can be obtained from numberOfSamples().
@@ -671,9 +677,9 @@ image::images/maths2.jpg[]
 
 An instance of Mean can be reset between samples using the reset() method.
 
-If the state of a Mean object is required to be saved between simulation runs then it can be made persistent by using either of the saveState methods. The first instance saves the state to a file, whereas the second can be used to save the state to an instance of the java.io.DataOutputStream class. There are likewise two corresponding ways in which the state can be restored.
+If the state of a Mean object is required to be saved between simulation runs then it can be made persistent by using either of the saveState methods. The first instance saves the state to a file, whereas the second can be used to save the state to an instance of the ofstream class. There are likewise two corresponding ways in which the state can be restored.
 
-The print method simply prints to System.out the current state of the object.
+The print method simply prints to an ostream the current state of the object.
 
 === Variance
 
