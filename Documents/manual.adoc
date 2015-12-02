@@ -757,25 +757,39 @@ A histogram typically maintains a slot for each value, or range of values, given
 The PrecisionHistogram class represents the core histogram class from which all others are derived. This class keeps an exact tally of all values given to it, i.e., a bucket is created for each value. Although buckets are only created when requires, over the course of a simulation this can still utilise a large amount of resources, and so other, less precise, histogram classes are provided.
 
 ----
-public  class  PrecisionHistogram  extends  Variance
+class PrecisionHistogram : public Variance
 {
-    public  void  setValue  (double  value)  throws  IllegalArgumentException;
+public:
+    PrecisionHistogram ();
+    virtual ~PrecisionHistogram ();
+    
+    virtual void setValue (double);
+    virtual void operator+= (double);
 
-    public  void  reset  ();
+    virtual void reset ();
 
-    public  long  numberOfBuckets  ();
+    long numberOfBuckets () const;
 
-    public double sizeByIndex (long index) throws StatisticsException, IllegalArgumentException;
-    public  double  sizeByName  (double  name)  throws  IllegalArgumentException;
+    /*
+     * There are two ways of getting the number of entries in a bucket:
+     * (i) give the index number of the bucket, or
+     * (ii) give the name of the bucket.
+     * If the bucket is not present then FALSE is returned.
+     */
 
-    public  boolean  saveState  (String  fileName)  throws  IOException;
-    public  boolean  saveState  (DataOutputStream  oFile)  throws  IOException;
+    virtual Boolean sizeByIndex (long index, double& size);
+    virtual Boolean sizeByName  (double name, double& size);
 
-    public boolean restoreState (String fileName) throws FileNotFoundException, IOException;
-    public  boolean  restoreState  (DataInputStream  iFile)  throws  IOException;
+    virtual Boolean bucketName (long index, double& name);
+    
+    virtual ostream& print (ostream&) const;
 
-    public void print (); 
-};
+    virtual Boolean saveState (const char*) const;
+    virtual Boolean saveState (ofstream&) const;
+    
+    virtual Boolean restoreState (const char*);
+    virtual Boolean restoreState (ifstream&);
+}
 ----
 
 As with the Variance class from which it is derived, and whose methods are obviously available, values can be supplied to the histogram through the setValue(double) method.
@@ -784,13 +798,13 @@ The number of buckets maintained by the histogram can be obtained from the numbe
 
 There are therefore two ways of getting the number of entries in a bucket:
 
-- by the index number of the bucket: sizeByIndex(long  index).
+- by the index number of the bucket: sizeByIndex(long index, double& size).
 
-- by the unique name of the bucket: sizeByName(double  name).
+- by the unique name of the bucket: sizeByName(double name, double& size).
 
-If      the      bucket      does      not      exist      then      each      of      these      methods      throws IllegalArgumentException.
+If the bucket does not exist then FALSE is returned.
 
-It is possible to output the contents of the histogram to standard output using the print()method.
+It is possible to output the contents of the histogram to standard output using the print() method.
 
 ==== Histogram
 
