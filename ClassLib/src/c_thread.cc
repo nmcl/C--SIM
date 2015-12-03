@@ -80,8 +80,7 @@ Thread::Thread (Boolean create)
 		 prev(0)
 {
 #ifdef DEBUG
-    debug_stream << FAC_THREAD << CONSTRUCTORS << VIS_PROTECTED << endl;
-    debug_stream << "Thread::Thread" << endl;
+    cout << "Thread::Thread" << endl;
 #endif
 
     thread_key = ThreadData::base_key++;
@@ -114,8 +113,7 @@ Thread::Thread (unsigned long)
 		 prev(0)    
 {
 #ifdef DEBUG
-    debug_stream << FAC_THREAD << CONSTRUCTORS << VIS_PROTECTED << endl;
-    debug_stream << "Thread::Thread" << endl;
+    cout << "Thread::Thread" << endl;
 #endif
     
     thread_key = ThreadData::base_key++;
@@ -141,8 +139,7 @@ Thread::Thread (unsigned long)
 Thread::~Thread ()
 {
 #ifdef DEBUG
-    debug_stream << FAC_THREAD << DESTRUCTORS << VIS_PROTECTED << endl;
-    debug_stream << "Thread::~Thread" << endl;
+    cout << "Thread::~Thread" << endl;
 #endif
 
     Remove(this);

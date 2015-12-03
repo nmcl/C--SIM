@@ -68,8 +68,7 @@ const Process* HashedList::getNext (const Process* current) const
 void HashedList::Insert (Process &ToInsert, Boolean prior)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_PROCESSLISTS << VIS_PUBLIC;
-    debug_stream << "void HashedList::Insert ( " << ToInsert.evtime() << ", "
+    cout << "void HashedList::Insert ( " << ToInsert.evtime() << ", "
 		 << ((prior) ? "TRUE" : "FALSE") << " )" << endl;
 #endif    
 
@@ -80,8 +79,7 @@ void HashedList::Insert (Process &ToInsert, Boolean prior)
 Boolean HashedList::InsertBefore (Process& ToInsert, Process& Before)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_PROCESSLISTS << VIS_PUBLIC;
-    debug_stream << "Boolean HashedList::InsertBefore ( " << ToInsert.evtime() << ", "
+    cout << "Boolean HashedList::InsertBefore ( " << ToInsert.evtime() << ", "
 		 << Before.evtime() << " )" << endl;
 #endif
 
@@ -92,8 +90,7 @@ Boolean HashedList::InsertBefore (Process& ToInsert, Process& Before)
 Boolean HashedList::InsertAfter (Process &ToInsert, Process &After)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_PROCESSLISTS << VIS_PUBLIC;
-    debug_stream << "Boolean HashedList::InsertAfter ( " << ToInsert.evtime() << ", "
+    cout << "Boolean HashedList::InsertAfter ( " << ToInsert.evtime() << ", "
 		 << After.evtime() << " )" << endl;
 #endif
 

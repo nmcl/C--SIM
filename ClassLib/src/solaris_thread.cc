@@ -242,8 +242,7 @@ void Thread::Exit (int retValue)
 void Thread::mainResume ()
 {
 #ifdef DEBUG
-    debug_stream << FAC_THREAD << FUNCTIONS << VIS_PUBLIC << endl;
-    debug_stream << "Thread::mainResume" << endl;
+    cout << "Thread::mainResume" << endl;
 #endif
     
     Solaris_Main_Thread::mainThread->Resume();

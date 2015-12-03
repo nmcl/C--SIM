@@ -44,10 +44,6 @@
 #  include "ProcessIterator.h"
 #endif
 
-#if defined(DEBUG) && !defined(DEBUG_H_)
-#  include <Common/Debug.h>
-#endif
-
 const int factor = 25;
 
 ProcessHeap::ProcessHeap ()
@@ -115,8 +111,7 @@ const Process* ProcessHeap::getNext (const Process* current) const
 void ProcessHeap::Insert (Process &ToInsert, Boolean prior)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_PROCESSLISTS << VIS_PUBLIC;
-    debug_stream << "void ProcessHeap::Insert ( " << ToInsert.evtime() << ", "
+    cout << "void ProcessHeap::Insert ( " << ToInsert.evtime() << ", "
 		 << ((prior) ? "TRUE" : "FALSE") << " )" << endl;
 #endif    
 
@@ -197,8 +192,7 @@ Process* ProcessHeap::Remove (const Process *element)
 Boolean ProcessHeap::InsertBefore (Process& ToInsert, Process& Before)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_PROCESSLISTS << VIS_PUBLIC;
-    debug_stream << "Boolean ProcessHeap::InsertBefore ( " << ToInsert.evtime() << ", "
+    cout << "Boolean ProcessHeap::InsertBefore ( " << ToInsert.evtime() << ", "
 		 << Before.evtime() << " )" << endl;
 #endif
 
@@ -222,8 +216,7 @@ Boolean ProcessHeap::InsertBefore (Process& ToInsert, Process& Before)
 Boolean ProcessHeap::InsertAfter (Process &ToInsert, Process &After)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_PROCESSLISTS << VIS_PUBLIC;
-    debug_stream << "Boolean ProcessHeap::InsertAfter ( " << ToInsert.evtime() << ", "
+    cout << "Boolean ProcessHeap::InsertAfter ( " << ToInsert.evtime() << ", "
 		 << After.evtime() << " )" << endl;
 #endif
 

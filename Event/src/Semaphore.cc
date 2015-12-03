@@ -49,8 +49,7 @@ Semaphore::Semaphore ()
 		       haveCeiling(FALSE)
 {
 #ifdef DEBUG
-    debug_stream << CONSTRUCTORS << FAC_SEMAPHORE << VIS_PUBLIC;
-    debug_stream << "Semaphore::Semaphore ()" << endl;
+    cout << "Semaphore::Semaphore ()" << endl;
 #endif    
 }
 
@@ -61,16 +60,14 @@ Semaphore::Semaphore (long number, Boolean ceiling)
 		       haveCeiling(ceiling)
 {
 #ifdef DEBUG
-    debug_stream << CONSTRUCTORS << FAC_SEMAPHORE << VIS_PUBLIC;
-    debug_stream << "Semaphore::Semaphore ( " << number << " )" << endl;
+    cout << "Semaphore::Semaphore ( " << number << " )" << endl;
 #endif    
 }
 
 Semaphore::~Semaphore ()
 {
 #ifdef DEBUG
-    debug_stream << DESTRUCTORS << FAC_SEMAPHORE << VIS_PUBLIC;
-    debug_stream << "Semaphore::~Semaphore ()" << endl;
+    cout << "Semaphore::~Semaphore ()" << endl;
 #endif
     
     if (numberWaiting != 0)

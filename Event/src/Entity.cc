@@ -51,8 +51,7 @@
 Entity::~Entity ()
 {
 #ifdef DEBUG
-    debug_stream << DESTRUCTORS << FAC_ENTITY << VIS_PUBLIC;
-    debug_stream << "Entity::~Entity ()" << endl;
+    cout << "Entity::~Entity ()" << endl;
 #endif
 }
 
@@ -68,8 +67,7 @@ Entity::~Entity ()
 Boolean Entity::WaitFor (Entity& controller, Boolean reAct)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_ENTITY << VIS_PROTECTED;
-    debug_stream << "Boolean Entity::WaitFor (Entity& controller, Boolean reAct)" << endl;
+    cout << "Boolean Entity::WaitFor (Entity& controller, Boolean reAct)" << endl;
 #endif
 
     if (&controller == this)      // can't wait on self!
@@ -101,8 +99,7 @@ Boolean Entity::WaitFor (Entity& controller, Boolean reAct)
 Boolean Entity::WaitForTrigger (TriggerQueue& _queue)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_ENTITY << VIS_PROTECTED;
-    debug_stream << "Boolean Entity::WaitForTrigger (TriggerQueue& _queue)" << endl;
+    cout << "Boolean Entity::WaitForTrigger (TriggerQueue& _queue)" << endl;
 #endif
     
     _queue.insert(this);
@@ -132,8 +129,7 @@ Boolean Entity::WaitForTrigger (TriggerQueue& _queue)
 Boolean Entity::Wait (double waitTime)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_ENTITY << VIS_PROTECTED;
-    debug_stream << "Boolean Entity::Wait ( " << waitTime << " )" << endl;
+    cout << "Boolean Entity::Wait ( " << waitTime << " )" << endl;
 #endif
 
     _waiting = TRUE;
@@ -161,8 +157,7 @@ Boolean Entity::Wait (double waitTime)
 Boolean Entity::Interrupt (Entity& toInterrupt, Boolean immediate)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_ENTITY << VIS_PUBLIC;
-    debug_stream << "Boolean Entity::Interrupt (Entity& toInterrupt, Boolean immediate)" << endl;
+    cout << "Boolean Entity::Interrupt (Entity& toInterrupt, Boolean immediate)" << endl;
 #endif
     
     if (toInterrupt.terminated())
@@ -205,8 +200,7 @@ Entity::Entity ()
 		 _waiting(FALSE)
 {
 #ifdef DEBUG
-    debug_stream << CONSTRUCTORS << FAC_ENTITY << VIS_PROTECTED;
-    debug_stream << "Entity::Entity ()" << endl;
+    cout << "Entity::Entity ()" << endl;
 #endif
 }
 
@@ -218,8 +212,7 @@ Entity::Entity (unsigned long stackSize)
 		 _waiting(FALSE)
 {
 #ifdef DEBUG
-    debug_stream << CONSTRUCTORS << FAC_ENTITY << VIS_PROTECTED;
-    debug_stream << "Entity::Entity ( " << stackSize << " )" << endl;
+    cout << "Entity::Entity ( " << stackSize << " )" << endl;
 #endif
 }
 
@@ -232,8 +225,7 @@ Entity::Entity (unsigned long stackSize)
 void Entity::terminate ()
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_ENTITY << VIS_PUBLIC;
-    debug_stream << "void Entity::terminate ()" << endl;
+    cout << "void Entity::terminate ()" << endl;
 #endif
     
     if (_isWaiting)  // resume waiting process before this one "dies".

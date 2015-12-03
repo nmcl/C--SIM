@@ -55,8 +55,7 @@ INLINEF void Entity::trigger ()
 INLINEF void Entity::WaitForSemaphore (Semaphore& _sem)
 {
 #ifdef DEBUG
-    debug_stream << FUNCTIONS << FAC_ENTITY << VIS_PROTECTED;
-    debug_stream << "void Entity::WaitForSemaphore (Semaphore& _sem)" << endl;
+    cout << "void Entity::WaitForSemaphore (Semaphore& _sem)" << endl;
 #endif
     
     _sem.Get(this);

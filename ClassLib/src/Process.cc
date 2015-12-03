@@ -354,8 +354,7 @@ Boolean Process::schedule ()
 	    SimulatedTime = Process::Current->evtime();
 
 #ifdef DEBUG
-	debug_stream << FUNCTIONS << FAC_SCHEDULER << VIS_PUBLIC;
-	debug_stream << "Simulated time is now " << SimulatedTime << endl;
+	cout << "Simulated time is now " << SimulatedTime << endl;
 #endif
 
 	if (Process::Current != this)
