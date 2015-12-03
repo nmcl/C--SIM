@@ -28,7 +28,6 @@
  * $Id: HashedList.n,v 1.4 1997/10/08 09:09:42 nmcl Exp $ 
  */
 
-#include <Common/Error.h>
 #include <ClassLib/thread.h>
 
 #if defined(NO_INLINES) && !defined(HASHEDLIST_CC_)
@@ -55,7 +54,7 @@ INLINEF int HashedList::timeToKey (double time) const
 
     if (toReturn < 0)
     {
-	error_stream << FATAL << "HashedList::timeToKey ( " << time << " ) gives " << toReturn << endl;
+    	cerr << "HashedList::timeToKey ( " << time << " ) gives " << toReturn << endl;
 	Thread::Exit(-1);
     }
     else
