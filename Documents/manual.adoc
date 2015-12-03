@@ -881,16 +881,17 @@ The width of each bucket is provided by the Width method.
 The Quantile class provides a means of obtaining the p-quantile of a distribution of values, i.e., the value below which p-percent of the distribution lies.
 
 ----
-public class Quantile extends PrecisionHistogram
+class Quantile : public PrecisionHistogram
 {
-    public Quantile ();
-    public Quantile (double  q) throws IllegalArgumentException;
+public:
+    Quantile (double = 0.95);
+    virtual ~Quantile ();
 
-    public double getValue (); 
-    public double range ();
+    double operator() () const;
+    double range () const;
 
-    public void print (); 
-};
+    virtual ostream& print (ostream&) const;
+}
 ----
 
 The p-quantile probability range must be specified when the object is instantiated, and can be obtained via the range method.
