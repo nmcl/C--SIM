@@ -16,14 +16,10 @@ The build:
 
 ./configure
 
-make -f MakefileBoot
-make Makefiles
-make
+make -f MakefileBoot Makefiles all
 
 Then go into Examples and:
 
-make -f MakefileBoot
-make Makefiles
-make
+make -f MakefileBoot Makefiles all
 
 The examples all have expected_output files. Run the examples and compare.
