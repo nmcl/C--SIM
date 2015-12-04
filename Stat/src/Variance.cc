@@ -67,10 +67,12 @@ double Variance::variance () const
     return ((_Number > 1) ? ((_sqr - ((_Sum * _Sum) / _Number)) / (_Number -1)) : 0.0);
 }
 
-double Variance::confidence (double)
+double Variance::confidence (double value)
 {
-    cerr << "Variance::confidence not implemented yet." << endl;
-    return 0.0;
+  if ((value > 1) || (value < 0))
+    return -1;
+  else
+    return mean() + (1+value)*stdDev();
 }
 
 Boolean Variance::saveState (ofstream& oFile) const
