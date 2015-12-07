@@ -28,9 +28,12 @@ The following classes are defined:
 		 
     solaris_thread - This is the Solaris threads implementation.
 
-    gnu_thread - This is the interface to Gnu's thread package.
+    posix_thread - This is the interface to posix threads package. Used for Linux.
 
     cpp_task - This is the interface to the C++ Task library.
     
     c_thread - This is the C threads implementation.
     
+    nt_thread - This is the thread implementation for Windows (NT) threads. May work for other versions of Windows, but has not been tested.
+    
+    rex_thread - This is the thread implementation for the Rex threads package.
