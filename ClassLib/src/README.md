@@ -34,6 +34,7 @@ The following classes are defined:
     
     c_thread - This is the C threads implementation.
     
-    nt_thread - This is the thread implementation for Windows (NT) threads. May work for other versions of Windows, but has not been tested.
+    nt_thread - This is the thread implementation for Windows (NT) threads. May work
+                for other versions of Windows, but has not been tested.
     
     rex_thread - This is the thread implementation for the Rex threads package.
