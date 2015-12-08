@@ -1,12 +1,3 @@
-/*
- * Copyright (C) 1994
- *
- * Department of Computing Science,
- * The University,
- * Newcastle upon Tyne,
- * UK.
- */
-
 This set of  classes  provides additional  functionality  not normally
 provided  by  a  simulation package  modelled after  SimScript.  Where
 possible these  routines still work with the simulation scheduler, but
