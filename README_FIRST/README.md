@@ -31,3 +31,12 @@ can support. However, rather than remove the code for all of the other platforms
 such as HPUX, Solaris and other thread packages, we've left them in the codebase for now in case
 others in the community are able to use them to check that C++SIM can still build and run.
 
+Thanks to all the people who  took the time and effort  to port C++ to
+systems and compilers that we do not have access too and reporting the
+problems (and fixes) that were needed.
+
+Specific thanks for contributions and bug reports to:
+
+Peter Lamb	peter.lamb@cmis.csiro.au
+Ian Mathieson	Ian.Mathieson@mel.dit.CSIRO.AU
+Sze-Yao Ni	nee@axp1.csie.ncu.edu.tw
