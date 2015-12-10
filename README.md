@@ -20,6 +20,8 @@ Peter Lamb peter.lamb@cmis.csiro.au Ian Mathieson Ian.Mathieson@mel.dit.CSIRO.AU
 
 ----
 
+You can find more details of how to build and install the system in the README_FIRST directory. A summary is below ...
+
 The build:
 
 ./configure
