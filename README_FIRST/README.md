@@ -1,5 +1,4 @@
 1.	Installation
-********************
 
 Note: you will need a version of imake  to  build this version  of the
 system.
@@ -41,7 +40,6 @@ well, and follow similar steps to above.
 
 
 2.	Configuration Specifics
-*******************************
 
 	Here is a walkthough of the questions asked by the 'configure'
 script togethor with an explaination of the required answers. Default
