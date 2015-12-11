@@ -37,7 +37,8 @@ well, and follow similar steps to above.
 
 Here is a walkthough of the questions asked by the 'configure'
 script togethor with an explaination of the required answers. Default
-answers in square brackets.
+answers in square brackets. If a previous build still exists in this
+location then the answers given last time will be the new defaults.
 
 Note, the  configuration  system  attempts to  automatically
 generate the  code for make  to find the   necessary libraries etc. If
