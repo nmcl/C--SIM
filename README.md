@@ -16,7 +16,9 @@ Thanks to all the people who took the time and effort to port C++ to systems and
 
 Specific thanks for contributions and bug reports to:
 
-Peter Lamb peter.lamb@cmis.csiro.au Ian Mathieson Ian.Mathieson@mel.dit.CSIRO.AU Sze-Yao Ni nee@axp1.csie.ncu.edu.tw
+Peter Lamb peter.lamb@cmis.csiro.au
+Ian Mathieson Ian.Mathieson@mel.dit.CSIRO.AU
+Sze-Yao Ni nee@axp1.csie.ncu.edu.tw
 
 ----
 
