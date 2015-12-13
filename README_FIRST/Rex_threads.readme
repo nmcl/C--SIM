@@ -7,10 +7,11 @@
  * UK.
  */
  
-Rex threads was also known as LWP threads (http://archive.oreilly.com/pub/faqs/linux_faq_AEN1914). Further information can
-be found in https://www.cs.bris.ac.uk/~ian/Functional/carter.ps
+Rex threads was also known as LWP threads (http://archive.oreilly.com/pub/faqs/linux_faq_AEN1914). Further
+information can be found in https://www.cs.bris.ac.uk/~ian/Functional/carter.ps
 
-However, the project responsible for developing the Rex thread package has ended. The software is no longer available from gummo.doc.ic.ac.uk, but may be available from some other source.
+However, the project responsible for developing the Rex thread package has ended.
+The software is no longer available from gummo.doc.ic.ac.uk, but may be available from some other source.
 
 The only thing you need to change is the signature of creatp to the following:
 
