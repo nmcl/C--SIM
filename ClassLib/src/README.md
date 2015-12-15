@@ -22,6 +22,8 @@ The following classes are defined:
 	     which allows other thread packages to be used as long as they
 	     provide at least the operations necessary for this class.
 
+The following thead implementations exist but some have not been tested in a long time.
+
     lwp_thread - This is the SunOS threads class. [If you have problems with lwp.h
 		 then make a local copy of it and remove the definitions of lwp_create
 		 etc. from that copy - then edit this source to use your lwp.h].
