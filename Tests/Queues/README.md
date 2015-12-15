@@ -12,3 +12,6 @@ graph  shows the   results   (time in milliseconds  versus  number  of
 elements  in  the queue added  and  then removed).  These figures were
 obtained by running the test on a lightly loaded Sparc 10 with 112M of
 memory.
+
+Use the run script to generate the data. The grind script can be used to
+display the data.
