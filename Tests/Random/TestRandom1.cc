@@ -26,11 +26,10 @@
  * UK.
  */
 
-#ifdef __GNUG__
-#  include <GetOpt.h>
-#endif
-
-#include <stdlib.h>	// to get getopt and atoi
+#include <ctype.h>	// to get getopt and atoi
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <iostream>
 
 #include <ClassLib/Random.h>
