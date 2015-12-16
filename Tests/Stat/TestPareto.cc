@@ -30,6 +30,12 @@
 #include <iostream>
 #include <stdlib.h>
 
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::ostream;
+using std::istream;
+
 #ifndef PARETO_H_
 #  include <Stat/Pareto.h>
 #endif

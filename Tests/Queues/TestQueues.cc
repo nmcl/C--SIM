@@ -42,6 +42,12 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::ostream;
+using std::istream;
+
 #ifdef SYSV
 #  include <sys/times.h>
 #  include <limits.h>
