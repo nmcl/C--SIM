@@ -26,17 +26,20 @@
  * UK.
  */
 
-/*
 #ifdef __GNUG__
 #  include <GetOpt.h>
 #endif
-*/
 
 #include <stdlib.h>	// to get getopt and atoi
 #include <iostream>
 
 #include <ClassLib/Random.h>
 
+using std::cerr;
+using std::cout;
+using std::endl;
+using std::ostream;
+using std::istream;
 
 void Gen (int count, RandomStream *r, const char *title)
 {
