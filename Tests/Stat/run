@@ -2,12 +2,12 @@
 
 for i in Precision Normal Simple Quantile
 do
-	TestHistogram -type $i -savefile foo
+	./TestHistogram -type $i -savefile foo
 	if test -f TestHistogram.pcv
 	then
 		mv TestHistogram.pcv $i.save.pcv
 	fi
-	TestHistogram -type $i -loadfile foo
+	./TestHistogram -type $i -loadfile foo
 	if test -f TestHistogram.pcv
 	then
 		mv TestHistogram.pcv $i.load.pcv
