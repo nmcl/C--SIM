@@ -34,10 +34,6 @@
 
 #include <iostream.h>
 
-#ifndef RESOURCE_H_
-#  include <Common/Resource.h>
-#endif
-
 #ifndef NTTHREAD_H_
 #  include <nt_thread.h>
 #endif

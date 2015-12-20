@@ -30,10 +30,6 @@
 
 #include <iostream>
 
-#ifndef RESOURCE_H_
-#  include <Common/Resource.h>
-#endif
-
 #ifndef TESTER_H_
 #  include "Tester.h"
 #endif

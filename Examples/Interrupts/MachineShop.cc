@@ -28,10 +28,6 @@
 
 #include <iostream>
 
-#ifndef RESOURCE_H_
-#  include <Common/Resource.h>
-#endif
-
 #ifndef MACHINESHOP_H_
 #  include "MachineShop.h"
 #endif
@@ -76,12 +72,6 @@ void MachineShop::Body ()
     cpu = new Processor(10);
     Job* J = new Job(FALSE);
 
-#ifndef NO_RESOURCE
-    Resource::ref(s);
-    Resource::ref(A);
-    Resource::ref(cpu);
-#endif
-
     cpu->Activate();
     A->Activate();
     s->Activate();
@@ -105,18 +95,12 @@ void MachineShop::Body ()
      * will be nothing waiting to "catch" us.
      */
 
-#ifndef NO_RESOURCE
-    Resource::unref(cpu);
-    Resource::unref(A);
-    Resource::unref(s);
-#else
     if (cpu)
 	delete cpu;
     if (A)
 	delete A;
     if (s)
 	delete s;
-#endif
 
     Thread::mainResume();
 }

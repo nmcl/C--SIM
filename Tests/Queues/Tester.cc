@@ -30,10 +30,6 @@
 
 #include <iostream>
 
-#ifndef RESOURCE_H_
-#  include <Common/Resource.h>
-#endif
-
 #ifndef TESTER_H_
 #  include "Tester.h"
 #endif
@@ -131,10 +127,6 @@ void Tester::Body ()
     {
         dp = new DummyProcess;
 
-#ifndef NO_RESOURCE
-        Resource::ref(dp);
-#endif
-
 	switch(streamType)
 	{
 	case UNIFORM:
@@ -152,6 +144,14 @@ void Tester::Body ()
 	head = dp;
     }
 
+    Thread::mainResume();
+}
+
+void Tester::tidy ()
+{
+  DummyProcess* dp = 0;
+  int i;
+  
 #ifdef TESTQUEUE
 #ifdef DEBUG
     cout << "The list structure is:" << ReadyQueue << endl;
@@ -164,11 +164,7 @@ void Tester::Body ()
 	cout << "Removed " << dp->evtime() << endl;
 #endif
 	if (dp)
-#ifndef NO_RESOURCE
-	    Resource::unref(dp);
-#else
 	    delete dp;
-#endif
     }
 #else
     DummyProcess* trail = (DummyProcess*) 0;
@@ -176,20 +172,14 @@ void Tester::Body ()
     dp = head;
     for (i = 0; i < number; i++)
     {
-        dp->Cancel();
+      dp->Cancel();
 
 	trail = dp;
 	dp = dp->next;
 
-#ifndef NO_RESOURCE
-        Resource::unref(trail);
-#else
 	delete trail;
-#endif
     }
 #endif
-
-    Thread::mainResume();
 }
 
 void Tester::Await ()

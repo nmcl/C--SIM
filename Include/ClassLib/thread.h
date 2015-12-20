@@ -34,15 +34,13 @@
 #include <iostream>
 #include <ostream>
 
+#include <Common/Boolean.h>
+
 using std::cerr;
 using std::cout;
 using std::endl;
 using std::ostream;
 using std::istream;
-
-#ifndef RESOURCE_H_
-#  include <Common/Resource.h>
-#endif
 
 /*
  * Because not every thread package provides an easy way of identifying and
@@ -53,7 +51,7 @@ using std::istream;
 
 class ThreadData;
 
-class Thread : public Resource
+class Thread
 {
     friend class ThreadData;
 
@@ -108,7 +106,7 @@ private:
 };
 
 
-class Mutex : public Resource
+class Mutex
 {
 public:
     virtual Boolean lock () = 0;

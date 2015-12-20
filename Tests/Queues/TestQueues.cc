@@ -120,7 +120,9 @@ int main (int argc, char** argv)
 #endif
 
     t.Await();
-
+    
+    t.tidy();
+    
 #ifdef SYSV
     currentTime = times(&ClockBuffer) - startTime;
     convertTime = currentTime * clockTick * 1000000;

@@ -43,21 +43,13 @@ Tester::Tester ()
 
 Tester::~Tester ()
 {
-#ifndef NO_RESOURCE
-    Resource::unref(dummy);
-#else    
     if (dummy)
 	delete dummy;
-#endif    
 }
 
 void Tester::Body ()
 {
     dummy = new Harness;
-
-#ifndef NO_RESOURCE
-    Resource::ref(dummy);
-#endif    
 
     for (int i = 0; i < iter; i++)
     {

@@ -30,10 +30,6 @@
 
 #include <iostream>
 
-#ifndef RESOURCE_H_
-#  include <Common/Resource.h>
-#endif
-
 #ifndef TESTER_H_
 #  include "Tester.h"
 #endif
@@ -56,13 +52,9 @@ Tester::~Tester ()
      * Do not delete state1 as that process should
      * delete itself.
      */
-    
-#ifndef NO_RESOURCE
-    Resource::unref(state2);
-#else
+
     if (state2)
 	delete state2;
-#endif
 }
 
 /*
@@ -74,19 +66,11 @@ void Tester::Body ()
 {
     cout << "\nCreating first process." << endl;
     state1 = new DummyProcess(TRUE);
-    
-#ifndef NO_RESOURCE
-    Resource::ref(state1);
-#endif
 
     cout << "Activating first process." << endl;
     state1->ActivateAt(waitTime);
 
     state2 = new DummyProcess(FALSE);
-
-#ifndef NO_RESOURCE
-    Resource::ref(state2);
-#endif
 
     cout << "Activating second process." << endl;
     
@@ -95,10 +79,6 @@ void Tester::Body ()
     cout << "\nCreating third process." << endl;
     
     DummyProcess* dp = new DummyProcess(FALSE);
-    
-#ifndef NO_RESOURCE
-    Resource::ref(dp);
-#endif
 
     cout << "Terminating second process." << endl;
 
@@ -106,10 +86,6 @@ void Tester::Body ()
 
     dp->terminate();
     
-#ifndef NO_RESOURCE
-    Resource::unref(dp);
-#endif    
-
     Scheduler::scheduler().Resume();
     
     cout << "\nTester process holding." << endl;

@@ -59,11 +59,7 @@ void DummyProcess::Body ()
     {
 	cout << "\nSecond process activated." << endl;
 	cout << "Now deleting self." << endl;
-	
-#ifndef NO_RESOURCE
-	Resource::unref(this);
-#else
+
 	delete this;
-#endif
     }
 }

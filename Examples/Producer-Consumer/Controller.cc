@@ -30,10 +30,6 @@
 
 #include <iostream>
 
-#ifndef RESOURCE_H_
-#  include <Common/Resource.h>
-#endif
-
 #ifndef CONTROLLER_H_
 #  include "Controller.h"
 #endif
@@ -64,11 +60,6 @@ void Controller::Body ()
 {
     Producer* p = new Producer(10);
     Consumer* c = new Consumer(10);
-    
-#ifndef NO_RESOURCE
-    Resource::ref(p);
-    Resource::ref(c);
-#endif
 
     p->Activate();
     c->Activate();
@@ -86,15 +77,10 @@ void Controller::Body ()
     p->terminate();
     c->terminate();
 
-#ifndef NO_RESOURCE
-    Resource::unref(p);
-    Resource::unref(c);
-#else
     if (p)
 	delete p;
     if (c)
 	delete c;
-#endif
 
     /*
      * Must reactivate main thread before this thread "dies" or there

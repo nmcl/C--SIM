@@ -1,0 +1,193 @@
+==23313== Memcheck, a memory error detector
+==23313== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==23313== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==23313== Command: ./TestQueues -number 200
+==23313== 
+==23313== Thread 202:
+==23313== Invalid read of size 4
+==23313==    at 0x804BD9F: ThreadData::Execute(void*) (posix_thread.cc:79)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x44403f8 is 8 bytes inside a block of size 36 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x8049D38: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Invalid read of size 4
+==23313==    at 0x40544B2: pthread_mutex_lock (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804BDAD: ThreadData::Execute(void*) (posix_thread.cc:79)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x444045c is 20 bytes inside a block of size 68 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x804C134: Thread::~Thread() (posix_thread.cc:256)
+==23313==    by 0x8049F4F: Process::~Process() (Process.cc:153)
+==23313==    by 0x8049CFD: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049D2A: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Invalid read of size 4
+==23313==    at 0x4054029: __pthread_mutex_lock_full (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804BDAD: ThreadData::Execute(void*) (posix_thread.cc:79)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x444045c is 20 bytes inside a block of size 68 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x804C134: Thread::~Thread() (posix_thread.cc:256)
+==23313==    by 0x8049F4F: Process::~Process() (Process.cc:153)
+==23313==    by 0x8049CFD: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049D2A: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Invalid read of size 4
+==23313==    at 0x804BDB4: ThreadData::Execute(void*) (posix_thread.cc:84)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x44403f8 is 8 bytes inside a block of size 36 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x8049D38: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Invalid read of size 1
+==23313==    at 0x804BDB7: ThreadData::Execute(void*) (posix_thread.cc:84)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x4440448 is 0 bytes inside a block of size 68 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x804C134: Thread::~Thread() (posix_thread.cc:256)
+==23313==    by 0x8049F4F: Process::~Process() (Process.cc:153)
+==23313==    by 0x8049CFD: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049D2A: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Invalid read of size 4
+==23313==    at 0x804BE08: ThreadData::Execute(void*) (posix_thread.cc:94)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x44403f8 is 8 bytes inside a block of size 36 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x8049D38: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Invalid read of size 4
+==23313==    at 0x4055788: pthread_mutex_unlock (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804BE16: ThreadData::Execute(void*) (posix_thread.cc:94)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x444045c is 20 bytes inside a block of size 68 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x804C134: Thread::~Thread() (posix_thread.cc:256)
+==23313==    by 0x8049F4F: Process::~Process() (Process.cc:153)
+==23313==    by 0x8049CFD: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049D2A: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Invalid read of size 4
+==23313==    at 0x4055324: __pthread_mutex_unlock_full (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804BE16: ThreadData::Execute(void*) (posix_thread.cc:94)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x444045c is 20 bytes inside a block of size 68 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x804C134: Thread::~Thread() (posix_thread.cc:256)
+==23313==    by 0x8049F4F: Process::~Process() (Process.cc:153)
+==23313==    by 0x8049CFD: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049D2A: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Thread 176:
+==23313== Invalid write of size 4
+==23313==    at 0x4054524: pthread_mutex_lock (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804BDAD: ThreadData::Execute(void*) (posix_thread.cc:79)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x443c768 is 16 bytes inside a block of size 68 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x804C134: Thread::~Thread() (posix_thread.cc:256)
+==23313==    by 0x8049F4F: Process::~Process() (Process.cc:153)
+==23313==    by 0x8049CFD: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049D2A: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Invalid read of size 4
+==23313==    at 0x4054527: pthread_mutex_lock (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804BDAD: ThreadData::Execute(void*) (posix_thread.cc:79)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313==  Address 0x443c770 is 24 bytes inside a block of size 68 free'd
+==23313==    at 0x402B6B9: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x804C134: Thread::~Thread() (posix_thread.cc:256)
+==23313==    by 0x8049F4F: Process::~Process() (Process.cc:153)
+==23313==    by 0x8049CFD: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049D2A: DummyProcess::~DummyProcess() (DummyProcess.cc:38)
+==23313==    by 0x8049C05: Tester::tidy() (Tester.cc:181)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313== 
+==23313== Thread 1:
+==23313== Invalid read of size 4
+==23313==    at 0x4053176: pthread_join (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804C1EE: Thread::terminateThread() (posix_thread.cc:291)
+==23313==    by 0x804A8BB: Process::terminate() (Process.cc:474)
+==23313==    by 0x8049BDB: Tester::tidy() (Tester.cc:176)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313==  Address 0x5b4c8ba8 is not stack'd, malloc'd or (recently) free'd
+==23313== 
+==23313== 
+==23313== Process terminating with default action of signal 11 (SIGSEGV)
+==23313==  Access not within mapped region at address 0x5B4C8BA8
+==23313==    at 0x4053176: pthread_join (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804C1EE: Thread::terminateThread() (posix_thread.cc:291)
+==23313==    by 0x804A8BB: Process::terminate() (Process.cc:474)
+==23313==    by 0x8049BDB: Tester::tidy() (Tester.cc:176)
+==23313==    by 0x80491A1: main (TestQueues.cc:124)
+==23313==  If you believe this happened as a result of a stack
+==23313==  overflow in your program's main thread (unlikely but
+==23313==  possible), you can try to increase the size of the
+==23313==  main thread stack using the --main-stacksize= flag.
+==23313==  The main thread stack size used in this run was 8388608.
+==23313== 
+==23313== HEAP SUMMARY:
+==23313==     in use at exit: 87,380 bytes in 677 blocks
+==23313==   total heap usage: 808 allocs, 131 frees, 100,504 bytes allocated
+==23313== 
+==23313== 288 bytes in 1 blocks are possibly lost in loss record 7 of 13
+==23313==    at 0x402BEB6: calloc (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x4011C8E: _dl_allocate_tls (in /usr/lib/ld-2.21.so)
+==23313==    by 0x4052CAC: pthread_create@@GLIBC_2.1 (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804BF20: Thread::Thread(bool) (posix_thread.cc:148)
+==23313==    by 0x804A6E3: Process::Process() (Process.cc:417)
+==23313==    by 0x80497F6: Tester::Tester(long, Tester::StreamType) (Tester.cc:84)
+==23313==    by 0x8049166: main (TestQueues.cc:112)
+==23313== 
+==23313== 48,096 bytes in 167 blocks are possibly lost in loss record 13 of 13
+==23313==    at 0x402BEB6: calloc (in /usr/lib/valgrind/vgpreload_memcheck-x86-linux.so)
+==23313==    by 0x4011C8E: _dl_allocate_tls (in /usr/lib/ld-2.21.so)
+==23313==    by 0x4052CAC: pthread_create@@GLIBC_2.1 (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x804BF20: Thread::Thread(bool) (posix_thread.cc:148)
+==23313==    by 0x804A6E3: Process::Process() (Process.cc:417)
+==23313==    by 0x8049CC7: DummyProcess::DummyProcess() (DummyProcess.cc:34)
+==23313==    by 0x8049AA6: Tester::Body() (Tester.cc:128)
+==23313==    by 0x804BDEA: ThreadData::Execute(void*) (posix_thread.cc:88)
+==23313==    by 0x405236F: start_thread (in /usr/lib/libpthread-2.21.so)
+==23313==    by 0x43482BD: clone (in /usr/lib/libc-2.21.so)
+==23313== 
+==23313== LEAK SUMMARY:
+==23313==    definitely lost: 0 bytes in 0 blocks
+==23313==    indirectly lost: 0 bytes in 0 blocks
+==23313==      possibly lost: 48,384 bytes in 168 blocks
+==23313==    still reachable: 38,996 bytes in 509 blocks
+==23313==         suppressed: 0 bytes in 0 blocks
+==23313== Reachable blocks (those to which a pointer was found) are not shown.
+==23313== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==23313== 
+==23313== For counts of detected and suppressed errors, rerun with: -v
+==23313== ERROR SUMMARY: 251 errors from 13 contexts (suppressed: 0 from 0)

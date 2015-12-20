@@ -52,6 +52,8 @@ public:
     void Await ();
     void Exit ();
 
+    void tidy ();
+    
 private:
     long number;
     double hi, lo;

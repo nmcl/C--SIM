@@ -532,7 +532,6 @@ fi
 
 echo "Specific flags governing compilation and include file locations:"
 echo "-DDEBUG                  Enable Arjuna debugging messages"
-echo "-DNO_RESOURCE		 Disable Resource base class"
 echo "-DNO_INLINES             Disable inlining"
 echo "-DUSE_PURIFY             Enable purify checking (if available)"
 echo

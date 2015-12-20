@@ -8,7 +8,7 @@ Thread \- runtime thread implementation
 .br
 .B "#endif"
 .sp
-.BI "class Thread : public Resource"
+.BI "class Thread
 .br
 .BI "{"
 .br
@@ -75,5 +75,3 @@ thread_key
 is used to uniquely identify each threaded object within
 the system. It must be set by the actual (derived) thread
 class.
-.SH SEE ALSO
-Resource(3A)

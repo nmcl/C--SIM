@@ -30,10 +30,6 @@
 
 #include <iostream>
 
-#ifndef RESOURCE_H_
-#  include <Common/Resource.h>
-#endif
-
 #ifndef PROCESS_H_
 #  include <ClassLib/Process.h>
 #endif
@@ -89,18 +85,9 @@ void MachineShop::Body ()
     M = new Machine(8);
     Job* J = new Job;
 
-#ifndef NO_RESOURCE
-    Resource::ref(A);
-    Resource::ref(M);
-#endif
-
     if (useBreaks)
     {
 	B = new Breaks;
-
-#ifndef NO_RESOURCE
-        Resource::ref(B);
-#endif
     }
 
     A->Activate();
@@ -139,18 +126,12 @@ void MachineShop::Body ()
     if (useBreaks)
 	B->terminate();
 
-#ifndef NO_RESOURCE
-    Resource::unref(A);
-    Resource::unref(B);
-    Resource::unref(M);
-#else
     if (A)
 	delete A;
     if (B)
 	delete B;
     if (M)
 	delete M;
-#endif
 
     /*
      * Must reactivate main thread before this thread "dies" or there

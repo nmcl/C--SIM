@@ -30,11 +30,9 @@ COMMENT
 
 LIB	= $(LIBCOMMON)
 
-SOURCES = Boolean.cc \
-	  Resource.cc
+SOURCES = Boolean.cc
 
-OBJECTS = Boolean.o \
-	  Resource.o
+OBJECTS = Boolean.o
 
 SetLocalCppFlags(-I$(ARJUNA_INCLUDES) -I../include)
 
@@ -43,4 +41,3 @@ AllTarget($(LIB))
 MakeLibrary($(LIB),$(OBJECTS))
 
 MakeObjectCPLUSPLUS(Boolean,NOPARAM)
-MakeObjectCPLUSPLUS(Resource,NOPARAM)
