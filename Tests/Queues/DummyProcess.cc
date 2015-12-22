@@ -31,7 +31,8 @@
 #endif
 
 DummyProcess::DummyProcess ()
-                            : next(0)
+                           : Process(0),
+			     next(0)
 {
 }
 

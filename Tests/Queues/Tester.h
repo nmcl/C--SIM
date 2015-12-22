@@ -63,8 +63,6 @@ private:
     NormalStream*      ns;
     ExponentialStream* es;
     StreamType         streamType;
-
-    DummyProcess* head;
 };
 
 #endif

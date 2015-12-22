@@ -38,8 +38,6 @@
 #  include "DummyProcess.h"
 #endif
 
-#ifdef TESTQUEUE
-
 #ifndef CONFIGURE_H_
 #  include <Config/Configure.h>
 #endif
@@ -71,8 +69,6 @@
 
 extern Queue_Type ReadyQueue;
 
-#endif
-
 
 Tester::Tester (long elements, StreamType st)
                : number(elements),
@@ -80,8 +76,7 @@ Tester::Tester (long elements, StreamType st)
                  lo(10.0),
                  mean(20.0),
                  std(5.0),
-                 streamType(st),
-                 head(0)
+                 streamType(st)
 {
     us = (UniformStream*) 0;
     ns = (NormalStream*) 0;
@@ -139,9 +134,6 @@ void Tester::Body ()
 	    dp->ActivateAt((*es)());
 	    break;
 	}
-
-	dp->next = head;
-	head = dp;
     }
 
     Thread::mainResume();
@@ -150,36 +142,21 @@ void Tester::Body ()
 void Tester::tidy ()
 {
   DummyProcess* dp = 0;
-  int i;
-  
-#ifdef TESTQUEUE
 #ifdef DEBUG
     cout << "The list structure is:" << ReadyQueue << endl;
 #endif
 
-    for (i = 0; i < number; i++)
+    for (int i = 0; i < number; i++)
     {
 	dp = (DummyProcess*) ReadyQueue.Remove();
 #ifdef DEBUG
 	cout << "Removed " << dp->evtime() << endl;
 #endif
 	if (dp)
-	    delete dp;
+	{
+	  delete dp;
+	}
     }
-#else
-    DummyProcess* trail = (DummyProcess*) 0;
-
-    dp = head;
-    for (i = 0; i < number; i++)
-    {
-      dp->Cancel();
-
-	trail = dp;
-	dp = dp->next;
-
-	delete trail;
-    }
-#endif
 }
 
 void Tester::Await ()

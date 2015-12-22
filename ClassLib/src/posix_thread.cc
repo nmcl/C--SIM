@@ -36,6 +36,8 @@
 #  include <Config/Configure.h>
 #endif
 
+#include <signal.h>
+
 #ifndef POSIX_THREAD_H_
 #  include <posix_thread.h>
 #endif
@@ -91,7 +93,7 @@ void* ThreadData::Execute (void* p1)
 	else
 	{
 #ifndef PTHREAD_DRAFT_SOLARIS
-	    (void) pthread_mutex_unlock(&_p1->_data->_lock);
+	  (void) pthread_mutex_unlock(&_p1->_data->_lock);
 #else
 	    sem_post(&_p1->_data->_lock);
 #endif	    
@@ -101,6 +103,11 @@ void* ThreadData::Execute (void* p1)
     return 0;
 }
 
+/*
+ * NOTE, unless you are testing the system (e.g., queues) then only
+ * one instance of an object created from this constructor should ever
+ * be called in a simulation - the main thread!
+ */
 
 Thread::Thread (Boolean create)
 	       : thread_key(-1),
@@ -189,6 +196,11 @@ Thread::Thread (Boolean create)
     Insert((Thread*) 0, this);
 }
 
+/*
+ * If you give a stack size of 0 or less then we will create an instance but
+ * it won't be threaded.
+ */
+
 Thread::Thread (unsigned long size)
 	       : thread_key(-1),
 		 _data(new ThreadData),
@@ -233,12 +245,21 @@ Thread::Thread (unsigned long size)
     (void) sem_init(&_data->_lock, 0, 0);
 #endif    
 
+    /*
+     * Check size of stack!
+     */
+
+    if (size > 0)
+    {
 #ifndef PTHREAD_DRAFT_HPUX    
-    (void) pthread_create(&_data->_thread, &_data->_attr, ThreadData::Execute, p1);
+      (void) pthread_create(&_data->_thread, &_data->_attr, ThreadData::Execute, p1);
 #else    
-    (void) pthread_create(&_data->_thread, _data->_attr, ThreadData::Execute, p1);
-    pthread_setprio(_data->_thread, MaxPriority);
+      (void) pthread_create(&_data->_thread, _data->_attr, ThreadData::Execute, p1);
+      pthread_setprio(_data->_thread, MaxPriority);
 #endif
+    }
+    else
+      _data->dead = TRUE;
     
     thread_key = ThreadData::base_key++;
 
@@ -250,7 +271,7 @@ Thread::Thread (unsigned long size)
 Thread::~Thread ()
 {
     Remove(this);
-    
+
     terminateThread();
 
     delete _data;
@@ -266,7 +287,20 @@ void Thread::terminateThread ()
 
     if (_data->dead)
 	return;
-    
+  
+#ifdef PTHREAD_DRAFT_LINUX
+  /*
+   * If pthread_kill is supported and we're not the thread being terminated,
+   * then just kill the thread NOW!
+   */
+  
+  if (pthread_equal(pthread_self(), _data->_thread) == 0)
+  {
+    pthread_kill(_data->_thread, 0);
+    return;
+  }
+#endif
+  
     _data->dead = TRUE;
 
     if (pthread_equal(pthread_self(), _data->_thread) == 0)
@@ -301,7 +335,7 @@ void Thread::terminateThread ()
 #endif	
 #else
 	sem_destroy(&_data->_lock);
-#endif	
+#endif
     }
     else
     {
@@ -316,7 +350,7 @@ void Thread::terminateThread ()
 #endif	
 #else
 	sem_destroy(&_data->_lock);
-#endif	
+#endif
 	pthread_exit(0);
     }
 }

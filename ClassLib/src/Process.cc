@@ -66,11 +66,7 @@ static double SimulatedTime = 0.0;
 double SimulatedTime = 0.0;
 #endif
 
-#ifndef TESTQUEUE
-static Queue_Type ReadyQueue;  // Queue_Type is replaced by cpp
-#else
-Queue_Type ReadyQueue;
-#endif
+Queue_Type ReadyQueue;  // Queue_Type is replaced by cpp
 
 static Mutex* _theMutex = Mutex::create();
 
@@ -153,7 +149,7 @@ void Scheduler::print (ostream& strm)
 Process::~Process ()
 {
     /*
-     * We don't call Cancel of terminate here since they will
+     * We don't call Cancel or terminate here since they will
      * attempt to suspend this process if it is running, and
      * we do not want that to occur - garbage could quickly
      * build up. So, we let the destructor run to completion
@@ -412,7 +408,7 @@ void Process::reset ()
 }
 
 Process::Process ()
-		 : wakeuptime(Process::Never),
+                 : wakeuptime(Process::Never),
 		   Terminated(FALSE),
 		   Passivated(TRUE)
 {
