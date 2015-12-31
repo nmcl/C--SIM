@@ -906,9 +906,9 @@ The actual quantile value is provided by getValue method.
 
 [2] O-J. Dahl, B. Myhrhaug, K. Nygaard, “SIMULA Common Base Language”, Norwegian Computing Centre
 
-[3] Knuth Vol2, “Seminumerical Algorithms”, Addison-Wesley, 1969, p. 117.
+[3] link:http://www.amazon.com/The-Computer-Programming-Volume-Seminumerical/dp/0201038226[Knuth Vol2, “Seminumerical Algorithms”, Addison-Wesley, 1969, p. 117].
 
-[4] R. Sedgewick, “Algorithms”, Addison-Wesley, Reading MA, 1983, pp. 36-38.
+[4] link:http://algs4.cs.princeton.edu/home/[R. Sedgewick, “Algorithms”, Addison-Wesley, Reading MA, 1983, pp. 36-38].
 
 [5] D. L. McCue and M. C. Little, “Computing Replica Placement in Distributed Systems”, Proceedings of the 2 IEEE Workshop on the Management of Replicated Data, November 1992, pp. 58-61.
 
