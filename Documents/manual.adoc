@@ -910,10 +910,10 @@ The actual quantile value is provided by getValue method.
 
 [4] link:http://algs4.cs.princeton.edu/home/[R. Sedgewick, “Algorithms”, Addison-Wesley, Reading MA, 1983, pp. 36-38].
 
-[5] D. L. McCue and M. C. Little, “Computing Replica Placement in Distributed Systems”, Proceedings of the 2 IEEE Workshop on the Management of Replicated Data, November 1992, pp. 58-61.
+[5] link:http://www.cs.ncl.ac.uk/publications/inproceedings/papers/630.pdf[D. L. McCue and M. C. Little, “Computing Replica Placement in Distributed Systems”, Proceedings of the 2 IEEE Workshop on the Management of Replicated Data, November 1992, pp. 58-61].
 
-[6] I. Mitrani, “Simulation Techniques for Discrete Event Systems”, Cambridge University Press, Cambridge, 1982.
+[6] link:https://books.google.co.uk/books?id=CF04AAAAIAAJ&pg=PR4&lpg=PR4&dq=I.+Mitrani,+“Simulation+Techniques+for+Discrete+Event+Systems”,+Cambridge+University+Press&source=bl&ots=zw-1g5mS30&sig=GxA8y1Moew5QYY3tYR6Hh19ifLw&hl=en&sa=X&ved=0ahUKEwjM0dCIiYfKAhVFwBQKHYogAcAQ6AEINDAD#v=onepage&q=I.%20Mitrani%2C%20“Simulation%20Techniques%20for%20Discrete%20Event%20Systems”%2C%20Cambridge%20University%20Press&f=false[I. Mitrani, “Simulation Techniques for Discrete Event Systems”, Cambridge University Press, Cambridge, 1982].
 
-[7] M. C. Little and D. L. McCue, “The Replica Management System: a Scheme for Flexible and Dynamic Replication”, Proceedings of the 2 International Workshop on Configurable Distributed Systems, March 1994, pp. 46-57.
+[7] link:http://www.cs.newcastle.ac.uk/publications/inproceedings/papers/29.pdf[M. C. Little and D. L. McCue, “The Replica Management System: a Scheme for Flexible and Dynamic Replication”, Proceedings of the 2 International Workshop on Configurable Distributed Systems, March 1994, pp. 46-57].
 
-[8] G. D. Parrington et al, “The Design and Implementation of Arjuna”, Broadcast Project Technical Report, October 1994.
+[8] link:https://www.usenix.org/legacy/publications/compsystems/1995/sum_parrington.pdf[G. D. Parrington et al, “The Design and Implementation of Arjuna”, Broadcast Project Technical Report, October 1994].
