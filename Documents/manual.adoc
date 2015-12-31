@@ -902,9 +902,9 @@ The actual quantile value is provided by getValue method.
 
 == References
 
-[1] G. M. Birtwistle, O-J. Dahl, B. Myhrhaug, K. Nygaard, “Simula Begin”, Academic Press, 1973.
+[1] link:http://dl.acm.org/citation.cfm?id=1096934[G. M. Birtwistle, O-J. Dahl, B. Myhrhaug, K. Nygaard, “Simula Begin”, Academic Press, 1973].
 
-[2] O-J. Dahl, B. Myhrhaug, K. Nygaard, “SIMULA Common Base Language”, Norwegian Computing Centre.
+[2] link:https://books.google.co.uk/books?id=4cCqCAAAQBAJ&pg=PA185&lpg=PA185&dq=O-J.+Dahl,+B.+Myhrhaug,+K.+Nygaard,+“SIMULA+Common+Base+Language”,+Norwegian+Computing+Centre&source=bl&ots=ZY5oBb1Hcy&sig=UurKDDPwtl_AMg6CgZcZ5Yyk8Ew&hl=en&sa=X&ved=0ahUKEwiygoLsiofKAhWDShQKHbtgDLkQ6AEIIjAA#v=onepage&q=O-J.%20Dahl%2C%20B.%20Myhrhaug%2C%20K.%20Nygaard%2C%20“SIMULA%20Common%20Base%20Language”%2C%20Norwegian%20Computing%20Centre&f=false[O-J. Dahl, B. Myhrhaug, K. Nygaard, “SIMULA Common Base Language”, Norwegian Computing Centre].
 
 [3] link:http://www.amazon.com/The-Computer-Programming-Volume-Seminumerical/dp/0201038226[Knuth Vol2, “Seminumerical Algorithms”, Addison-Wesley, 1969, p. 117].
 
