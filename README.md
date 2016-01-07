@@ -10,8 +10,6 @@ The system also comes with complete examples and test routines which illustrate 
 
 The co-routine facility of Simula is implemented by various threads (and others). Classes are provided for various random number distributions.
 
-NOTE: With the move to github and various refactoring it has become difficult to even check that C++SIM builds on all of the platforms we once supported, let alone run successfully. Therefore, at the moment all we can test against is Linux and that's the only platform (with gcc) that we can support. However, rather than remove the code for all of the other platforms we once supported, such as HPUX, Solaris and other thread packages, we've left them in the codebase for now in case others in the community are able to use them to check that C++SIM can still build and run.
-
 Thanks to all the people who took the time and effort to port C++ to systems and compilers that we do not have access too and reporting the problems (and fixes) that were needed.
 
 Specific thanks for contributions and bug reports to:
@@ -21,6 +19,8 @@ Peter Lamb peter.lamb@cmis.csiro.au
 Ian Mathieson Ian.Mathieson@mel.dit.CSIRO.AU
 
 Sze-Yao Ni nee@axp1.csie.ncu.edu.tw
+
+NOTE: With the move to github and various refactoring it has become difficult to even check that C++SIM builds on all of the platforms we once supported, let alone run successfully. Therefore, at the moment all we can test against is Linux and that's the only platform (with gcc) that we can support. However, rather than remove the code for all of the other platforms we once supported, such as HPUX, Solaris and other thread packages, we've left them in the codebase for now in case others in the community are able to use them to check that C++SIM can still build and run.
 
 ----
 
