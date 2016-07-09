@@ -45,3 +45,7 @@ make -f MakefileBoot
 make Makefiles all
 
 The examples all have expected_output files. Run the examples and compare.
+
+----
+
+NOTE, historical versions of C++SIM can be found in the sandbox repository, e.g., https://github.com/nmcl/sandbox/tree/master/Process
