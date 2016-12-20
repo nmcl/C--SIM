@@ -418,6 +418,12 @@ rm -f configtest.*
 
 echo $PRE_ECHO "Determining C++ compiler version ... " $POST_ECHO
 case "$CPLUSPLUS_PROGRAM" in
+*clang*|*clang++*) version="`$CPLUSPLUS_PROGRAM -v 2>&1 | grep version | sed 's/^[^0-9]*\([0-9.]*\).*/\1/'`"
+	echo "done (version is" $version ")"
+	CPLUSPLUS_NAME="c_clang"
+	LEX_PROGRAM=flex
+	YACC_PROGRAM=bison
+	;;
 *gcc*|*g++*) version="`$CPLUSPLUS_PROGRAM -v 2>&1 | grep version | sed 's/^[^0-9]*\([0-9.]*\).*/\1/'`"
 	echo "done (version is" $version ")"
 	CPLUSPLUS_NAME="c_gcc"
@@ -473,12 +479,6 @@ case "$CPLUSPLUS_PROGRAM" in
 	echo "done (version is" $fullversion ")"
 	CPLUSPLUS_NAME="c_cxx"
 	;;
-*clang*) version="`$CPLUSPLUS_PROGRAM -v 2>&1 | grep version | sed 's/^[^0-9]*\([0-9.]*\).*/\1/'`"
-	echo "done (version is" $version ")"
-	CPLUSPLUS_NAME="c_clang"
-	LEX_PROGRAM=flex
-	YACC_PROGRAM=bison
-	;;
 *)	CPLUSPLUS_NAME="c"
 	echo "done (version unknown)" 
 	;;
@@ -505,7 +505,6 @@ echo $PRE_ECHO "Finding compiler config file, please wait : " $POST_ECHO
 C_CONFIG=`./getVersion ${CPLUSPLUS_NAME} .cf $CONFIGDIR ${CPLUSPLUS_MAJOR} ${CPLUSPLUS_MINOR} ${CPLUSPLUS_MINORMINOR}`
 
 echo $C_CONFIG
-
 if [ -z "$C_CONFIG" ]; then
 	echo $PRE_ECHO "WARNING no compiler specific config file for this compiler! using : "
 	C_CONFIG=${CPLUSPLUS_NAME}_unknown.cf
