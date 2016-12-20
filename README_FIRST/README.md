@@ -87,7 +87,7 @@ The queuing implementation which the scheduler will use.
 These  flags  (actually  cpp  defines)  govern  parts  of  the
 compilation of  C++SIM.  You may set  -DDEBUG.   Setting  -DNO_INLINES
 causes all of the inline  code in C++SIM to be non-inlined (i.e., real
-functions  are  generated  and called),  This  option  is  useful  for
+functions  are  generated  and called).  This  option  is  useful  for
 debugging purposes.
 
 9) Additional compilation flags for optimisation and/or debugging []
