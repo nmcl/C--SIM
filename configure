@@ -423,10 +423,10 @@ case "$CPLUSPLUS_PROGRAM" in
 	CPLUSPLUS_NAME="c_gcc"
 
 	case "$version" in
-	2.5*)	echo "WARNING gcc-2.5 has bugs that affect the linking of Arjuna applications."
+	2.5*)	echo "WARNING gcc-2.5 has bugs that affect the linking of certain applications."
 		echo "See README-GCC for details"
 		;;
-	2.6*)	echo "WARNING gcc-2.6 has bugs that affect the linking of Arjuna applications."
+	2.6*)	echo "WARNING gcc-2.6 has bugs that affect the linking of certain applications."
 		echo "See README-GCC for details"
 		;;
 	esac
@@ -531,7 +531,7 @@ then
 fi
 
 echo "Specific flags governing compilation and include file locations:"
-echo "-DDEBUG                  Enable Arjuna debugging messages"
+echo "-DDEBUG                  Enable debugging messages"
 echo "-DNO_INLINES             Disable inlining"
 echo "-DUSE_PURIFY             Enable purify checking (if available)"
 echo
