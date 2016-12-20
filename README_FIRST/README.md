@@ -66,15 +66,15 @@ default  provides  maximum safety.
 The  default value is  the  directory from which configure  is
 run. This does not need changing.
 
-4) C++  compiler [CC]
+4) C++  compiler [g++]
 
 Which C++ compiler  to run to compile  the  system.
 
-5) C++ include directory [/usr/include/CC]
+5) C++ include directory [/usr/include/c++]
 
 The directory containg your C++ header files.
 
-6) Thread type to use [LWP_Thread]
+6) Thread type to use [Posix_Thread]
 
 The type of threads package you wish to use.
 
@@ -98,7 +98,7 @@ Set -g or -O or whatever here.
 
 Set -g or -s or -L etc. flags here.
 
-11) Specific libraries [-L/usr/lib -lm]
+11) Specific libraries [-lm]
 
 This  will include the location of the threads library and the
 maths library at least.
