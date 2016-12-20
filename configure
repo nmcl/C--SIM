@@ -387,7 +387,7 @@ then
 	rm -f configtest.*
 fi
 
-echo 'main(){}' > configtest.C
+echo 'int main(){}' > configtest.C
 while true
 do
 	echo $PRE_ECHO "$OS C++ compiler ["$CPLUSPLUS_PROGRAM"] : " $POST_ECHO
