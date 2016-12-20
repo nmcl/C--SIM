@@ -86,4 +86,4 @@ InstallFile(include/Config,s_unknown.cf)
 InstallFile(include/Config,v_sun.cf)
 InstallFile(include/Config,v_unknown.cf)
 
-TidyTarget(Configure MachineRules.h)
+TidyTarget(Configure.h MachineRules.h)
