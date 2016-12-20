@@ -130,7 +130,7 @@ Boolean TimeVariance::restoreState (ifstream& iFile)
     
     iFile >> first;
     iFile >> startTime >> currentValue;
-    iFile >> stime, total;
+    iFile >> stime >> total;
     
     return TRUE;
 }

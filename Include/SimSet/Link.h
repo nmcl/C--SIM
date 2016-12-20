@@ -46,7 +46,7 @@ class Head;
 
 class Link : public Linkage
 {
-    friend Head;
+    friend class Head;
 
 public:
     virtual ~Link ();
