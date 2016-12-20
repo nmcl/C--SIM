@@ -28,9 +28,9 @@ etc.
 If any of these steps fail check the section on known problems
 for potential remedies.
 
-Note, The programs in  the Examples and Tests directories are
+Note, the programs in  the Examples and Tests directories are
 not built by  default. Go into these and  type make -f MakefileBoot as
-well, and follow similar steps to above.
+well and follow similar steps to above.
 
 
 2.	Configuration Specifics
@@ -44,7 +44,7 @@ Note, the  configuration  system  attempts to  automatically
 generate the  code for make  to find the   necessary libraries etc. If
 these are not correct  for your system  then look in the corresponding
 file in  Include/Config.  Also, Configure.h contains  the  information
-obtained from running configure, and if this file  exists in the local
+obtained from running configure and if this file  exists in the local
 directory or in  the installed directory, the  answers  from this file
 will be  given as the   defaults  for subsequent  runs (the  installed
 Configure.h is used in preference to a local version).
