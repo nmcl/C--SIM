@@ -30,4 +30,4 @@ COMMENT
 
 #define IHaveSubDirs
 
-SetSubDirectorys(ClassLib Common Config Event SimSet Stat Contrib)
+SetSubDirectorys(ClassLib Common Event SimSet Stat Contrib Config)
