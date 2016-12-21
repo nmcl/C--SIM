@@ -35,6 +35,7 @@
 #  include <Event/Entity.h>
 #endif
 
+#include <Event/Semaphore.h>
 #include <ClassLib/Random.h>
 
 #include <iostream>
@@ -69,5 +70,54 @@ void DummyEntity::Body ()
 
 int main (int argc, char** argv)
 {
-    return 1;
+  Semaphore sem(2);
+  DummyEntity e1(10);
+  DummyEntity e2(20);
+  DummyEntity e3(30);
+
+  if (sem.NumberWaiting() != 0)
+  {
+    cerr << "First sem.NumberWaiting() " << sem.NumberWaiting() << endl;
+    return -1;
+  }
+
+  Semaphore::Outcome result = sem.Get(&e1);
+
+  if (result != Semaphore::DONE)
+  {
+    cerr << "First Get " << result << endl;
+    return -1;
+  }
+
+  result = sem.Get(&e2);
+
+  if (result != Semaphore::DONE)
+  {
+    cerr << "Second Get " << result << endl;
+    return -1;
+  }
+
+  result = sem.TryGet(&e3);
+
+  if (result != Semaphore::WOULD_BLOCK)
+  {
+    cerr << "TryGet " << result << endl;
+    return -1;
+  }
+
+  result = sem.Get(&e3);
+
+  if (result != Semaphore::DONE)
+  {
+    cerr << "Third Get " << result << endl;
+    return -1;
+  }
+
+  if (sem.NumberWaiting() != 1)
+  {
+    cerr << "Second sem.NumberWaiting() " << sem.NumberWaiting() << endl;
+    return -1;
+  }
+	
+  return 1;
 }
