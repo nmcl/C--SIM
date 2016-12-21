@@ -24,10 +24,22 @@ COMMENT Department of Computing Science,
 COMMENT The University,
 COMMENT Newcastle upon Tyne,
 COMMENT UK.
-COMMENT 
-COMMENT $Id: Imakefile,v 1.4 1996/12/09 10:10:03 nmcl Exp $
+COMMENT
+COMMENT $Id: Imakefile,v 1.5 1998/08/28 14:19:47 nmcl Exp $
 COMMENT
 
-#define IHaveSubDirs
+SOURCES  = Stats.cc
 
-SetSubDirectorys(Basic Interrupts Producer-Consumer Restart Stats)
+OBJECTS  = Stats.o
+
+LIBRARIES = $(LIBCONTRIB) $(LIBCPPSIM) $(LIBCONTRIB) $(LIBSTAT) $(LIBCPPSIM) $(LIBCOMMON)
+
+SetLocalCppFlags(-I$(ARJUNA_INCLUDES))
+
+AllTarget(Stats)
+
+MakeProgramCPLUSPLUS(Stats,$(OBJECTS) $(LIBRARIES),NOPARAM)
+
+MakeObjectCPLUSPLUS(Stats,NOPARAM)
+
+TidyTarget(Stats)
