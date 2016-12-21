@@ -121,7 +121,5 @@ int main (int argc, char** argv)
   }
   */
 
-  cout << "done" << endl;
-  
   return 1;
 }
