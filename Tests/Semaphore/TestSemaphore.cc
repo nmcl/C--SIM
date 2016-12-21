@@ -35,7 +35,37 @@
 #  include <Event/Entity.h>
 #endif
 
+#include <ClassLib/Random.h>
+
 #include <iostream>
+
+class DummyEntity : public Entity
+{
+public:
+  DummyEntity (double mean);
+  ~DummyEntity ();
+
+  void Body ();
+
+private:
+    ExponentialStream* InterArrivalTime;
+};
+
+DummyEntity::DummyEntity (double mean)
+  : InterArrivalTime(new ExponentialStream(mean))
+{
+}
+
+DummyEntity::~DummyEntity ()
+{
+  delete InterArrivalTime;
+}
+
+void DummyEntity::Body ()
+{
+  Hold((*InterArrivalTime)());
+}
+
 
 int main (int argc, char** argv)
 {
