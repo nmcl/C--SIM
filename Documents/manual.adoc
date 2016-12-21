@@ -668,56 +668,38 @@ If the semaphore is garbage collected with processes waiting for it then an erro
 
 === Example
 
-NOTE: Java version. Needs to be rewritten in C++.
-
 If you check the _interrupt_ example in the source distribution you will find it uses the SimulationEntity to model asynchronous behaviour. For instance, the Processor class, some of which is shown below:
 
 ----
-public class Processor extends SimulationEntity
+void Processor::Body ()
 {
-    public void run ()
+    Job* j = (Job*) 0;
+
+    for (;;)
     {
-        Job j = null;
+	if (Wait((*sTime)()))
+	{
+	    if (!JobQ.IsEmpty())
+	    {
+	        j = JobQ.Dequeue();
+		delete j;
+		ProcessedJobs++;
+	    }
+	}
+	else
+	{
+	    if (SignalQ.IsEmpty())
+	        cerr << "Error - signal caught, but no message given!" << endl;
+	    else
+	    {
+	        j = SignalQ.Dequeue();
+		delete j;
+		SignalledJobs++;
+	    }
+	}
 
-        while (!terminated())
-        {
-            try
-            {
-                try
-                {
-                    timedWait(sTime.getNumber());
-
-                    if (!MachineShop.JobQ.isEmpty())
-                    {
-                        j = MachineShop.JobQ.dequeue();
-                        MachineShop.ProcessedJobs++;
-                    }
-                }
-                catch (InterruptedException e)
-                {
-                    if (MachineShop.SignalQ.isEmpty())
-                        System.out
-                                .println("Error - signal caught, but no message given!");
-                    else
-                    {
-                        j = MachineShop.SignalQ.dequeue();
-                        MachineShop.SignalledJobs++;
-                    }
-                }
-
-                if (MachineShop.SignalledJobs == 2)
-                    terminate();
-            }
-            catch (SimulationException e)
-            {
-            }
-            catch (RestartException e)
-            {
-            }
-            catch (IOException e)
-            {
-            }
-        }
+	if (SignalledJobs == 2)
+	    terminate();
     }
 }
 ----
@@ -725,6 +707,8 @@ public class Processor extends SimulationEntity
 As can be seen, the Processor uses timedWait to hold for a specified period of time but this can be interrupted by an event, in this case that a message has been delivered.
 
 Semaphores are used within the simulation system. However, they can also be used by the application developer. For instance, the following example creates a Semaphore which protected 2 resources that are being accessed by 3 SimulationEntities:
+
+NOTE: Java version. Needs to be rewritten in C++.
 
 ----
 public void test () throws Exception
