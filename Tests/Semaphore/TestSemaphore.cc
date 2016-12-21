@@ -96,7 +96,7 @@ int main (int argc, char** argv)
     cerr << "Second Get " << result << endl;
     return -1;
   }
-
+  
   result = sem.TryGet(&e3);
 
   if (result != Semaphore::WOULD_BLOCK)
@@ -105,6 +105,7 @@ int main (int argc, char** argv)
     return -1;
   }
 
+  /*
   result = sem.Get(&e3);
 
   if (result != Semaphore::DONE)
@@ -118,6 +119,9 @@ int main (int argc, char** argv)
     cerr << "Second sem.NumberWaiting() " << sem.NumberWaiting() << endl;
     return -1;
   }
-	
+  */
+
+  cout << "done" << endl;
+  
   return 1;
 }
