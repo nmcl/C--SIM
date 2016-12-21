@@ -477,22 +477,20 @@ StreamSelect indicates the offset in the random number sequence to begin samplin
 
 === Example
 
-NOTE: Java version. Needs to be rewritten in C++.
-
 In this example we will take a NormalStream instance obtain values from it which are then inserted in a Histogram so that we can then print out the contents and associated data. As we have already seen that NormalStream derives from RandomStream along with the other stream types, this example can be easily changed to use something else, such as the ExponentialStream.
 
 ----
-NormalStream str = new NormalStream(100.0, 2.0);
-Histogram hist = new Histogram(10);
+NormalStream str(100.0, 2.0);
+Quantile* hist = new Quantile();
 
-for (int i = 0; i < 1000; i++)
+for (int i = 0; i < 20; i++)
 {
-	hist.setValue(str.getNumber());
+  hist->setValue(str());
 }
 
-System.out.println("NormalStream error: "+str.error());
+cout << "NormalStream error: " << str.Error() << endl;
 
-hist.print();
+cout << *hist << endl;
 ----
 
 If you were to execute this code then the output would be similar to the following:
