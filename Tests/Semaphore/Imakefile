@@ -18,16 +18,28 @@ COMMENT
 COMMENT (C) 1990-2008,
 COMMENT
 COMMENT
-COMMENT Copyright (C) 1994
+COMMENT Copyright (C) 1994-1998,
 COMMENT 
 COMMENT Department of Computing Science,
 COMMENT The University,
 COMMENT Newcastle upon Tyne,
 COMMENT UK.
-COMMENT 
-COMMENT $Id: Imakefile,v 1.6 1996/04/09 10:53:01 nmcl Exp $
+COMMENT
+COMMENT $Id: Imakefile,v 1.3 1998/10/01 08:20:57 nmcl Exp $
 COMMENT
 
-#define IHaveSubDirs
+SOURCES  = TestSemaphore.cc
 
-SetSubDirectorys(Random SimSet Queues Stat Terminate Timer Semaphore)
+OBJECTS  = TestSemaphore.o
+
+LIBRARIES = $(LIBSTAT) $(LIBCPPSIM) $(LIBCOMMON)
+
+SetLocalCppFlags(-I$(ARJUNA_INCLUDES))
+
+AllTarget(TestSemaphore)
+
+MakeProgramCPLUSPLUS(TestSemaphore,TestSemaphore.o $(LIBRARIES),NOPARAM)
+
+MakeObjectCPLUSPLUS(TestSemaphore,NOPARAM)
+
+TidyTarget(TestSemaphore)
