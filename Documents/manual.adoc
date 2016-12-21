@@ -711,31 +711,53 @@ Semaphores are used within the simulation system. However, they can also be used
 NOTE: Java version. Needs to be rewritten in C++.
 
 ----
-public void test () throws Exception
+Semaphore sem(2);
+DummyEntity e1(10);
+DummyEntity e2(20);
+DummyEntity e3(30);
+
+if (sem.NumberWaiting() != 0)
 {
-	Semaphore sem = new Semaphore(2);
-	DummyEntity e1 = new DummyEntity(10);
-	DummyEntity e2 = new DummyEntity(20);
-	DummyEntity e3 = new DummyEntity(30);
+  cerr << "First sem.NumberWaiting() " << sem.NumberWaiting() << endl;
+  return -1;
+}
 
-	assertTrue(sem.numberWaiting() == 0);
+Semaphore::Outcome result = sem.Get(&e1);
 
-	Semaphore.Outcome result = sem.get(e1);
+if (result != Semaphore::DONE)
+{
+  cerr << "First Get " << result << endl;
+  return -1;
+}
 
-	assertTrue(result == Semaphore.Outcome.DONE);
+result = sem.Get(&e2);
 
-	result = sem.get(e2);
+if (result != Semaphore::DONE)
+{
+  cerr << "Second Get " << result << endl;
+  return -1;
+}
+  
+result = sem.TryGet(&e3);
 
-	assertTrue(result == Semaphore.Outcome.DONE);
+if (result != Semaphore::WOULD_BLOCK)
+{
+  cerr << "TryGet " << result << endl;
+  return -1;
+}
 
-	result = sem.tryGet(e3);
+result = sem.Get(&e3);
 
-	assertTrue(result == Semaphore.Outcome.WOULD_BLOCK);
+if (result != Semaphore::DONE)
+{
+  cerr << "Third Get " << result << endl;
+  return -1;
+}
 
-	result = sem.get(e3);
-
-	assertTrue(result == Semaphore.Outcome.DONE);
-	assertTrue(sem.numberWaiting() == 1);
+if (sem.NumberWaiting() != 1)
+{
+  cerr << "Second sem.NumberWaiting() " << sem.NumberWaiting() << endl;
+  return -1;
 }
 ----
 
