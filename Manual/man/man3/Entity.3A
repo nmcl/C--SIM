@@ -20,6 +20,10 @@ Entity \- asynchronous simulation processes
 .br
 .BI "					Boolean immediate = TRUE);"
 .sp
+.BI "	void trigger ();"
+.sp
+.BI "	Boolean isWaiting () const;"
+.sp
 .BI "	virtual void terminate ();"
 .sp
 .BI "	virtual void Body () = 0;
