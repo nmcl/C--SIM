@@ -608,6 +608,8 @@ _Trigger queues_ are lists maintained by the simulation system of process waitin
 
 In addition to trigger queues, process can wait on semaphores, allowing the creation of monitor regions, for example. WaitForSemaphore(Semaphore& sem) causes the current process to attempt to exclusively acquire the semaphore. If this is not possible then the process is suspended. Currently, a process which is waiting on a semaphore cannot be interrupted, and is not placed into the *waiting* state. As such, when this method returns the semaphore has been acquired.
 
+Finally, the trigger method is invoked by the relevant TriggerQueue on the Entity. isWaiting can be called to determine whether the specific Entity is currently on a queue.
+
 === Trigger queues
 
 Processes waiting for the same application controlled event can be grouped together into a TriggerQueue, as described in the previous section. When this event occurs the application can use one of the two trigger methods to activate the queue members. This involves placing the process(es) onto the head of the scheduler queue.

@@ -188,7 +188,19 @@ on the specified queue and passivates it, placing it in the
 waiting
 state. The queue methods can then be used to control reactivation. The
 return value indicates whether the process was interrupted or
-triggered.
+triggered. The
+.B
+trigger
+method is called by the
+.B
+TriggerQueue
+instance. It is possible to determine if an
+.B
+Entity
+is currently on a queue by calling the
+.B
+isWaiting
+method.
 .SH NOTES
 Because instances of this class can be outside of the control of the
 simulation
