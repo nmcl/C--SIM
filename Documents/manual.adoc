@@ -148,6 +148,8 @@ The scheduler maintains the simulation clock, and the current value of this cloc
 
 To enable multiple simulation runs to occur within a single application, it is possible to reset it and the simulation clock by calling the reset() method of the Scheduler class. This causes the simulation to remove all processes (simulation objects) currently registered on the scheduler queue and to invoke a class specific method on each of them which resets their states (detailed in the next section). Once this is finished the simulation is ready for an additional run. It must then perform any work necessary to put itself back in a state ready for restarting the simulation, and should then suspend itself again before the simulation can be restarted (typically by calling cancel.)
 
+More details on resetting the simulation can be found later in the document after we discuss simulation processes.
+
 === Simulation processes
 
 As was described in the previous sections, the package supports the process-oriented approach to simulation, where each simulation entity can be considered a separate process. Therefore in the entities within a simulation are represented by _process objects_. These are C++ objects which have an independent thread of control associated with them at creation time, allowing them to convey the notion of activity necessary for participating in the simulation.
@@ -292,7 +294,7 @@ passivated() and terminated() indicate whether the process is in the passive or 
 
 Because Process extends the Thread class it is necessary for the simulation class to provide an implementation of the Body method which will do the actual work for the process. If this method ever returns then the thread is destroyed. However, in order for C++SIM to detect the termination of the thread, the terminate() method _must_ be used instead.
 
-===== Resetting
+===== Resetting the simulation and processes
 
 Resetting a simulation involves resetting all of the objects involved in it which will be required for subsequent runs. To reset a simulation, the
 reset method of the simulation scheduler must be invoked. This then calls the corresponding reset methods for all of the process objects which are currently on the simulation queue. However, there is a difference between resetting the state of a process and resetting its associated thread. The thread can only be reset when it is next activated. Because a reset can potentially occur at any point, it is necessary for an active process to be able to determine whether it was reset while it was inactive, and take appropriate action.
