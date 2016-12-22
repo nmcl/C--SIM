@@ -59,7 +59,8 @@ DummyEntity::DummyEntity (double mean)
 
 DummyEntity::~DummyEntity ()
 {
-  delete InterArrivalTime;
+  if (InterArrivalTime != 0)
+    delete InterArrivalTime;
 }
 
 void DummyEntity::Body ()
