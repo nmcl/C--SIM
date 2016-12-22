@@ -106,7 +106,6 @@ int main (int argc, char** argv)
     return -1;
   }
 
-  /*
   result = sem.Get(&e3);
 
   if (result != Semaphore::DONE)
@@ -120,7 +119,6 @@ int main (int argc, char** argv)
     cerr << "Second sem.NumberWaiting() " << sem.NumberWaiting() << endl;
     return -1;
   }
-  */
 
   return 1;
 }
