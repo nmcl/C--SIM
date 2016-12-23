@@ -384,7 +384,7 @@ Y[i+1] = Y[i] * 5^5^ mod 2^26^
 
 , where the period is 2^24^, and the initial seed must be odd (Thanks to Professor I. Mitrani for his help in developing this.)
 
-The Uniform() method uses the linear congruential generator (seed is LCGSeed, with the default value of 1878892440L) based on the algorithm in link:http://algs4.cs.princeton.edu/home/[this text], and the results of this are shuffled with the multiplicative generator (seed is MGSeed, with a default value of 772531L) as suggested by link:http://www.amazon.com/Art-Computer-Programming-Volume-Seminumerical/dp/0201896842[Maclaren and Marsaglia], to obtain a sufficiently uniform random distribution, which is then returned.
+The Uniform() method uses the linear congruential generator (seed is LCGSeed, with the default value of 1878892440L) based on the algorithm in link:http://algs4.cs.princeton.edu/home/[this text], and the results of this are shuffled with the multiplicative generator (seed is MGSeed, with a default value of 772531L) as suggested by link:http://www.amazon.com/Art-Computer-Programming-Volume-Seminumerical/dp/0201896842[Maclaren and Marsaglia], to obtain a sufficiently uniform random distribution, which is then returned. As you will see later, the values of these can be changed when creating instances of various streams. However, if you do modify them then be sure you understand the implications.
 
 The Error() method returns a chi-square error measure on the uniform distribution function.
 
