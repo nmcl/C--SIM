@@ -44,6 +44,8 @@ UniformStream, Draw, ExponentialStream, ErlangStream, HyperExponentialStream, No
 .br
 .BI "	                   int StreamSelect = 0);"
 .br
+.BI "	virtual double operator() ();"
+.br
 .BI "};"
 
 .BI "class ErlangStream : public RandomStream"
@@ -55,6 +57,8 @@ UniformStream, Draw, ExponentialStream, ErlangStream, HyperExponentialStream, No
 .BI "	ErlangStream (double Mean, double StdDev,"
 .br
 .BI "	              int StreamSelect = 0);"
+.br
+.BI "	virtual double operator() ();"
 .br
 .BI "};"
 
@@ -68,6 +72,8 @@ UniformStream, Draw, ExponentialStream, ErlangStream, HyperExponentialStream, No
 .br
 .BI "	                        int StreamSelect = 0);"
 .br
+.BI "	virtual double operator() ();"
+.br
 .BI "};
 
 .BI "class NormalStream : public RandomStream"
@@ -79,6 +85,8 @@ UniformStream, Draw, ExponentialStream, ErlangStream, HyperExponentialStream, No
 .BI "	NormalStream (double Mean, double StdDev,"
 .br
 .BI "	              int StreamSelect = 0);"
+.br
+.BI "	virtual double operator() ();"
 .br
 .BI "};"
 .SH DESCRIPTION
