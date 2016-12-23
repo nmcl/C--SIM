@@ -101,7 +101,7 @@ The implementations of the operations Identity and Self are provided by the base
 
 Typically when building your simulation you will have a single process which coordinates the other entities. This coordinator will be its own simulation entity that is created by the main (process) thread, which itself must be suspended while the simulation executes. This means that when the simulation wants to end, the main thread must be resumed. The mainResume() method should be called by your coordinator entity to have this happen.
 
-If during the execution of your simulation you ever need to exit the entire process, use the exit() method and you can pass a specific return code.
+If during the execution of your simulation you ever need to exit the entire process, use the Exit() method and you can pass a specific return code.
 
 === Specific Thread Class Implementations
 
