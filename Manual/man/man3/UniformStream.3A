@@ -16,6 +16,8 @@ UniformStream, Draw, ExponentialStream, ErlangStream, HyperExponentialStream, No
 .br
 .BI "	Draw (double p, int StreamSelect = 0);"
 .br
+.BI "	virtual Boolean operator() ();
+.br
 .BI "};"
 
 .BI "class UniformStream : public RandomStream"
@@ -27,6 +29,8 @@ UniformStream, Draw, ExponentialStream, ErlangStream, HyperExponentialStream, No
 .BI "	UniformStream (double lo, double hi,"
 .br
 .BI "                    int StreamSelect = 0);"
+.br
+.BI "	virtual double operator() ();"
 .br
 .BI "};"
 
