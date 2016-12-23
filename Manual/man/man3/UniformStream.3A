@@ -142,5 +142,7 @@ returns a number from a normal distribution with a mean of
 and
 .B StdDev 
 as its standard deviation.
+.SH NOTES
+All of the various stream constructors have two other default parameters, the MGSeed and LCGSeed. This is because the Uniform stream uses the linear congruential generator (seed is LCGSeed, with the default value of 1878892440L) based on the algorithm in link:http://algs4.cs.princeton.edu/home/[this text], and the results of this are shuffled with the multiplicative generator (seed is MGSeed, with a default value of 772531L) as suggested by [Maclaren and Marsaglia], to obtain a sufficiently uniform random distribution. These values can be changed but be careful.
 .SH SEE ALSO
 RandomStream(3A)
