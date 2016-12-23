@@ -18,13 +18,17 @@ Thread \- runtime thread implementation
 .br
 .BI "	virtual void Resume ();"
 .br
-.BI "	virtual void Body ();"
+.BI "	virtual void Body () = 0;"
 .sp
 .BI "	virtual long Current_Thread () const;"
 .sp
 .BI "	virtual long Identity () const;"
 .sp
 .BI "	static Thread *Self ();"
+.sp
+.BI "	statid void Exit (int = 0);
+.sp
+.BI "	static void mainResume ();"
 .sp
 .BI "protected:"
 .br
@@ -69,6 +73,16 @@ to.
 .B
 Self
 returns a pointer to the currently active thread object.
+
+Typically when building your simulation you will have a single process which coordinates the other entities. This coordinator will be its own simulation entity that is created by the main (process) thread, which itself must be suspended while the simulation executes. This means that when the simulation wants to end, the main thread must be resumed. The
+.B
+mainResume
+method should be called by your coordinator entity to have this happen.
+
+If during the execution of your simulation you ever need to exit the entire process, use the
+.B
+exit
+method and you can pass a specific return code.
 
 .B
 thread_key

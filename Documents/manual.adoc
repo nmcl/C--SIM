@@ -99,6 +99,10 @@ Current_Thread must be defined by the derived class as it returns the identity o
 
 The implementations of the operations Identity and Self are provided by the base class because some threads packages do not provide similar functionality: Identity returns the unique identity of the thread associated with the given objects, and Self returns the currently executing thread. Because Self is a _static_ member function it can be invoked without creating an instance of the Thread class, i.e., using Thread::Self().
 
+Typically when building your simulation you will have a single process which coordinates the other entities. This coordinator will be its own simulation entity that is created by the main (process) thread, which itself must be suspended while the simulation executes. This means that when the simulation wants to end, the main thread must be resumed. The mainResume() method should be called by your coordinator entity to have this happen.
+
+If during the execution of your simulation you ever need to exit the entire process, use the exit() method and you can pass a specific return code.
+
 === Specific Thread Class Implementations
 
 Over the years we have supported a wide variety of thread packages, ranging from those available in various Unix implementations such as Solaris, through Posix compliant thread packages and to Windows threads. However, currently we can only test on Linux so that is the only implementation we support.
