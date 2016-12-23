@@ -144,7 +144,7 @@ class Scheduler
 }
 ----
 
-The scheduler maintains the simulation clock, and the current value of this clock is obtained by invoking the CurrentTime() method.
+The scheduler maintains the simulation clock, and the current value of this clock is obtained by invoking the CurrentTime() method. You can use the simulationStarted() method to determine whether or not the simulation is running.
 
 To enable multiple simulation runs to occur within a single application, it is possible to reset it and the simulation clock by calling the reset() method of the Scheduler class. This causes the simulation to remove all processes (simulation objects) currently registered on the scheduler queue and to invoke a class specific method on each of them which resets their states (detailed in the next section). Once this is finished the simulation is ready for an additional run. It must then perform any work necessary to put itself back in a state ready for restarting the simulation, and should then suspend itself again before the simulation can be restarted (typically by calling cancel.)
 
