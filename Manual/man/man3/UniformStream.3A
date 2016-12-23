@@ -1,4 +1,4 @@
-.TH C++SIM 3A "11 July 1994" "C++SIM" "C++SIM Reference Manual"
+.TH C++SIM 3A "23rd December 2016" "C++SIM" "C++SIM Reference Manual"
 .SH NAME
 UniformStream, Draw, ExponentialStream, ErlangStream, HyperExponentialStream, NormalStream \- various pseudo-random number generators.
 .SH SYNOPSIS

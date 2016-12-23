@@ -1,4 +1,4 @@
-.TH C++SIM 3A "11 July 1994" "C++SIM" "C++SIM Reference Manual"
+.TH C++SIM 3A "23rd December 2016" "C++SIM" "C++SIM Reference Manual"
 .SH NAME
 RandomStream \- base class of all random number classes.
 .SH SYNOPSIS
