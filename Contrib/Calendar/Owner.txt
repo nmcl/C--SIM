@@ -1,7 +1,0 @@
-/*
- * Calendar Queue for Process List
- *     - See Randy Brown, CACM 30(10): 1220-1227 (10/88).
- *     - See also SIMPACK++ code, Paul Fishwick, cis.ufl.edu.
- *
- * Ian.Mathieson@mel.dit.CSIRO.AU, 11 March 1994.
- */
