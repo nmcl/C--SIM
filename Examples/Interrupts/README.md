@@ -1,3 +1,4 @@
+```
 /*
  * Copyright (C) 1994
  *
@@ -6,7 +7,7 @@
  * Newcastle upon Tyne,
  * UK.
  */
-
+```
 
 This is a basic example of the new interrupt mechanisms added
 in version 1.5.
@@ -17,3 +18,7 @@ of time and will then inspect its general message queue for work to be
 done.  This will be performed and then  it will go back to waiting.  A
 Signal  object  will periodically wake  up and  send a  signal to  the
 processor and place a message in to its signal queue.
+
+----
+
+Check the expected_output file against your running instance.
