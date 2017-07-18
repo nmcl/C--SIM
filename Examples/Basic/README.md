@@ -1,11 +1,13 @@
->/*
-> * Copyright (C) 1994
-> *
-> * Department of Computing Science,
-> * The University,
-> * Newcastle upon Tyne,
-> * UK.
-> */
+```
+/*
+ * Copyright (C) 1994
+ *
+ * Department of Computing Science,
+ * The University,
+ * Newcastle upon Tyne,
+ * UK.
+ */
+```
 
 This director contains an example of a simulation written using the simulation
 package. The example is taken from the book by Isi Mitrani (Simulation
