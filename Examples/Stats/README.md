@@ -1,1 +1,1 @@
-Shows the distribution of one stream.
+Shows the distribution of using NormalStream and Quantile implementations.
