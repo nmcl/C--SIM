@@ -42,3 +42,7 @@ The classes provided include:
 
 	Main - This is the body of the program which initializes the threads package
 	       prior to the simulation starting.
+
+----
+
+Build it and check the runtime output against the expected_output file.
