@@ -701,7 +701,7 @@ then
 else
 if test "'x$PTHREAD_DRAFT'" = "'xDARWIN'"
 then
-    LD_THREAD_LIBS="-lposix4 -lpthread"
+    LD_THREAD_LIBS="-lpthread"
 else
 if test "'x$PTHREAD_DRAFT'" = "'xHPUX'"
 then
