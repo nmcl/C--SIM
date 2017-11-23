@@ -47,12 +47,14 @@
 #  include <limits.h>
 #endif
 
+/*
 #ifdef __GNUG__
 extern "C"
 {
     int gettimeofday (struct timeval*, struct timezone*);
 }
 #endif
+*/
 
 #ifdef SYSV
 const double clockTick = (1.0/sysconf(_SC_CLK_TCK));
