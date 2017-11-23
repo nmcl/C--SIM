@@ -61,7 +61,7 @@ NATIVE_OS=$OS
 NATIVE_RELEASE=$RELEASE
 CROSS_COMPILE=""
 STACK_TYPE=CACHED
-PTHREAD_DRAFT=SOLARIS
+PTHREAD_DRAFT=LINUX
 THREAD_TYPE=""
 QUEUE_DEFAULT=ProcessList
 LWP_CHECKDIR=""
@@ -192,7 +192,7 @@ Darwin) CPLUSPLUS_PROGRAM=g++
 	DEFAULT_THREAD_SYS="POSIX_THREAD"
 	THREAD_TYPE="Posix_Thread"
 	CPLUSPLUSFLAGS_DEFAULT="-Wno-deprecated -Wdelete-non-virtual-dtor"
-	PTHREAD_DRAFT=SOLARIS
+	PTHREAD_DRAFT=DARWIN
 	;;
 Linux)	CPLUSPLUS_PROGRAM=g++
 	CPLUSPLUS_NATIVE_COMPILER=g++
@@ -680,7 +680,7 @@ if test "'x$THREAD_TYPE'" = "'xPosix_Thread'"
 then
 DEFAULT_THREAD_SYS="POSIX_THREAD"
 
-echo $PRE_ECHO "What version (6, 8, SOLARIS, LINUX, HPUX)? ["$PTHREAD_DRAFT"] : " $POST_ECHO
+echo $PRE_ECHO "What version (6, 8, SOLARIS, LINUX, HPUX, DARWIN)? ["$PTHREAD_DRAFT"] : " $POST_ECHO
 read INPUT
 echo
 if test "'x$INPUT'" != "'x'"
@@ -699,11 +699,16 @@ if test "'x$PTHREAD_DRAFT'" = "'xSOLARIS'"
 then
     LD_THREAD_LIBS="-lposix4 -lpthread"
 else
+if test "'x$PTHREAD_DRAFT'" = "'xDARWIN'"
+then
+    LD_THREAD_LIBS="-lposix4 -lpthread"
+else
 if test "'x$PTHREAD_DRAFT'" = "'xHPUX'"
 then
     LD_THREAD_LIBS="-ldce"
 else
     LD_THREAD_LIBS="-lpthread"
+fi
 fi
 fi
 fi
