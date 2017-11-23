@@ -125,7 +125,7 @@ Thread::Thread (Boolean create)
 	(void) pthread_attr_create(&_data->_attr);
 #endif
 
-#if defined(PTHREAD_DRAFT_8) || defined(PTHREAD_DRAFT_SOLARIS) || defined(PTHREAD_DRAFT_LINUX)
+#if defined(PTHREAD_DRAFT_8) || defined(PTHREAD_DRAFT_SOLARIS) || defined(PTHREAD_DRAFT_LINUX) || defined(PTHREAD_DRAFT_DARWIN)
 	sched_param param;
 #ifdef PTHREAD_DRAFT_8    
 	param.prio = MaxPriority;
@@ -172,7 +172,7 @@ Thread::Thread (Boolean create)
 #endif	
 	(void) pthread_setspecific(_key, (any_t) &thread_key);
     
-#if defined(PTHREAD_DRAFT_8) || defined(PTHREAD_DRAFT_SOLARIS) || defined(PTHREAD_DRAFT_LINUX)
+#if defined(PTHREAD_DRAFT_8) || defined(PTHREAD_DRAFT_SOLARIS) || defined(PTHREAD_DRAFT_LINUX) || defined(PTHREAD_DRAFT_DARWIN)
 	sched_param param;
 #ifdef PTHREAD_DRAFT_8    
 	param.prio = MaxPriority+1;    
@@ -215,7 +215,7 @@ Thread::Thread (unsigned long size)
     (void) pthread_attr_create(&_data->_attr);
 #endif    
 
-#if defined(PTHREAD_DRAFT_8) || defined(PTHREAD_DRAFT_SOLARIS) || defined(PTHREAD_DRAFT_LINUX)
+#if defined(PTHREAD_DRAFT_8) || defined(PTHREAD_DRAFT_SOLARIS) || defined(PTHREAD_DRAFT_LINUX) || defined(PTHREAD_DRAFT_DARWIN)
     sched_param param;
 #ifdef PTHREAD_DRAFT_8    
     param.prio = MaxPriority;
@@ -357,7 +357,7 @@ void Thread::terminateThread ()
 
 long Thread::Current_Thread () const
 {
-#if defined(PTHREAD_DRAFT_8) || defined(PTHREAD_DRAFT_SOLARIS) || defined(PTHREAD_DRAFT_LINUX)
+#if defined(PTHREAD_DRAFT_8) || defined(PTHREAD_DRAFT_SOLARIS) || defined(PTHREAD_DRAFT_LINUX) || defined(PTHREAD_DRAFT_DARWIN)
     return *(long*) pthread_getspecific(_key);
 #else
     any_t p = (any_t) 0;
@@ -444,7 +444,7 @@ void Thread::Initialize ()
     if (!_initialized)
     {
 	_initialized = TRUE;
-#if !defined(PTHREAD_DRAFT_SOLARIS) && !defined(PTHREAD_DRAFT_LINUX) && !defined(PTHREAD_DRAFT_HPUX)
+#if !defined(PTHREAD_DRAFT_SOLARIS) && !defined(PTHREAD_DRAFT_LINUX) && !defined(PTHREAD_DRAFT_HPUX) && !defined(PTHREAD_DRAFT_DARWIN)
 	pthread_init();  // isn't this part of the standard?
 #endif
 #ifndef PTHREAD_DRAFT_HPUX	
