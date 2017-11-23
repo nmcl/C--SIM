@@ -59,7 +59,8 @@ void Thread::Remove (Thread* toRemove)
     if (toRemove->prev == (Thread*) 0)  // deal with head of list first
     {
 	_head = toRemove->next;
-	_head->prev = (Thread*) 0;
+	if (_head != 0)
+	  _head->prev = (Thread*) 0;
     }
     else
     {

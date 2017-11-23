@@ -1,3 +1,4 @@
+```
 /*
  * Copyright (C) 1994
  *
@@ -6,6 +7,7 @@
  * Newcastle upon Tyne,
  * UK.
  */
+```
 
 This director contains an example of a simulation written using the simulation
 package. The example is taken from the book by Isi Mitrani (Simulation
@@ -42,3 +44,7 @@ The classes provided include:
 
 	Main - This is the body of the program which initializes the threads package
 	       prior to the simulation starting.
+
+----
+
+Build it and check the runtime output against the expected_output file.

@@ -71,8 +71,7 @@ Semaphore::~Semaphore ()
 #endif
     
     if (numberWaiting != 0)
-	cerr
-		     << "Semaphore being removed with clients waiting." << endl;
+      cerr << "Semaphore being removed with " << numberWaiting << " clients waiting." << endl;
 }
 
 long Semaphore::NumberWaiting () const
@@ -85,26 +84,25 @@ Semaphore::Outcome Semaphore::Get (Entity* toWait)
     /*
      * If no resources, wait.
      */
-    
-    while (currentResources == 0)
-    {
-	numberWaiting++;
 
-        waitingList.insert(toWait);
-
-	toWait->Cancel();
-    }
-
+  if (currentResources > 0)
+  {
     /*
      * Grab a resource.
      */
     
     currentResources--;
+  }
+  else
+  {
+      numberWaiting++;
 
-    if (currentResources < 0)
-	currentResources = 0;
+      waitingList.insert(toWait);
+
+      toWait->Cancel();
+  }
     
-    return Semaphore::DONE;
+  return Semaphore::DONE;
 }
 
 Semaphore::Outcome Semaphore::TryGet (Entity* toWait)
@@ -122,31 +120,29 @@ Semaphore::Outcome Semaphore::TryGet (Entity* toWait)
 
 Semaphore::Outcome Semaphore::Release ()
 {
-    /*
-     * Release a resource.
-     */
+  /*
+   * Release a resource.
+   */
+
+  if (numberWaiting > 0)
+  {
+    numberWaiting--;
+
+    // don't set trigger flag - not strictly a trigger
     
+    waitingList.triggerFirst(FALSE);
+
+    Process::Current->ReActivateAt(Process::CurrentTime());
+
+    return Semaphore::DONE;
+  }
+  else
+  {
     currentResources++;
 
     if ((currentResources > numberOfResources) && (haveCeiling))
 	currentResources = numberOfResources;
 
-    /*
-     * If any processes are waiting, wake up the first.
-     */
-    
-    if (numberWaiting > 0)
-    {
-	numberWaiting--;
-
-	// don't set trigger flag - not strictly a trigger
-
-	waitingList.triggerFirst(FALSE);
-
-	Process::Current->ReActivateAt(Process::CurrentTime());
-
-	return Semaphore::DONE;
-    }
-    else
-	return Semaphore::NOTDONE;
+    return Semaphore::DONE;
+  }
 }

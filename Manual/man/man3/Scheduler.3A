@@ -1,4 +1,4 @@
-.TH C++SIM 3A "25 February 1995" "C++SIM" "C++SIM Reference Manual"
+.TH C++SIM 3A "23rd December 2016" "C++SIM" "C++SIM Reference Manual"
 .SH NAME
 Scheduler \- simulation scheduler object
 .SH SYNOPSIS
@@ -24,6 +24,10 @@ Scheduler \- simulation scheduler object
 .BI "	void Suspend ();"
 .sp
 .BI "	void Resume ();"
+.br
+.BI "	static Boolean simulationStarted ();"
+.br
+.BI "	static void print (ostream&);"
 .br
 .BI "protected:"
 .sp
@@ -78,5 +82,12 @@ first resets the simulation time to 0.0, and then resets all
 of the processes on the simulation queue. All simulation processes
 have a corresponding method which the scheduler invokes.
 
+.B
+simulationStarted()
+returns TRUE if the simulation is running or FALSE otherwise. And if you
+want to see details of which elements are in the simulation, then the
+.B
+print()
+method can be called.
 .SH SEE ALSO
 Process(3A), reset(3A), Thread(3A)

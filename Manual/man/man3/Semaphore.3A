@@ -1,4 +1,4 @@
-.TH C++SIM 3A "23 September 1994" "C++SIM" "C++SIM Reference Manual"
+.TH C++SIM 3A "23rd December 2016" "C++SIM" "C++SIM Reference Manual"
 .SH NAME
 Semaphore \- semaphore class
 .SH SYNOPSIS
@@ -14,13 +14,19 @@ Semaphore \- semaphore class
 .br
 .BI "public:"
 .br
+.BI "	enum Outcome { DONE, NOTDONE, WOULD_BLOCK };"
+.sp
 .BI "	Semaphore ();"
+.br
+.BI "	Semaphore (long number);"
 .sp
 .BI "	virtual ~Semaphore ();"
 .sp
-.BI "	virtual void Get (Entity* attempting);"
+.BI "	virtual Semaphore::Outcome Get (Entity* attempting);"
 .br
-.BI "	virtual void Release ();"
+.BI "	virtual Semaphore::Outcome Release ();"
+.br
+.BI "	virtual Semaphore::Outcome TryGet (Entity* attempting);"
 .sp
 .BI "	long NumberWaiting () const;"
 .br
@@ -30,14 +36,17 @@ Application code can be protected from simulation processes through
 semaphores, which are instances of the
 .B
 Semaphore
-class.
+class. When creating a semaphore you can define the number of resources that are to be
+protected (the default is 1). Whenever a caller tries to get the semaphore, one of the
+resources will be obtained and once the number reaches 0 the next caller will be blocked
+until one of the resources is releases.
 
 A semaphore is exclusively acquired, and can exist in one of two
 states:
 
 .I
 	available
-: the semaphoe can be acquired.
+: the semaphore can be acquired.
 
 .I
 	unavailable
@@ -60,6 +69,17 @@ Release
 method when it is no longer required. This will automatically
 enable other processes to attempt to acquire the semaphore and
 enter the protected region.
+
+If the number of resources being protected by the semaphore reaches 0 then
+the next attempt to Get will block the caller. If a caller does not want to
+risk being blocked then it can use the
+.B
+TryGet
+method, which will only grab a resource if one is available, otherwise if the
+caller would normally block it returns immediately with the
+.B
+WOULD_BLOCK
+code.
 
 .B
 NumberWaiting

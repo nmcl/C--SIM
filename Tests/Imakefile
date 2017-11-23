@@ -30,4 +30,4 @@ COMMENT
 
 #define IHaveSubDirs
 
-SetSubDirectorys(Random SimSet Queues Stat Terminate Timer)
+SetSubDirectorys(Random SimSet Queues Stat Terminate Timer Semaphore)

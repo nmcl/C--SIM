@@ -99,6 +99,10 @@ Current_Thread must be defined by the derived class as it returns the identity o
 
 The implementations of the operations Identity and Self are provided by the base class because some threads packages do not provide similar functionality: Identity returns the unique identity of the thread associated with the given objects, and Self returns the currently executing thread. Because Self is a _static_ member function it can be invoked without creating an instance of the Thread class, i.e., using Thread::Self().
 
+Typically when building your simulation you will have a single process which coordinates the other entities. This coordinator will be its own simulation entity that is created by the main (process) thread, which itself must be suspended while the simulation executes. This means that when the simulation wants to end, the main thread must be resumed. The mainResume() method should be called by your coordinator entity to have this happen.
+
+If during the execution of your simulation you ever need to exit the entire process, use the Exit() method and you can pass a specific return code.
+
 === Specific Thread Class Implementations
 
 Over the years we have supported a wide variety of thread packages, ranging from those available in various Unix implementations such as Solaris, through Posix compliant thread packages and to Windows threads. However, currently we can only test on Linux so that is the only implementation we support.
@@ -144,9 +148,11 @@ class Scheduler
 }
 ----
 
-The scheduler maintains the simulation clock, and the current value of this clock is obtained by invoking the CurrentTime() method.
+The scheduler maintains the simulation clock, and the current value of this clock is obtained by invoking the CurrentTime() method. You can use the simulationStarted() method to determine whether or not the simulation is running.
 
 To enable multiple simulation runs to occur within a single application, it is possible to reset it and the simulation clock by calling the reset() method of the Scheduler class. This causes the simulation to remove all processes (simulation objects) currently registered on the scheduler queue and to invoke a class specific method on each of them which resets their states (detailed in the next section). Once this is finished the simulation is ready for an additional run. It must then perform any work necessary to put itself back in a state ready for restarting the simulation, and should then suspend itself again before the simulation can be restarted (typically by calling cancel.)
+
+More details on resetting the simulation can be found later in the document after we discuss simulation processes.
 
 === Simulation processes
 
@@ -328,6 +334,18 @@ void Arrivals::Body ()
     }
 }
 ----
+=== Resetting the simulation and processes
+
+Resetting a simulation involves resetting all of the objects involved in it which will be required for subsequent runs. To reset a simulation, the
+reset method of the simulation scheduler must be invoked. This then calls the corresponding reset methods for all of the process objects which are currently on the simulation queue. However, there is a difference between resetting the state of a process and resetting its associated thread. The thread can only be reset when it is next activated. Because a reset can potentially occur at any point, it is necessary for an active process to be able to determine whether it was reset while it was inactive, and take appropriate action.
+
+C++SIM provides macros for this (located in the reset.h header file), both based upon the CSP notion of guarded commands. Operations are performed and  a reset condition can be checked before the process acts upon the results. If a reset occurs, the reset method for the Process should be written so that it sets this condition flag to an appropriate state.
+
+RESET_POINT is used for specifying the reset position within a method where the flow of control will be returned to upon detecting a reset.
+
+MONITOR_RESET(x,y,z) executes statement x and upon completion statements y and z are compared. If they are equal, then the control flow is returned to the RESET_POINT.
+
+CHECK_RESET(y,z) compares statements.
 
 === Priority Threads
 
@@ -370,7 +388,7 @@ Y[i+1] = Y[i] * 5^5^ mod 2^26^
 
 , where the period is 2^24^, and the initial seed must be odd (Thanks to Professor I. Mitrani for his help in developing this.)
 
-The Uniform() method uses the linear congruential generator (seed is LCGSeed, with the default value of 1878892440L) based on the algorithm in link:http://algs4.cs.princeton.edu/home/[this text], and the results of this are shuffled with the multiplicative generator (seed is MGSeed, with a default value of 772531L) as suggested by link:http://www.amazon.com/Art-Computer-Programming-Volume-Seminumerical/dp/0201896842[Maclaren and Marsaglia], to obtain a sufficiently uniform random distribution, which is then returned.
+The Uniform() method uses the linear congruential generator (seed is LCGSeed, with the default value of 1878892440L) based on the algorithm in link:http://algs4.cs.princeton.edu/home/[this text], and the results of this are shuffled with the multiplicative generator (seed is MGSeed, with a default value of 772531L) as suggested by link:http://www.amazon.com/Art-Computer-Programming-Volume-Seminumerical/dp/0201896842[Maclaren and Marsaglia], to obtain a sufficiently uniform random distribution, which is then returned. As you will see later, the values of these can be changed when creating instances of various streams. However, if you do modify them then be sure you understand the implications.
 
 The Error() method returns a chi-square error measure on the uniform distribution function.
 
@@ -477,49 +495,46 @@ StreamSelect indicates the offset in the random number sequence to begin samplin
 
 === Example
 
-NOTE: Java version. Needs to be rewritten in C++.
-
 In this example we will take a NormalStream instance obtain values from it which are then inserted in a Histogram so that we can then print out the contents and associated data. As we have already seen that NormalStream derives from RandomStream along with the other stream types, this example can be easily changed to use something else, such as the ExponentialStream.
 
 ----
-NormalStream str = new NormalStream(100.0, 2.0);
-Histogram hist = new Histogram(10);
+NormalStream str(100.0, 2.0);
+Histogram* hist = new Histogram(10);
 
 for (int i = 0; i < 1000; i++)
 {
-	hist.setValue(str.getNumber());
+  hist->setValue(str());
 }
 
-System.out.println("NormalStream error: "+str.error());
+cout << "NormalStream error: " << str.Error() << endl;
 
-hist.print();
+cout << *hist << endl;
 ----
 
 If you were to execute this code then the output would be similar to the following:
 
 ----
-NormalStream error: -0.047600000000002085
+NormalStream error: -0.1976
 Maximum number of buckets 10
 Merge choice is MEAN
-PrecisionHistogram Data:
-Number of buckets: 10
-Bucket : < 98.63959917087956, 541 >
-Bucket : < 99.41934896772582, 1 >
-Bucket : < 99.89948948370221, 17 >
-Bucket : < 100.00514051631782, 2 >
-Bucket : < 100.26527227806514, 1 >
-Bucket : < 100.85347549916973, 3 >
-Bucket : < 101.31195503916659, 1 >
-Bucket : < 101.38562305997606, 1 >
-Bucket : < 101.72199923851397, 432 >
-Bucket : < 102.68618953365238, 1 >
-Variance          : 4.00810615160317
-Standard Deviation: 2.002025512225848
+Bucket : < 97.287, 2 >
+Bucket : < 97.8288, 1 >
+Bucket : < 98.4152, 441 >
+Bucket : < 98.8398, 1 >
+Bucket : < 99.3424, 1 >
+Bucket : < 100.672, 1 >
+Bucket : < 101.221, 1 >
+Bucket : < 101.225, 545 >
+Bucket : < 102.365, 5 >
+Bucket : < 104.292, 2 >
+
+Variance          : 3.68377
+Standard Deviation: 1.91932
 Number of samples : 1000
-Minimum           : 93.19494510640277
-Maximum           : 105.9001968416066
-Sum               : 100013.85724011554
-Mean              : 100.01385724011554
+Minimum           : 1.17549e-38
+Maximum           : 3.40282e+38
+Sum               : 99981.7
+Mean              : 99.9817
 ----
 
 We will learn more about the Histogram class later in this document.
@@ -597,6 +612,8 @@ _Trigger queues_ are lists maintained by the simulation system of process waitin
 
 In addition to trigger queues, process can wait on semaphores, allowing the creation of monitor regions, for example. WaitForSemaphore(Semaphore& sem) causes the current process to attempt to exclusively acquire the semaphore. If this is not possible then the process is suspended. Currently, a process which is waiting on a semaphore cannot be interrupted, and is not placed into the *waiting* state. As such, when this method returns the semaphore has been acquired.
 
+Finally, the trigger method is invoked by the relevant TriggerQueue on the Entity. isWaiting can be called to determine whether the specific Entity is currently on a queue.
+
 === Trigger queues
 
 Processes waiting for the same application controlled event can be grouped together into a TriggerQueue, as described in the previous section. When this event occurs the application can use one of the two trigger methods to activate the queue members. This involves placing the process(es) onto the head of the scheduler queue.
@@ -671,56 +688,38 @@ If the semaphore is garbage collected with processes waiting for it then an erro
 
 === Example
 
-NOTE: Java version. Needs to be rewritten in C++.
-
 If you check the _interrupt_ example in the source distribution you will find it uses the SimulationEntity to model asynchronous behaviour. For instance, the Processor class, some of which is shown below:
 
 ----
-public class Processor extends SimulationEntity
+void Processor::Body ()
 {
-    public void run ()
+    Job* j = (Job*) 0;
+
+    for (;;)
     {
-        Job j = null;
+	if (Wait((*sTime)()))
+	{
+	    if (!JobQ.IsEmpty())
+	    {
+	        j = JobQ.Dequeue();
+		delete j;
+		ProcessedJobs++;
+	    }
+	}
+	else
+	{
+	    if (SignalQ.IsEmpty())
+	        cerr << "Error - signal caught, but no message given!" << endl;
+	    else
+	    {
+	        j = SignalQ.Dequeue();
+		delete j;
+		SignalledJobs++;
+	    }
+	}
 
-        while (!terminated())
-        {
-            try
-            {
-                try
-                {
-                    timedWait(sTime.getNumber());
-
-                    if (!MachineShop.JobQ.isEmpty())
-                    {
-                        j = MachineShop.JobQ.dequeue();
-                        MachineShop.ProcessedJobs++;
-                    }
-                }
-                catch (InterruptedException e)
-                {
-                    if (MachineShop.SignalQ.isEmpty())
-                        System.out
-                                .println("Error - signal caught, but no message given!");
-                    else
-                    {
-                        j = MachineShop.SignalQ.dequeue();
-                        MachineShop.SignalledJobs++;
-                    }
-                }
-
-                if (MachineShop.SignalledJobs == 2)
-                    terminate();
-            }
-            catch (SimulationException e)
-            {
-            }
-            catch (RestartException e)
-            {
-            }
-            catch (IOException e)
-            {
-            }
-        }
+	if (SignalledJobs == 2)
+	    terminate();
     }
 }
 ----
@@ -729,32 +728,56 @@ As can be seen, the Processor uses timedWait to hold for a specified period of t
 
 Semaphores are used within the simulation system. However, they can also be used by the application developer. For instance, the following example creates a Semaphore which protected 2 resources that are being accessed by 3 SimulationEntities:
 
+NOTE: Java version. Needs to be rewritten in C++.
+
 ----
-public void test () throws Exception
+Semaphore sem(2);
+DummyEntity e1(10);
+DummyEntity e2(20);
+DummyEntity e3(30);
+
+if (sem.NumberWaiting() != 0)
 {
-	Semaphore sem = new Semaphore(2);
-	DummyEntity e1 = new DummyEntity(10);
-	DummyEntity e2 = new DummyEntity(20);
-	DummyEntity e3 = new DummyEntity(30);
+  cerr << "First sem.NumberWaiting() " << sem.NumberWaiting() << endl;
+  return -1;
+}
 
-	assertTrue(sem.numberWaiting() == 0);
+Semaphore::Outcome result = sem.Get(&e1);
 
-	Semaphore.Outcome result = sem.get(e1);
+if (result != Semaphore::DONE)
+{
+  cerr << "First Get " << result << endl;
+  return -1;
+}
 
-	assertTrue(result == Semaphore.Outcome.DONE);
+result = sem.Get(&e2);
 
-	result = sem.get(e2);
+if (result != Semaphore::DONE)
+{
+  cerr << "Second Get " << result << endl;
+  return -1;
+}
+  
+result = sem.TryGet(&e3);
 
-	assertTrue(result == Semaphore.Outcome.DONE);
+if (result != Semaphore::WOULD_BLOCK)
+{
+  cerr << "TryGet " << result << endl;
+  return -1;
+}
 
-	result = sem.tryGet(e3);
+result = sem.Get(&e3);
 
-	assertTrue(result == Semaphore.Outcome.WOULD_BLOCK);
+if (result != Semaphore::DONE)
+{
+  cerr << "Third Get " << result << endl;
+  return -1;
+}
 
-	result = sem.get(e3);
-
-	assertTrue(result == Semaphore.Outcome.DONE);
-	assertTrue(sem.numberWaiting() == 1);
+if (sem.NumberWaiting() != 1)
+{
+  cerr << "Second sem.NumberWaiting() " << sem.NumberWaiting() << endl;
+  return -1;
 }
 ----
 
@@ -1034,59 +1057,56 @@ The actual quantile value is provided by getValue method.
 
 === Example
 
-NOTE: This is the JavaSim example and needs to be written in C++.
-
 In this example, similar to the one we saw earlier when discussing streams, takes a NormalStream and pushes the data obtained from it into a Quantile instance (also a PrecisionHistogram, as seen above).
 
 ----
-NormalStream str = new NormalStream(100.0, 2.0);
-Quantile hist = new Quantile();
+NormalStream str(100.0, 2.0);
+Quantile* hist = new Quantile();
 
 for (int i = 0; i < 20; i++)
 {
-	hist.setValue(str.getNumber());
+  hist->setValue(str());
 }
 
-System.out.println("NormalStream error: "+str.error());
+cout << "NormalStream error: " << str.Error() << endl;
 
-hist.print();
+cout << *hist << endl;
 ----
 
-If you execute this code then you will see something like the following:
+If you were to execute this code then the output would be similar to the following:
 
 ----
-NormalStream error: -0.12180000000000302
+NormalStream error: -0.2802
 Quantile precentage : 0.95
-Value below which percentage occurs 103.2525536140605
-PrecisionHistogram Data:
-Number of buckets: 20
-Bucket : < 95.4184404867909, 1 >
-Bucket : < 96.77470267057221, 1 >
-Bucket : < 98.06420534765873, 1 >
-Bucket : < 98.51326185839879, 1 >
-Bucket : < 98.83083271038129, 1 >
-Bucket : < 99.02208650724813, 1 >
-Bucket : < 99.25398638929686, 1 >
-Bucket : < 99.61818993348244, 1 >
-Bucket : < 99.69668527826141, 1 >
-Bucket : < 99.90066145276452, 1 >
-Bucket : < 100.13242192897384, 1 >
-Bucket : < 100.16716965330903, 1 >
-Bucket : < 100.29000453526925, 1 >
-Bucket : < 100.6675785365828, 1 >
-Bucket : < 100.79956320347745, 1 >
-Bucket : < 100.8830352383034, 1 >
-Bucket : < 101.04146043991506, 1 >
-Bucket : < 101.30326745585228, 1 >
-Bucket : < 103.2525536140605, 1 >
-Bucket : < 103.56896793616222, 1 >
-Variance          : 3.588431232925933
-Standard Deviation: 1.8943155051168041
+Value below which percentage occurs 103.855
+Bucket : < 97.5433, 1 >
+Bucket : < 97.8832, 1 >
+Bucket : < 98.2229, 1 >
+Bucket : < 99.4531, 1 >
+Bucket : < 99.5094, 1 >
+Bucket : < 99.5275, 1 >
+Bucket : < 99.8352, 1 >
+Bucket : < 99.8953, 1 >
+Bucket : < 100.459, 1 >
+Bucket : < 100.512, 1 >
+Bucket : < 100.612, 1 >
+Bucket : < 100.77, 1 >
+Bucket : < 100.773, 1 >
+Bucket : < 101.173, 1 >
+Bucket : < 101.658, 1 >
+Bucket : < 101.916, 1 >
+Bucket : < 102.539, 1 >
+Bucket : < 102.88, 1 >
+Bucket : < 103.855, 1 >
+Bucket : < 105.432, 1 >
+
+Variance          : 3.84068
+Standard Deviation: 1.95977
 Number of samples : 20
-Minimum           : 95.4184404867909
-Maximum           : 103.56896793616222
-Sum               : 1997.199075176761
-Mean              : 99.85995375883805
+Minimum           : 1.17549e-38
+Maximum           : 3.40282e+38
+Sum               : 2014.45
+Mean              : 100.722
 ----
 
 Because Quantile is also a PrecisionHistogram, every unique number is assigned a unique bucket instance.

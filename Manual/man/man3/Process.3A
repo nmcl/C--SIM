@@ -1,4 +1,4 @@
-.TH C++SIM 3A "23 September 1994" "C++SIM" "C++SIM Reference Manual"
+.TH C++SIM 3A "23rd December 2016" "C++SIM" "C++SIM Reference Manual"
 .SH NAME
 Process \- main simulation entity
 .SH SYNOPSIS
@@ -14,7 +14,7 @@ Process \- main simulation entity
 .br
 .BI "public:"
 .br
-.BI "	static const int Never;"
+.BI "	static const double Never;"
 .sp
 .BI "	virtual ~Process ();"
 .sp
@@ -74,9 +74,7 @@ Process \- main simulation entity
 .br
 .BI "	Process ();"
 .br
-.BI "	Process (int priority);"
-.br
-.BI "	Process (int priority, unsigned long stackSize);"
+.BI "	Process (unsigned long stackSize);"
 .sp
 .BI "	void Hold (double t);"
 .br
@@ -134,9 +132,8 @@ itself represents an abstract entity - the real entity must be
 provided by the deriving classes.
 
 The default constructor creates a process with the default
-Thread(3A) priority and stack allocation. The other two
-constructors allow for the modification of both of these
-parameters.
+Thread(3A) stack allocation. The other constructor
+allows for the modification of this stack parameter.
 
 The
 .I
