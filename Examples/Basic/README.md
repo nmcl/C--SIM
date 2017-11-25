@@ -48,3 +48,5 @@ The classes provided include:
 ----
 
 Build it and check the runtime output against the expected_output file.
+
+First run ./Main then try ./Main -breaks
