@@ -1,5 +1,5 @@
 #!/bin/sh
-for i in 2 4 8 10 14 18 20 40 50 70 100 200 300 400
+for i in 2 4 8 10 14 18 20 40 50 70 100 200
 do
-	echo -n "For ${i}0 processes: "; ./Timer -hold -iter 10000 -number ${i}0
+	echo "For ${i}0 processes: "; ./Timer -hold -iter 10000 -number ${i}0
 done
