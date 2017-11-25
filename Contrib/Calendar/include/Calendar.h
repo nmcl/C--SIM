@@ -62,7 +62,7 @@ public:
 private:
     class ProcessNode 
     {
-	friend Calendar;
+	friend class Calendar;
     public:
 	ProcessNode(Process* newp); 
 	double Time();
@@ -73,7 +73,7 @@ private:
 
     class TimeNode 
     {
-	friend Calendar;
+	friend class Calendar;
     public:
 	TimeNode(ProcessNode* pn);
     private:

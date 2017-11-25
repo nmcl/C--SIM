@@ -40,8 +40,8 @@
  * Jan/Feb 1997
  */
 
-#include <iostream.h>
-#include <iomanip.h>
+#include <iostream>
+#include <iomanip>
 #ifndef CALENDAR_H_
 #  include "Calendar.h"
 #endif
@@ -446,7 +446,7 @@ Calendar::print (ostream& strm) const
             strm << "(";
             ProcessNode* pn = tn->first;
             while (pn) {
-                strm << setprecision(8) << pn->Time() << "  ";
+	      strm << std::setprecision(8) << pn->Time() << "  ";
                 pn = pn->nextProcessNode;
             }
             strm << ")";
