@@ -43,8 +43,6 @@
 
 
 class HeapElement;
-class ostream;
-
 
 /*
  * A heap-based queue for maintaining simulation processes.
