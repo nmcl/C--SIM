@@ -41,7 +41,7 @@
 #endif
 
 HashIterator::HashIterator (const HashedList& H)
-			   : _list(&H),
+			   : _list(H),
 			     _current(0)
 {
 }
@@ -50,12 +50,9 @@ HashIterator::~HashIterator ()
 {
 }
 
-Process* HashIterator::operator ()()
+const Process* HashIterator::operator ()()
 {
-    if (_list != 0)
-	_current = _list->getNext(_current);
-    else
-	_current = 0;
+    _current = _list.getNext(_current);
 
     return _current;
 }

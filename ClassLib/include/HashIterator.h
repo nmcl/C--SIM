@@ -40,11 +40,11 @@ public:
     HashIterator (const HashedList& H);
     ~HashIterator ();
 
-    Process* operator ()();
+    const Process* operator ()();
 
 private:
-    HashedList* _list;
-    Process* _current;
+    const HashedList& _list;
+    const Process* _current;
 };
 
 #endif

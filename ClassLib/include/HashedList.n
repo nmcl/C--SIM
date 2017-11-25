@@ -57,8 +57,8 @@ INLINEF int HashedList::timeToKey (double time) const
     	cerr << "HashedList::timeToKey ( " << time << " ) gives " << toReturn << endl;
 	Thread::Exit(-1);
     }
-    else
-	return toReturn;
+
+    return toReturn;
 }
 
 #ifdef INLINEF

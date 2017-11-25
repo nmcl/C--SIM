@@ -47,8 +47,6 @@
 #  include "ListBase.h"
 #endif
 
-class ostream;
-
 const int defaultSize = 77;
 
 /*
