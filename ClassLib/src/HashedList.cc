@@ -116,7 +116,7 @@ Process* HashedList::findMinimum (const Process* from) const
 	{
 	    if (p->evtime() == Process::Never)
 	    {
-		cerr << FATAL << "HashedList::findMinimum found process with negative time!" << endl;
+		cerr << "HashedList::findMinimum found process with negative time!" << endl;
 		Thread::Exit(-1);
 	    }
 	    

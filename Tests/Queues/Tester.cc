@@ -60,7 +60,7 @@
 #  endif
 #endif
 
-#ifdef HasedList_Queue
+#ifdef HashedList_Queue
 #  ifndef HASHEDLIST_H_
 #    include "HashedList.h"
 #  endif
