@@ -1,0 +1,22 @@
+NormalStream error: -0.1976
+Maximum number of buckets 10
+Merge choice is MEAN
+Bucket : < 97.287, 2 >
+Bucket : < 97.8288, 1 >
+Bucket : < 98.4152, 441 >
+Bucket : < 98.8398, 1 >
+Bucket : < 99.3424, 1 >
+Bucket : < 100.672, 1 >
+Bucket : < 101.221, 1 >
+Bucket : < 101.225, 545 >
+Bucket : < 102.365, 5 >
+Bucket : < 104.292, 2 >
+
+Variance          : 3.68377
+Standard Deviation: 1.91932
+Number of samples : 1000
+Minimum           : 1.17549e-38
+Maximum           : 3.40282e+38
+Sum               : 99981.7
+Mean              : 99.9817
+

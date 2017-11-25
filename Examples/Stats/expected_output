@@ -1,0 +1,32 @@
+NormalStream error: -0.2802
+Quantile precentage : 0.95
+Value below which percentage occurs 103.855
+Bucket : < 97.5433, 1 >
+Bucket : < 97.8832, 1 >
+Bucket : < 98.2229, 1 >
+Bucket : < 99.4531, 1 >
+Bucket : < 99.5094, 1 >
+Bucket : < 99.5275, 1 >
+Bucket : < 99.8352, 1 >
+Bucket : < 99.8953, 1 >
+Bucket : < 100.459, 1 >
+Bucket : < 100.512, 1 >
+Bucket : < 100.612, 1 >
+Bucket : < 100.77, 1 >
+Bucket : < 100.773, 1 >
+Bucket : < 101.173, 1 >
+Bucket : < 101.658, 1 >
+Bucket : < 101.916, 1 >
+Bucket : < 102.539, 1 >
+Bucket : < 102.88, 1 >
+Bucket : < 103.855, 1 >
+Bucket : < 105.432, 1 >
+
+Variance          : 3.84068
+Standard Deviation: 1.95977
+Number of samples : 20
+Minimum           : 1.17549e-38
+Maximum           : 3.40282e+38
+Sum               : 2014.45
+Mean              : 100.722
+
