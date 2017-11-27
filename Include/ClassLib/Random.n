@@ -40,6 +40,8 @@
 #  define INLINEF
 #endif
 
+INLINEF RandomStream::~RandomStream () {}
+
 INLINEF double RandomStream::MGen ()
 {
     // A multiplicative generator, courtesy I. Mitrani 1992,
@@ -101,20 +103,28 @@ INLINEF double RandomStream::Error ()
     return 1.0 - (rtN / r);
 }
 
+INLINEF UniformStream::~UniformStream () {}
+
 INLINEF double UniformStream::operator() ()
 {
     return lo+(range*Uniform());
 }
+
+INLINEF Draw::~Draw () {}
 
 INLINEF Boolean Draw::operator() ()
 {
     return (Boolean) (s() >= prob);
 }
 
+INLINEF ExponentialStream::~ExponentialStream () {}
+
 INLINEF double ExponentialStream::operator() ()
 {
     return -Mean*log(Uniform());
 }
+
+INLINEF ErlangStream::~ErlangStream () {}
 
 INLINEF double ErlangStream::operator() ()
 {
@@ -123,11 +133,15 @@ INLINEF double ErlangStream::operator() ()
     return -(Mean/k)*log(z);
 }
 
+INLINEF HyperExponentialStream::~HyperExponentialStream () {}
+
 INLINEF double HyperExponentialStream::operator() ()
 {
     double z = (Uniform()>p) ? Mean/(1.0-p) : Mean/p;
     return -0.5*z*log(Uniform());
 }
+
+INLINEF NormalStream::~NormalStream () {}
 
 INLINEF double NormalStream::operator() ()
 {

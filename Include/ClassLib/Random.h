@@ -69,10 +69,12 @@ public:
     virtual double operator() () = 0;
     double Error ();	// returns a chi-square error measure on the uniform
 			// distribution function
+
+    virtual ~RandomStream ();
     
 protected:
     RandomStream (long MGSeed=772531L, long LCGSeed=1878892440L);
-    
+
     double Uniform ();
 
     void copy (const RandomStream&);
@@ -91,6 +93,8 @@ public:
 		   long MGSeed=772531L, long LCGSeed=1878892440L);
     virtual double operator() ();
 
+    virtual ~UniformStream ();
+
     UniformStream& operator= (const UniformStream& toCopy);
     
 private:
@@ -107,6 +111,8 @@ public:
 
     Draw& operator= (const Draw& toCopy);
     
+    virtual ~Draw ();
+
 private:
     UniformStream s;
     double prob;
@@ -118,6 +124,8 @@ public:
     ExponentialStream (double Mean, int StreamSelect=0,
 		       long MGSeed=772531L, long LCGSeed=1878892440L);
     virtual double operator() ();
+
+    virtual ~ExponentialStream ();
 
     ExponentialStream& operator= (const ExponentialStream& toCopy);
     
@@ -131,6 +139,8 @@ public:
     ErlangStream (double Mean, double StandardDeviation, int StreamSelect=0,
 		  long MGSeed=772531L, long LCGSeed=1878892440L);
     virtual double operator() ();
+
+    virtual ~ErlangStream ();
 
     ErlangStream& operator= (const ErlangStream& toCopy);
     
@@ -147,6 +157,8 @@ public:
 			    long MGSeed=772531L,long LCGSeed=1878892440L);
     virtual double operator() ();
 
+    virtual ~HyperExponentialStream ();
+
     HyperExponentialStream& operator= (const HyperExponentialStream& toCopy);
     
 private:
@@ -160,6 +172,8 @@ public:
     NormalStream (double Mean, double StandardDeviation, int StreamSelect=0,
 		  long MGSeed=772531L,long LCGSeed=1878892440L);
     virtual double operator() ();
+
+    virtual ~NormalStream ();
 
     NormalStream& operator= (const NormalStream& toCopy);
     
