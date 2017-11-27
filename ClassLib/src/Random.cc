@@ -246,6 +246,36 @@ NormalStream& NormalStream::operator= (const NormalStream& toCopy)
     return *this;
 }
 
+/**
+ * Create stream with low bound 'l'(a) and high bound 'h'(b) and 'm'(c) value. Skip the first 'StreamSelect' values before returning numbers
+ * from the stream. Pass the seeds 'MGSeed' and 'LCGSeed' to the base class.
+ */
+
+TriangularStream::TriangularStream (double a, double b, double c, int StreamSelect, long MGSeed, long LCGSeed)
+                                   : RandomStream(MGSeed, LCGSeed)
+{
+  this->a = a;
+  this->b = b;
+  this->c = c;
+
+  for (int i = 0; i < StreamSelect * 1000; i++)
+    (void) Uniform();
+}
+
+TriangularStream& TriangularStream::operator= (const TriangularStream& toCopy)
+{
+  if (this == &toCopy)
+    return *this;
+
+  a = toCopy.a;
+  b = toCopy.b;
+  c = toCopy.c;
+
+  RandomStream::copy(toCopy);
+
+  return *this;
+}
+
 #ifdef NO_INLINES
 #  define RANDOM_CC_
 #  include <ClassLib/Random.n>

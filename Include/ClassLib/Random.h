@@ -181,7 +181,26 @@ private:
     double Mean, StandardDeviation;
     double z;
 };
-    
+
+/**
+ * Returns a number drawn from a triangular distribution with lower limit a, upper limit b and mode c, where a < b and a ≤ c ≤ b.
+ */
+
+class TriangularStream : public RandomStream
+{
+public:
+  TriangularStream (double a, double b, double c, int StreamSelect = 0, long MGSeed=772531L, long LCGSeed=1878892440L);
+
+  virtual double operator() ();
+
+  virtual ~TriangularStream ();
+
+  TriangularStream& operator= (const TriangularStream& toCopy);
+
+private:
+  double a, b, c;
+};
+
 #include <ClassLib/Random.n>
 
 #endif // RANDOM_H

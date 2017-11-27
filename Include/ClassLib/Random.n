@@ -169,6 +169,24 @@ INLINEF double NormalStream::operator() ()
     return Mean + X2*StandardDeviation;
 }
 
+INLINEF TriangularStream::~TriangularStream () {}
+
+INLINEF double TriangularStream::operator() ()
+{
+    double F = (c - a) / (b - a);
+
+    double rand = Uniform();
+
+    if (rand < F)
+    {
+      return a + sqrt(rand * (b - a) * (c - a));
+    } 
+    else
+    {
+      return b - sqrt((1 - rand) * (b - a) * (b - c));
+    }	
+}
+
 #ifdef INLINEF
 #  undef INLINEF
 #endif
