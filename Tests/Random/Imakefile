@@ -29,21 +29,25 @@ COMMENT $Id: Imakefile,v 1.3 1995/11/10 14:48:47 nmcl Exp $
 COMMENT
 
 SOURCES  = TestRandom1.cc \
-	   TestRandom2.cc
+	   TestRandom2.cc \
+	   TriangularTest.cc
 
 OBJECTS  = TestRandom1.o \
-	   TestRandom2.o
+	   TestRandom2.o \
+	   TriangularTest.o
 
-LIBRARIES = $(LIBCPPSIM) $(LIBCOMMON)
+LIBRARIES = $(LIBCPPSIM) $(LIBCOMMON) $(LIBSTAT)
 
 SetLocalCppFlags(-I$(ARJUNA_INCLUDES))
 
-AllTarget(TestRandom1 TestRandom2)
+AllTarget(TestRandom1 TestRandom2 TriangularTest)
 
 MakeProgramCPLUSPLUS(TestRandom1,TestRandom1.o $(LIBRARIES),NOPARAM)
 MakeProgramCPLUSPLUS(TestRandom2,TestRandom2.o $(LIBRARIES),NOPARAM)
+MakeProgramCPLUSPLUS(TriangularTest,TriangularTest.o $(LIBRARIES),NOPARAM)
 
 MakeObjectCPLUSPLUS(TestRandom1,NOPARAM)
 MakeObjectCPLUSPLUS(TestRandom2,NOPARAM)
+MakeObjectCPLUSPLUS(TriangularTest,NOPARAM)
 
-TidyTarget(TestRandom1 TestRandom2)
+TidyTarget(TestRandom1 TestRandom2 TriangularTest)
