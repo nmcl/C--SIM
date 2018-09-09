@@ -25,7 +25,7 @@ Information about specific releases, along with binary distributions, can be fou
 
 ----
 
-You can find more details of how to build and install the system in the README_FIRST directory. A summary is below ...
+You can find more details of how to build and install the system in the README_BUILD directory. A summary is below ...
 
 NOTE: the current system depends heavily on imake. You may need to install this first if it is not normally available.
 
