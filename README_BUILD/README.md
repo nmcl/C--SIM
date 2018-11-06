@@ -47,7 +47,9 @@ file in  Include/Config.  Also, Configure.h contains  the  information
 obtained from running configure and if this file  exists in the local
 directory or in  the installed directory, the  answers  from this file
 will be  given as the   defaults  for subsequent  runs (the  installed
-Configure.h is used in preference to a local version).
+Configure.h is used in preference to a local version). Configure.h is created
+from previous runs so you can quickly reconfigure and rebuild using (most of) the same
+answers if necessary.
 
 1) Make is verbose (NO/YES) [NO]
 
