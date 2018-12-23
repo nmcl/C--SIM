@@ -11,7 +11,7 @@ The co-routine facility of Simula is implemented by operating system thread pack
 
 Thanks to all the people who took the time and effort to port C++ to systems and compilers that we do not have access to and reporting the problems (and fixes) that were needed.
 
-Specific thanks for contributions and bug reports to:
+Specific thanks for contributions of code and bug reports to:
 
 Peter Lamb peter.lamb@cmis.csiro.au
 
