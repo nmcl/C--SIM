@@ -1,1 +1,1 @@
-Images used within the user manual. DO NOT REMOVE.
+Images used within the user manual. DO NOT MOVE.
