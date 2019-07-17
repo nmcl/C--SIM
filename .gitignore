@@ -6,3 +6,4 @@ target
 .idea
 .DS_Store
 *.o
+*.out
