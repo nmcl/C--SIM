@@ -1,3 +1,3 @@
-Shows the distribution of using NormalStream and Quantile implementations.
+Shows the distributions produced when using the NormalStream and Quantile implementations.
 
 Check expected_output for something similar.
