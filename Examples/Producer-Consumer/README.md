@@ -1,3 +1,4 @@
+```
 /*
  * Copyright (C) 1994
  *
@@ -6,6 +7,7 @@
  * Newcastle upon Tyne,
  * UK.
  */
+```
 
 A simple producer-consumer example.
 
