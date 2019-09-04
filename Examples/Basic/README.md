@@ -9,7 +9,7 @@
  */
 ```
 
-This directory contains an example of a simulation written using the simulation
+This is an example of a simulation written using the simulation
 package. The example is taken from the book by Isi Mitrani (Simulation
 Techniques for Discrete Event Systems p22).
 
