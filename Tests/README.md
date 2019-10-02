@@ -1,4 +1,4 @@
-Various tests for basic functionality. Need more of these (https://github.com/nmcl/C--SIM/issues/55)
+Various tests for basic functionality. Wouldn't be considered unit tests. Need more of these (https://github.com/nmcl/C--SIM/issues/55)
 
 To build and run:
 
