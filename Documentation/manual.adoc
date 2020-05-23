@@ -60,8 +60,7 @@ It maintains an _event list_, which indicates which events are to be scheduled f
 
 - _event-oriented_: there is a procedure associated with each type of event in the system: it performs the action required to handle that type of event and it is invoked every time such an event occurs. In an event-oriented approach, an operation path is obtained by taking a global view of everything that happens in the system; the manipulation of events is explicit. 
 
-- _process-oriented_: an operation path is obtained by the interacting of a number of processes running in parallel. The management of events is implicit in the management of the processes. The simulation system provides primitives for placing processes at particular points on the event list, removing and re-scheduling them. 
-The C++SIM User’s Manuals
+- _process-oriented_: an operation path is obtained by the interacting of a number of processes running in parallel. The management of events is implicit in the management of the processes. The simulation system provides primitives for placing processes at particular points on the event list, removing and re-scheduling them.
 
 The process-oriented approach best fits with the object-oriented paradigm which we want to present to the programmer of C++SIM. As in SIMULA, simulation processes then become active objects which interact with each other through message passing and the simulation primitives. Refinements of these objects can then be obtained by inheriting from them and redefining the appropriate methods.
 
